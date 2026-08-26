@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://o6st7lcw8vrs"]
+
+[ext_resource type="Texture2D" uid="uid://qmrhi16py0t8" path="res://imagens/rede.webp" id="1_u26dp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
+size = Vector2(1296, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u26dp"]
+size = Vector2(1296, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_364p8"]
+size = Vector2(72, 736)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6v1fn"]
+size = Vector2(67.25, 736)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm72u"]
+size = Vector2(96, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwcru"]
+size = Vector2(96, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_liqno"]
+size = Vector2(96, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn13m"]
+size = Vector2(96, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3dpo"]
+size = Vector2(16, 288)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ni8ar"]
+size = Vector2(96, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41as4"]
+size = Vector2(96, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05kuh"]
+size = Vector2(16, 288)
+
+[node name="Campo" type="Node2D" unique_id=13280438]
+
+[node name="Verde" type="ColorRect" parent="." unique_id=2110983968]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.34044653, 0.60338825, 0.31801134, 1)
+
+[node name="Limite" type="StaticBody2D" parent="." unique_id=1356180793]
+
+[node name="LimiteCima" type="CollisionShape2D" parent="Limite" unique_id=357480267]
+position = Vector2(640, -28)
+shape = SubResource("RectangleShape2D_237nx")
+
+[node name="LimiteBaixo" type="CollisionShape2D" parent="Limite" unique_id=1169057102]
+position = Vector2(640, 744)
+shape = SubResource("RectangleShape2D_u26dp")
+
+[node name="LimiteDireita" type="CollisionShape2D" parent="Limite" unique_id=548667310]
+position = Vector2(-28, 360)
+shape = SubResource("RectangleShape2D_364p8")
+
+[node name="LimiteEsquerda" type="CollisionShape2D" parent="Limite" unique_id=1160796709]
+position = Vector2(1305.625, 360)
+shape = SubResource("RectangleShape2D_6v1fn")
+
+[node name="Gols" type="Area2D" parent="." unique_id=1939362770]
+
+[node name="GolEsquerda" type="CollisionShape2D" parent="Gols" unique_id=1328587022]
+position = Vector2(80, 360)
+shape = SubResource("RectangleShape2D_tm72u")
+
+[node name="GolDireita" type="CollisionShape2D" parent="Gols" unique_id=457884508]
+position = Vector2(1200, 360)
+shape = SubResource("RectangleShape2D_nwcru")
+
+[node name="TraveEsq" type="StaticBody2D" parent="." unique_id=1214320622]
+
+[node name="RedeEsquerda" type="Sprite2D" parent="TraveEsq" unique_id=701277393]
+position = Vector2(55.411522, 392.00003)
+scale = Vector2(-0.18352878, 0.4175)
+texture = ExtResource("1_u26dp")
+
+[node name="TraveEsquerda1" type="CollisionShape2D" parent="TraveEsq" unique_id=1812727455]
+position = Vector2(80, 224)
+shape = SubResource("RectangleShape2D_liqno")
+
+[node name="TraveEsquerda2" type="CollisionShape2D" parent="TraveEsq" unique_id=1021010966]
+position = Vector2(80, 496)
+shape = SubResource("RectangleShape2D_bn13m")
+
+[node name="TraveEsquerda3" type="CollisionShape2D" parent="TraveEsq" unique_id=747979789]
+position = Vector2(24, 360)
+shape = SubResource("RectangleShape2D_p3dpo")
+
+[node name="CorEsquerda1" type="ColorRect" parent="TraveEsq" unique_id=1995534767]
+offset_left = 32.0
+offset_top = 216.0
+offset_right = 128.0
+offset_bottom = 232.0
+
+[node name="CorEsquerda2" type="ColorRect" parent="TraveEsq" unique_id=1903783615]
+offset_left = 32.0
+offset_top = 488.0
+offset_right = 128.0
+offset_bottom = 504.0
+
+[node name="CorEsquerda3" type="ColorRect" parent="TraveEsq" unique_id=1929513408]
+offset_left = 16.0
+offset_top = 216.0
+offset_right = 32.0
+offset_bottom = 504.0
+
+[node name="TraveDir" type="StaticBody2D" parent="." unique_id=1744316422]
+
+[node name="RedeDireita" type="Sprite2D" parent="TraveDir" unique_id=932266160]
+position = Vector2(1216, 392)
+scale = Vector2(0.16, 0.44)
+texture = ExtResource("1_u26dp")
+
+[node name="TraveDireita1" type="CollisionShape2D" parent="TraveDir" unique_id=737947118]
+position = Vector2(1200, 224)
+shape = SubResource("RectangleShape2D_ni8ar")
+
+[node name="TraveDireita2" type="CollisionShape2D" parent="TraveDir" unique_id=705577526]
+position = Vector2(1200, 496)
+shape = SubResource("RectangleShape2D_41as4")
+
+[node name="TraveDireita3" type="CollisionShape2D" parent="TraveDir" unique_id=1395783417]
+position = Vector2(1256, 360)
+shape = SubResource("RectangleShape2D_05kuh")
+
+[node name="CorDireita1" type="ColorRect" parent="TraveDir" unique_id=437572686]
+offset_left = 1152.0
+offset_top = 216.0
+offset_right = 1248.0
+offset_bottom = 232.0
+
+[node name="CorDireita2" type="ColorRect" parent="TraveDir" unique_id=1857767466]
+offset_left = 1152.0
+offset_top = 488.0
+offset_right = 1248.0
+offset_bottom = 504.0
+
+[node name="CorDireita3" type="ColorRect" parent="TraveDir" unique_id=1080075247]
+offset_left = 1248.0
+offset_top = 216.0
+offset_right = 1264.0
+offset_bottom = 504.0

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://njpx7anwwcn"]
+
+[ext_resource type="Script" uid="uid://qdh5l13ymtj1" path="res://codigos/Botao.gd" id="1_wabi8"]
+[ext_resource type="Texture2D" uid="uid://gkajkpteuto4" path="res://imagens/bluelockman.jpg" id="2_uukq6"]
+
+[node name="Botao" type="RigidBody2D" unique_id=755908930]
+gravity_scale = 0.0
+script = ExtResource("1_wabi8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1063117630]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2039803516]
+scale = Vector2(0.15482233, 0.14128596)
+texture = ExtResource("2_uukq6")
+
+[node name="LinhaMira" type="Line2D" parent="." unique_id=1252350703]
