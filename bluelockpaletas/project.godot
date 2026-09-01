@@ -17,11 +17,12 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 [autoload]
 
 Eventos="*uid://du57b3icc5nyi"
+Times="*uid://d1g4oc6f5em3v"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=810
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"

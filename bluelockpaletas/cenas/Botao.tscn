@@ -12,9 +12,15 @@ shader_parameter/suavizar_borda = 0.02
 [sub_resource type="CircleShape2D" id="CircleShape2D_uukq6"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tm72u"]
+
 [node name="Botao" type="RigidBody2D" unique_id=755908930]
 gravity_scale = 0.0
 script = ExtResource("1_wabi8")
+forca_maxima = null
+distancia_maxima_arrasto = null
+multiplicador_forca = null
+raio_clique = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2039803516]
 material = SubResource("ShaderMaterial_awupd")
@@ -25,3 +31,8 @@ texture = ExtResource("2_uukq6")
 shape = SubResource("CircleShape2D_uukq6")
 
 [node name="LinhaMira" type="Line2D" parent="." unique_id=1252350703]
+
+[node name="AreaAlcance" type="Area2D" parent="." unique_id=1011226874]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAlcance" unique_id=767625532]
+shape = SubResource("CircleShape2D_tm72u")

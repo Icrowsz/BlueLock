@@ -48,3 +48,16 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.linear_velocity = Vector2.ZERO
 		state.angular_velocity = 0.0
 		pedido_reset = false
+
+
+func receber_chute_teleguiado(direcao: Vector2, forca: float) -> void:
+	# Usado por habilidades especiais (ex: Chute Direto do Isagi) que
+	# precisam de um chute preciso numa direção exata, ignorando pra
+	# onde a bola estava indo antes.
+	#
+	# Isso é seguro de chamar diretamente (sem o esquema de _integrate_forces
+	# do resetar()) porque é chamado a partir de um clique de UI, fora do
+	# passo de física — igual ao chute normal por arrasto do Botao.gd.
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	apply_central_impulse(direcao.normalized() * forca)

@@ -1,14 +1,17 @@
+class_name Botao
 extends RigidBody2D
 
 ## Script base do "botão" de futebol de botão.
 ## Cada personagem (Isagi, Bachira, etc.) cria uma cena herdada desta
-## (Cena > Nova Cena Herdada > Botao.tscn) e adiciona suas próprias
-## habilidades por cima deste comportamento.
+## (Cena > Nova Cena Herdada > Botao.tscn), troca o script pra um que
+## "extends Botao" (ex: Isagi.gd), e sobrescreve nome_habilidade(),
+## pode_usar_habilidade() e usar_habilidade().
 
 @export var forca_maxima: float = 800.0
 @export var distancia_maxima_arrasto: float = 150.0
 @export var multiplicador_forca: float = 6.0
 @export var raio_clique: float = 40.0
+@export_enum("A", "B") var time: String = "A"
 
 var arrastando: bool = false
 var ponto_inicial: Vector2 = Vector2.ZERO
@@ -16,7 +19,10 @@ var ponto_inicial: Vector2 = Vector2.ZERO
 var posicao_inicial: Vector2
 var rotacao_inicial: float
 
+var bola_no_alcance: RigidBody2D = null
+
 @onready var linha_mira: Line2D = $LinhaMira
+@onready var area_alcance: Area2D = $AreaAlcance
 
 
 func _ready() -> void:
@@ -37,6 +43,12 @@ func _ready() -> void:
 		# Sem isso, quando o botão gira (após uma colisão), a seta gira
 		# junto e para de apontar corretamente em relação ao mouse.
 		linha_mira.top_level = true
+
+	if area_alcance:
+		area_alcance.body_entered.connect(_on_bola_entrou_alcance)
+		area_alcance.body_exited.connect(_on_bola_saiu_alcance)
+		# evita que a área detecte o PRÓPRIO corpo do botão (já que ela é
+		# filha dele e o círculo de alcance sobrepõe a colisão do botão
 
 
 func _input(event: InputEvent) -> void:
@@ -83,6 +95,45 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 
 func pode_chutar_bola() -> bool:
 	return not arrastando
+
+
+func _on_bola_entrou_alcance(body: Node) -> void:
+	print("[DEBUG] %s: algo entrou na AreaAlcance -> %s (grupos: %s)" % [name, body.name, body.get_groups()])
+	if not body.is_in_group("bola"):
+		return
+	bola_no_alcance = body
+	print("[DEBUG] %s: bola confirmada no alcance. nome_habilidade() = '%s'" % [name, nome_habilidade()])
+	if nome_habilidade() != "":
+		print("[DEBUG] %s: emitindo Eventos.habilidade_disponivel" % name)
+		Eventos.habilidade_disponivel.emit(self)
+
+
+func _on_bola_saiu_alcance(body: Node) -> void:
+	if not body.is_in_group("bola") or bola_no_alcance != body:
+		return
+	bola_no_alcance = null
+	if nome_habilidade() != "":
+		Eventos.habilidade_indisponivel.emit(self)
+
+
+func gol_inimigo_lado() -> String:
+	return Times.gol_inimigo_do_time(time)
+
+
+## --- Funções-gancho: cada personagem sobrescreve o que precisar ---
+## O botão base não tem habilidade nenhuma (retorna vazio/false),
+## então herdar sem sobrescrever = comportamento normal, sem poderes.
+
+func nome_habilidade() -> String:
+	return ""
+
+
+func pode_usar_habilidade() -> bool:
+	return bola_no_alcance != null
+
+
+func usar_habilidade() -> void:
+	pass
 
 
 var pedido_reset: bool = false

@@ -7,6 +7,7 @@ extends Area2D
 @export_enum("esquerda", "direita") var lado: String = "esquerda"
 
 func _ready() -> void:
+	add_to_group("gols")   # usado pelas habilidades (ex: Chute Direto) para mirar
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node) -> void:
