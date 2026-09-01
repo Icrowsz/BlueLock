@@ -1,16 +1,27 @@
 [gd_scene format=3 uid="uid://njpx7anwwcn"]
 
 [ext_resource type="Script" uid="uid://qdh5l13ymtj1" path="res://codigos/Botao.gd" id="1_wabi8"]
+[ext_resource type="Shader" uid="uid://c4sbky4k3uc6k" path="res://codigos/Circulo_sprite.gdshader" id="2_nhlac"]
 [ext_resource type="Texture2D" uid="uid://gkajkpteuto4" path="res://imagens/bluelockman.jpg" id="2_uukq6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_awupd"]
+shader = ExtResource("2_nhlac")
+shader_parameter/raio = 0.48
+shader_parameter/suavizar_borda = 0.02
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uukq6"]
+radius = 32.0
 
 [node name="Botao" type="RigidBody2D" unique_id=755908930]
 gravity_scale = 0.0
 script = ExtResource("1_wabi8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1063117630]
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2039803516]
-scale = Vector2(0.15482233, 0.14128596)
+material = SubResource("ShaderMaterial_awupd")
+scale = Vector2(0.05659095, 0.056590945)
 texture = ExtResource("2_uukq6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1063117630]
+shape = SubResource("CircleShape2D_uukq6")
 
 [node name="LinhaMira" type="Line2D" parent="." unique_id=1252350703]

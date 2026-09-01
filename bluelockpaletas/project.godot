@@ -14,6 +14,10 @@ config/name="bluelockpaletas"
 run/main_scene="uid://o6st7lcw8vrs"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
+[autoload]
+
+Eventos="*uid://du57b3icc5nyi"
+
 [display]
 
 window/size/viewport_width=1280
@@ -22,6 +26,11 @@ window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
+
+[global_group]
+
+bola=""
+botoes=""
 
 [physics]
 

@@ -1,5 +1,19 @@
 [gd_scene format=3 uid="uid://csb1eo5p4qwum"]
 
+[ext_resource type="Texture2D" uid="uid://b0hmo17ayab40" path="res://imagens/bola.webp" id="1_7qmf3"]
+[ext_resource type="Script" uid="uid://bvux87o767ig5" path="res://codigos/Bola.gd" id="1_awupd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6c8f"]
+radius = 16.0
+
 [node name="Bola" type="RigidBody2D" unique_id=134841203]
+script = ExtResource("1_awupd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=858850678]
+position = Vector2(-4.7683716e-07, 0)
+scale = Vector2(0.04649553, 0.046607144)
+texture = ExtResource("1_7qmf3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2033684816]
+scale = Vector2(0.95, 0.95)
+shape = SubResource("CircleShape2D_g6c8f")
