@@ -8,7 +8,11 @@ radius = 80.0
 
 [node name="Isagi" unique_id=755908930 instance=ExtResource("1_w6436")]
 script = ExtResource("2_u0tgr")
-forca_chute_direto = null
+forca_chute_direto = 1400.0
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
 time = "B"
 
 [node name="CollisionShape2D" parent="AreaAlcance" parent_id_path=PackedInt32Array(1011226874) index="0" unique_id=767625532]

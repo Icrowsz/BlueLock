@@ -31,7 +31,6 @@ func _ready() -> void:
 
 
 func _on_habilidade_disponivel(botao: Botao) -> void:
-	print("[DEBUG] UIHabilidade recebeu habilidade_disponivel de %s" % botao.name)
 	botao_ativo = botao
 	botao_habilidade.text = botao.nome_habilidade()
 	botao_habilidade.visible = true

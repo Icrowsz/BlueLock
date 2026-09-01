@@ -29,13 +29,14 @@ func usar_habilidade() -> void:
 	if not gol:
 		return
 
-	var direcao := (gol.global_position - bola.global_position).normalized()
+	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_chute_direto)
 
 
-func _encontrar_gol_inimigo() -> Node2D:
+func _encontrar_gol_inimigo() -> Gol:
 	var lado_alvo := gol_inimigo_lado()
-	for gol in get_tree().get_nodes_in_group("gols"):
-		if gol.lado == lado_alvo:
+	for nodo in get_tree().get_nodes_in_group("gols"):
+		var gol := nodo as Gol
+		if gol and gol.lado == lado_alvo:
 			return gol
 	return null

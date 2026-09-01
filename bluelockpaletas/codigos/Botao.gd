@@ -48,7 +48,7 @@ func _ready() -> void:
 		area_alcance.body_entered.connect(_on_bola_entrou_alcance)
 		area_alcance.body_exited.connect(_on_bola_saiu_alcance)
 		# evita que a área detecte o PRÓPRIO corpo do botão (já que ela é
-		# filha dele e o círculo de alcance sobrepõe a colisão do botão
+		# filha dele e o círculo de alcance sobrepõe a colisão do botão)
 
 
 func _input(event: InputEvent) -> void:
@@ -98,13 +98,10 @@ func pode_chutar_bola() -> bool:
 
 
 func _on_bola_entrou_alcance(body: Node) -> void:
-	print("[DEBUG] %s: algo entrou na AreaAlcance -> %s (grupos: %s)" % [name, body.name, body.get_groups()])
 	if not body.is_in_group("bola"):
 		return
 	bola_no_alcance = body
-	print("[DEBUG] %s: bola confirmada no alcance. nome_habilidade() = '%s'" % [name, nome_habilidade()])
 	if nome_habilidade() != "":
-		print("[DEBUG] %s: emitindo Eventos.habilidade_disponivel" % name)
 		Eventos.habilidade_disponivel.emit(self)
 
 
