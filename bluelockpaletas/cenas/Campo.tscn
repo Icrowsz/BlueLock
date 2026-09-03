@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://cltl0sh01h2sn" path="res://codigos/Gol.gd" id="1_05kuh"]
 [ext_resource type="Texture2D" uid="uid://qmrhi16py0t8" path="res://imagens/rede.webp" id="1_u26dp"]
 [ext_resource type="PackedScene" uid="uid://csb1eo5p4qwum" path="res://cenas/Bola.tscn" id="2_6v1fn"]
-[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://cenas/Botao.tscn" id="3_05kuh"]
 [ext_resource type="Script" uid="uid://bd08y5h40xpml" path="res://codigos/Placar.gd" id="5_03kpf"]
 [ext_resource type="PackedScene" uid="uid://c6diob41p1sf" path="res://cenas/Isagi.tscn" id="5_s60hy"]
 [ext_resource type="Script" uid="uid://dav64dqrkbgnd" path="res://codigos/UIHabilidade.gd" id="7_i77rs"]
+[ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
 size = Vector2(1920, 72)
@@ -220,20 +220,12 @@ offset_bottom = 496.0
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
 position = Vector2(960, 408)
 
-[node name="Botao" parent="." unique_id=755908930 instance=ExtResource("3_05kuh")]
-position = Vector2(560, 404)
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
-
 [node name="Isagi" parent="." unique_id=1447645638 instance=ExtResource("5_s60hy")]
-position = Vector2(1256, 408)
-forca_chute_direto = 1400.0
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
+position = Vector2(1256, 404)
+
+[node name="Isagi2" parent="." unique_id=755908930 instance=ExtResource("5_s60hy")]
+position = Vector2(696, 408)
+time = "A"
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
@@ -283,3 +275,26 @@ offset_right = 1728.0
 offset_bottom = 768.0
 text = "esquibida
 "
+
+[node name="UITurno" type="CanvasLayer" parent="." unique_id=1647282571]
+script = ExtResource("8_57jda")
+
+[node name="LabelTurno" type="Label" parent="UITurno" unique_id=1302711984]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_right = -136.0
+offset_bottom = 72.0
+grow_horizontal = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BotaoPularTurno" type="Button" parent="UITurno" unique_id=129683379]
+unique_name_in_owner = true
+offset_left = 1656.0
+offset_top = 80.0
+offset_right = 1768.0
+offset_bottom = 120.0
+text = "Pular Turno"

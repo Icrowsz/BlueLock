@@ -21,6 +21,12 @@ var rotacao_inicial: float
 
 var bola_no_alcance: RigidBody2D = null
 
+## Cooldowns de habilidade: chave = nome_habilidade(), valor = turnos restantes.
+## Um dicionário (não uma variável fixa) porque cada habilidade pode ter
+## seu próprio tempo de recarga, e personagens futuros terão nomes
+## diferentes — isso funciona sem precisar de nenhum caso especial.
+var cooldowns: Dictionary = {}
+
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
 
@@ -47,8 +53,8 @@ func _ready() -> void:
 	if area_alcance:
 		area_alcance.body_entered.connect(_on_bola_entrou_alcance)
 		area_alcance.body_exited.connect(_on_bola_saiu_alcance)
-		# evita que a área detecte o PRÓPRIO corpo do botão (já que ela é
-		# filha dele e o círculo de alcance sobrepõe a colisão do botão)
+
+	Turnos.turno_iniciado.connect(_on_turno_mudou)
 
 
 func _input(event: InputEvent) -> void:
@@ -69,6 +75,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _mouse_sobre_o_botao(pos_mouse_global: Vector2) -> bool:
+	if not pode_agir() or not Turnos.tem_acao_disponivel("movimento"):
+		return false
 	return global_position.distance_to(pos_mouse_global) < raio_clique
 
 
@@ -88,13 +96,27 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 		linha_mira.visible = false
 
 	var vetor_arrasto := (ponto_inicial - pos_solta_global).limit_length(distancia_maxima_arrasto)
-	var forca := (vetor_arrasto * multiplicador_forca).limit_length(forca_maxima)
 
+	# um arrasto muito curto (ex: clique acidental sem soltar longe) não
+	# conta como jogada de verdade, então não gasta a ação do turno
+	const ARRASTO_MINIMO := 5.0
+	if vetor_arrasto.length() < ARRASTO_MINIMO:
+		return
+
+	var forca := (vetor_arrasto * multiplicador_forca).limit_length(forca_maxima)
 	apply_central_impulse(forca)
+
+	Turnos.usar_acao("movimento")
 
 
 func pode_chutar_bola() -> bool:
 	return not arrastando
+
+
+func pode_agir() -> bool:
+	# usado tanto pro movimento quanto como base pra habilidades:
+	# só pode agir se for a vez do TIME desse botão
+	return Turnos.eh_turno_do_time(time)
 
 
 func _on_bola_entrou_alcance(body: Node) -> void:
@@ -126,7 +148,35 @@ func nome_habilidade() -> String:
 
 
 func pode_usar_habilidade() -> bool:
-	return bola_no_alcance != null
+	return tem_habilidade_no_alcance() \
+		and Turnos.tem_acao_disponivel("habilidade") \
+		and not esta_em_cooldown(nome_habilidade())
+
+
+func tem_habilidade_no_alcance() -> bool:
+	# checagem "mais fraca" que pode_usar_habilidade(): não considera
+	# cooldown nem ação disponível, só se a bola está no alcance e é a
+	# vez do time. Serve pra UI decidir se MOSTRA o botão de habilidade
+	# (mesmo em cooldown, mostramos desabilitado com "Aguarde")
+	return bola_no_alcance != null and pode_agir() and nome_habilidade() != ""
+
+
+func esta_em_cooldown(habilidade: String) -> bool:
+	return cooldowns.get(habilidade, 0) > 0
+
+
+func turnos_restantes_cooldown(habilidade: String) -> int:
+	return cooldowns.get(habilidade, 0)
+
+
+func iniciar_cooldown(habilidade: String, turnos: int) -> void:
+	cooldowns[habilidade] = turnos
+
+
+func _on_turno_mudou(_time: String) -> void:
+	for chave in cooldowns.keys():
+		if cooldowns[chave] > 0:
+			cooldowns[chave] -= 1
 
 
 func usar_habilidade() -> void:

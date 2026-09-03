@@ -11,6 +11,7 @@ class_name Isagi
 ## 2. Selecione o nó raiz > troque o script pra este (Isagi.gd)
 
 @export var forca_chute_direto: float = 1400.0
+@export var cooldown_chute_direto: int = 2  # em turnos
 
 
 func nome_habilidade() -> String:
@@ -31,6 +32,8 @@ func usar_habilidade() -> void:
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_chute_direto)
+
+	iniciar_cooldown(nome_habilidade(), cooldown_chute_direto)
 
 
 func _encontrar_gol_inimigo() -> Gol:

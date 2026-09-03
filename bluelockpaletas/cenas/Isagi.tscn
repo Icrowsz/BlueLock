@@ -2,14 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://cenas/Botao.tscn" id="1_w6436"]
 [ext_resource type="Script" uid="uid://pvqxa0rpae82" path="res://codigos/Isagi.gd" id="2_u0tgr"]
+[ext_resource type="Texture2D" uid="uid://c5rkr8cucwnuk" path="res://imagens/isagi.jpg" id="3_ohwau"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i77rs"]
 radius = 80.0
 
 [node name="Isagi" unique_id=755908930 instance=ExtResource("1_w6436")]
 script = ExtResource("2_u0tgr")
-forca_chute_direto = null
+forca_chute_direto = 1400.0
+cooldown_chute_direto = 2
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
 time = "B"
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+texture = ExtResource("3_ohwau")
 
 [node name="CollisionShape2D" parent="AreaAlcance" parent_id_path=PackedInt32Array(1011226874) index="0" unique_id=767625532]
 shape = SubResource("CircleShape2D_i77rs")
