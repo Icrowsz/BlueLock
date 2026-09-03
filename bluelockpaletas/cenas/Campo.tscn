@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bd08y5h40xpml" path="res://codigos/Placar.gd" id="5_03kpf"]
 [ext_resource type="PackedScene" uid="uid://c6diob41p1sf" path="res://cenas/Isagi.tscn" id="5_s60hy"]
 [ext_resource type="Script" uid="uid://dav64dqrkbgnd" path="res://codigos/UIHabilidade.gd" id="7_i77rs"]
+[ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
@@ -293,8 +294,19 @@ vertical_alignment = 1
 
 [node name="BotaoPularTurno" type="Button" parent="UITurno" unique_id=129683379]
 unique_name_in_owner = true
-offset_left = 1656.0
-offset_top = 80.0
-offset_right = 1768.0
-offset_bottom = 120.0
+offset_left = 904.0
+offset_top = 56.0
+offset_right = 1016.0
+offset_bottom = 96.0
 text = "Pular Turno"
+
+[node name="UIMensagem" type="CanvasLayer" parent="." unique_id=424843351]
+script = ExtResource("8_5pgv7")
+
+[node name="LabelMensagem" type="Label" parent="UIMensagem" unique_id=974411143]
+unique_name_in_owner = true
+offset_left = 720.0
+offset_top = 120.0
+offset_right = 1209.0
+offset_bottom = 176.0
+theme_override_font_sizes/font_size = 20

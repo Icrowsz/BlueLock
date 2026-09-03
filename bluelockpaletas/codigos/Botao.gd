@@ -60,11 +60,17 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		var pos_mouse := get_global_mouse_position()
-		if event.pressed and _mouse_sobre_o_botao(pos_mouse):
-			arrastando = true
-			ponto_inicial = pos_mouse
-			if linha_mira:
-				linha_mira.visible = true
+		if event.pressed and _mouse_no_corpo(pos_mouse):
+			# clicar SEMPRE seleciona o personagem pra UI mostrar as
+			# habilidades dele — independe de ser a vez do time ou não,
+			# assim dá pra "inspecionar" qualquer botão em campo
+			Eventos.botao_selecionado.emit(self)
+
+			if _pode_arrastar():
+				arrastando = true
+				ponto_inicial = pos_mouse
+				if linha_mira:
+					linha_mira.visible = true
 		elif not event.pressed and arrastando:
 			_soltar_e_chutar(pos_mouse)
 
@@ -74,10 +80,12 @@ func _input(event: InputEvent) -> void:
 		_atualizar_mira(get_global_mouse_position())
 
 
-func _mouse_sobre_o_botao(pos_mouse_global: Vector2) -> bool:
-	if not pode_agir() or not Turnos.tem_acao_disponivel("movimento"):
-		return false
+func _mouse_no_corpo(pos_mouse_global: Vector2) -> bool:
 	return global_position.distance_to(pos_mouse_global) < raio_clique
+
+
+func _pode_arrastar() -> bool:
+	return pode_agir() and Turnos.tem_acao_disponivel("movimento")
 
 
 func _atualizar_mira(pos_atual_global: Vector2) -> void:
@@ -123,16 +131,12 @@ func _on_bola_entrou_alcance(body: Node) -> void:
 	if not body.is_in_group("bola"):
 		return
 	bola_no_alcance = body
-	if nome_habilidade() != "":
-		Eventos.habilidade_disponivel.emit(self)
 
 
 func _on_bola_saiu_alcance(body: Node) -> void:
 	if not body.is_in_group("bola") or bola_no_alcance != body:
 		return
 	bola_no_alcance = null
-	if nome_habilidade() != "":
-		Eventos.habilidade_indisponivel.emit(self)
 
 
 func gol_inimigo_lado() -> String:
