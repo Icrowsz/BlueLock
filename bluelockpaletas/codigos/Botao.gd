@@ -43,6 +43,15 @@ var cooldowns: Dictionary = {}
 ## em que foi concedida.
 var habilidades_concedidas: Array = []
 
+## Efeitos temporários genéricos (buffs/debuffs) que outras habilidades
+## podem aplicar neste botão — funciona ao "contrário" dos cooldowns:
+## aqui o efeito fica ATIVO por N turnos, em vez de bloqueado.
+## Ex: a imunidade que o alvo do One Two do Kurona ganha, pra não poder
+## receber outro One Two logo em seguida. Um Dictionary (nome -> turnos
+## restantes) pelo mesmo motivo dos cooldowns: funciona pra qualquer
+## efeito futuro, de qualquer personagem, sem precisar de caso especial.
+var efeitos_temporarios: Dictionary = {}
+
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
 
@@ -327,10 +336,28 @@ func iniciar_cooldown(habilidade: String, turnos: int) -> void:
 	cooldowns[habilidade] = turnos
 
 
+## --- Efeitos temporários (ver comentário na declaração da variável) ---
+
+func tem_efeito(nome: String) -> bool:
+	return efeitos_temporarios.get(nome, 0) > 0
+
+
+func turnos_restantes_efeito(nome: String) -> int:
+	return efeitos_temporarios.get(nome, 0)
+
+
+func aplicar_efeito_temporario(nome: String, turnos: int) -> void:
+	efeitos_temporarios[nome] = turnos
+
+
 func _on_turno_mudou(_time: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
+
+	for chave in efeitos_temporarios.keys():
+		if efeitos_temporarios[chave] > 0:
+			efeitos_temporarios[chave] -= 1
 
 	# qualquer habilidade concedida ainda pendente passa a ficar
 	# disponível a partir daqui — ela só não podia ser usada no MESMO

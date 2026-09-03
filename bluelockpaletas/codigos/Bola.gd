@@ -50,6 +50,22 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		pedido_reset = false
 
 
+func receber_dominio_instantaneo(posicao: Vector2) -> void:
+	# Usado por habilidades tipo "TP guiado" (ex: Shark Assault do Kurona):
+	# a bola aparece já "dominada" junto do alvo, com velocidade ZERO —
+	# diferente de receber_chute_teleguiado(), que aplica um impulso físico
+	# de verdade (por isso PODE ser interceptado no caminho). Aqui a bola
+	# nunca "viaja" fisicamente de um ponto a outro, então não existe
+	# chance de interceptação nenhuma — é um passe automático garantido.
+	#
+	# Reaproveita o mesmo esquema seguro de resetar() (aplicar a mudança
+	# dentro de _integrate_forces) pelo mesmo motivo: mudar a posição
+	# diretamente aqui poderia "piscar e voltar" por causa de contatos
+	# físicos residuais do frame anterior.
+	posicao_reset_pendente = posicao
+	pedido_reset = true
+
+
 func receber_chute_teleguiado(direcao: Vector2, forca: float) -> void:
 	# Usado por habilidades especiais (ex: Chute Direto do Isagi) que
 	# precisam de um chute preciso numa direção exata, ignorando pra

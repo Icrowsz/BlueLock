@@ -223,12 +223,15 @@ offset_bottom = 496.0
 position = Vector2(960, 408)
 
 [node name="Isagi" parent="." unique_id=1447645638 instance=ExtResource("5_s60hy")]
-position = Vector2(736, 408)
+position = Vector2(1232, 128)
 time = "A"
 
 [node name="Kurona" parent="." unique_id=755908930 instance=ExtResource("9_5pgv7")]
-position = Vector2(368, 404)
+position = Vector2(896, 408)
 forca_one_two = 200.0
+duracao_imunidade_one_two = 5
+cooldown_shark_assault = 4
+margem_chegada_shark_assault = 20.0
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
@@ -311,9 +314,12 @@ offset_bottom = 176.0
 theme_override_font_sizes/font_size = 20
 
 [node name="Isagi2" parent="." unique_id=591098731 instance=ExtResource("5_s60hy")]
-position = Vector2(1232, 408)
+position = Vector2(1480, 616)
 
 [node name="Kurona2" parent="." unique_id=858996708 instance=ExtResource("9_5pgv7")]
 position = Vector2(1632, 400)
 forca_one_two = 200.0
+duracao_imunidade_one_two = 5
+cooldown_shark_assault = 4
+margem_chegada_shark_assault = 20.0
 time = "B"
