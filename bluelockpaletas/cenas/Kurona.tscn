@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b2n8etxku63qp"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://cenas/Botao.tscn" id="1_vkwpk"]
+[ext_resource type="Texture2D" uid="uid://dr8sq735evcfx" path="res://imagens/kurona2.jpg" id="2_tw3xo"]
+
+[node name="Kurona" unique_id=755908930 instance=ExtResource("1_vkwpk")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+position = Vector2(0, 5.9604645e-07)
+scale = Vector2(0.028, 0.028)
+texture = ExtResource("2_tw3xo")

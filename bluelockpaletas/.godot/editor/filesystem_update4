@@ -1,6 +1,3 @@
 res://cenas/Isagi.tscn
-res://cenas/Campo.tscn
 res://codigos/Isagi.gd
-res://codigos/UIHabilidade.gd
-res://codigos/Botao.gd
-res://codigos/PreditorTrajetoria.gd
+res://cenas/Kurona.tscn

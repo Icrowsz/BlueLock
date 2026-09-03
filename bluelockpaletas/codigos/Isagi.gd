@@ -102,7 +102,7 @@ func _encontrar_gol_inimigo() -> Gol:
 func _executar_metavisao() -> void:
 	metavisao_ativa = true
 	Eventos.mensagem_solicitada.emit("Metavisão ativada! Sua próxima mira mostra a trajetória completa.")
-
+	
 func _desenhar_mira(vetor: Vector2) -> void:
 	if not metavisao_ativa:
 		super._desenhar_mira(vetor)
