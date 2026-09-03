@@ -13,6 +13,10 @@ extends RigidBody2D
 @export var raio_clique: float = 40.0
 @export_enum("A", "B") var time: String = "A"
 
+@export_group("Aura do time")
+@export var raio_aura: float = 46.0
+@export var largura_aura: float = 4.0
+
 var arrastando: bool = false
 var ponto_inicial: Vector2 = Vector2.ZERO
 
@@ -55,6 +59,14 @@ func _ready() -> void:
 		area_alcance.body_exited.connect(_on_bola_saiu_alcance)
 
 	Turnos.turno_iniciado.connect(_on_turno_mudou)
+
+	queue_redraw()  # garante que a aura do time seja desenhada logo de cara
+
+
+func _draw() -> void:
+	# desenha um anel colorido ao redor do botão indicando o time.
+	# 100% visual: _draw() não participa de física nem colisão nenhuma.
+	draw_arc(Vector2.ZERO, raio_aura, 0.0, TAU, 64, Times.cor_do_time(time), largura_aura, true)
 
 
 func _input(event: InputEvent) -> void:
@@ -155,6 +167,31 @@ func pode_usar_habilidade() -> bool:
 	return tem_habilidade_no_alcance() \
 		and Turnos.tem_acao_disponivel("habilidade") \
 		and not esta_em_cooldown(nome_habilidade())
+
+
+func motivo_bloqueio_habilidade() -> String:
+	# retorna uma string vazia se a habilidade PODE ser usada agora;
+	# senão, o motivo específico do bloqueio, pronto pra mostrar ao
+	# jogador. Centralizado aqui pra qualquer UI reaproveitar sem
+	# duplicar a ordem de prioridade das checagens.
+	var habilidade := nome_habilidade()
+
+	if habilidade == "":
+		return "Esse personagem não tem habilidade especial."
+
+	if not pode_agir():
+		return "Não é a vez do Time %s!" % time
+
+	if esta_em_cooldown(habilidade):
+		return "%s em cooldown! Aguarde mais %d turno(s)." % [habilidade, turnos_restantes_cooldown(habilidade)]
+
+	if not Turnos.tem_acao_disponivel("habilidade"):
+		return "Sem ações de habilidade restantes neste turno!"
+
+	if bola_no_alcance == null:
+		return "A bola precisa estar por perto para usar %s!" % habilidade
+
+	return ""
 
 
 func tem_habilidade_no_alcance() -> bool:

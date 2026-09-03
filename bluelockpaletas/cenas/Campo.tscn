@@ -223,9 +223,11 @@ position = Vector2(960, 408)
 
 [node name="Isagi" parent="." unique_id=1447645638 instance=ExtResource("5_s60hy")]
 position = Vector2(1256, 404)
+cooldown_chute_direto = 3
 
 [node name="Isagi2" parent="." unique_id=755908930 instance=ExtResource("5_s60hy")]
 position = Vector2(696, 408)
+cooldown_chute_direto = 3
 time = "A"
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
@@ -270,11 +272,11 @@ script = ExtResource("7_i77rs")
 [node name="BotaoHabilidade" type="Button" parent="UIHabilidade" unique_id=1218241222]
 unique_name_in_owner = true
 visible = false
-offset_left = 1600.0
-offset_top = 704.0
-offset_right = 1728.0
-offset_bottom = 768.0
-text = "esquibida
+offset_left = 896.0
+offset_top = 696.0
+offset_right = 1024.0
+offset_bottom = 760.0
+text = "
 "
 
 [node name="UITurno" type="CanvasLayer" parent="." unique_id=1647282571]

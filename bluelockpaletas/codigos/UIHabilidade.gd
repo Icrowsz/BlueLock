@@ -62,14 +62,11 @@ func _on_botao_pressionado() -> void:
 	if not botao_selecionado:
 		return
 
-	var habilidade := botao_selecionado.nome_habilidade()
-
-	if botao_selecionado.esta_em_cooldown(habilidade):
-		var restantes := botao_selecionado.turnos_restantes_cooldown(habilidade)
-		Eventos.mensagem_solicitada.emit("%s em cooldown! Aguarde mais %d turno(s)." % [habilidade, restantes])
+	var motivo := botao_selecionado.motivo_bloqueio_habilidade()
+	if motivo != "":
+		Eventos.mensagem_solicitada.emit(motivo)
 		return
 
-	if botao_selecionado.pode_usar_habilidade():
-		botao_selecionado.usar_habilidade()
-		Turnos.usar_acao("habilidade")
-		_atualizar_texto()  # reflete o cooldown recém-iniciado na hora
+	botao_selecionado.usar_habilidade()
+	Turnos.usar_acao("habilidade")
+	_atualizar_texto()  # reflete o cooldown recém-iniciado na hora

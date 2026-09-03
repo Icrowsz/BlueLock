@@ -11,7 +11,7 @@ class_name Isagi
 ## 2. Selecione o nó raiz > troque o script pra este (Isagi.gd)
 
 @export var forca_chute_direto: float = 1400.0
-@export var cooldown_chute_direto: int = 2  # em turnos
+@export var cooldown_chute_direto: int = 3  # em turnos
 
 
 func nome_habilidade() -> String:

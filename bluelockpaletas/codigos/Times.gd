@@ -13,6 +13,15 @@ const GOL_INIMIGO := {
 	"B": "esquerda",  # time B defende a direita, ataca o gol da esquerda
 }
 
+const COR_TIME := {
+	"A": Color(0.9, 0.15, 0.15),  # vermelho
+	"B": Color(0.15, 0.45, 0.95), # azul
+}
+
 
 func gol_inimigo_do_time(time: String) -> String:
 	return GOL_INIMIGO.get(time, "direita")
+
+
+func cor_do_time(time: String) -> Color:
+	return COR_TIME.get(time, Color.WHITE)
