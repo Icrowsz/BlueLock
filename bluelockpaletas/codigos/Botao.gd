@@ -28,11 +28,20 @@ var rotacao_inicial: float
 
 var bola_no_alcance: RigidBody2D = null
 
-## Cooldowns de habilidade: chave = nome_habilidade(), valor = turnos restantes.
+## Cooldowns de habilidade: chave = nome da habilidade, valor = turnos restantes.
 ## Um dicionário (não uma variável fixa) porque cada habilidade pode ter
 ## seu próprio tempo de recarga, e personagens futuros terão nomes
 ## diferentes — isso funciona sem precisar de nenhum caso especial.
 var cooldowns: Dictionary = {}
+
+## Habilidades TEMPORÁRIAS concedidas por OUTRO personagem (ex: o One
+## Two do Kurona empresta a habilidade pro alvo). Cada item é um
+## Dictionary: {"nome", "executar" (Callable), "custa_acao" (bool),
+## "disponivel" (bool)}. "disponivel" começa false e vira true na
+## próxima troca de turno — é isso que garante que a habilidade
+## concedida só pode ser usada "no próximo turno", nunca no mesmo turno
+## em que foi concedida.
+var habilidades_concedidas: Array = []
 
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
@@ -76,6 +85,14 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		var pos_mouse := get_global_mouse_position()
 		if event.pressed and _mouse_no_corpo(pos_mouse):
+			# se alguma habilidade está esperando um clique em um alvo
+			# (ex: One Two do Kurona), esse clique é consumido como a
+			# escolha do alvo — não abre o painel de habilidade normal
+			# nem inicia arrasto
+			if SelecaoAlvo.esta_selecionando():
+				SelecaoAlvo.processar_clique(self)
+				return
+
 			# clicar SEMPRE seleciona o personagem pra UI mostrar as
 			# habilidades dele — independe de ser a vez do time ou não,
 			# assim dá pra "inspecionar" qualquer botão em campo
@@ -177,28 +194,34 @@ func gol_inimigo_lado() -> String:
 
 
 ## --- Sistema de habilidades: cada personagem pode ter VÁRIAS ---
-## O botão base não tem nenhuma. Personagens sobrescrevem os métodos
-## abaixo — a maioria já tem um comportamento padrão sensato, então só
-## precisa sobrescrever o que for diferente.
+## IMPORTANTE: personagens sobrescrevem os métodos com prefixo/sufixo
+## "_propria" (habilidades_proprias, executar_habilidade_propria, etc.),
+## NÃO os métodos públicos abaixo. Os públicos combinam automaticamente
+## as habilidades do personagem com as que ele recebeu emprestadas de
+## outros (ex: One Two do Kurona) — sobrescrever os públicos direto
+## quebraria essa combinação pra qualquer personagem que receber uma
+## habilidade concedida no futuro.
 
 func lista_habilidades() -> Array[String]:
-	# nomes das habilidades desse personagem, na ordem que devem
-	# aparecer na UI. Botão base: nenhuma.
-	return []
+	var lista := habilidades_proprias().duplicate()
+	for c in habilidades_concedidas:
+		if c["disponivel"]:
+			lista.append(c["nome"])
+	return lista
 
 
-func habilidade_consome_acao(_nome: String) -> bool:
-	# a maioria das habilidades consome a ação de "habilidade" do turno.
-	# Personagens sobrescrevem caso a caso pra exceções (ex: a Metavisão
-	# do Isagi não consome nada, só entra em cooldown).
-	return true
+func habilidade_consome_acao(nome: String) -> bool:
+	var c := _achar_concedida(nome)
+	if not c.is_empty():
+		return c["custa_acao"]
+	return _habilidade_propria_consome_acao(nome)
 
 
-func requisito_extra_habilidade(_nome: String) -> String:
-	# gancho pra requisitos específicos de cada habilidade (ex: "precisa
-	# da bola por perto"). Retorna "" se não há requisito extra, ou a
-	# mensagem de bloqueio pronta pra mostrar ao jogador.
-	return ""
+func requisito_extra_habilidade(nome: String) -> String:
+	var c := _achar_concedida(nome)
+	if not c.is_empty():
+		return ""  # habilidades concedidas checam seus próprios requisitos na hora de executar
+	return _requisito_extra_propria(nome)
 
 
 func pode_usar_habilidade(nome: String) -> bool:
@@ -239,8 +262,57 @@ func motivo_bloqueio_habilidade(nome: String) -> String:
 	return ""
 
 
-func usar_habilidade(_nome: String) -> void:
-	pass  # cada personagem decide o que cada habilidade faz
+func usar_habilidade(nome: String) -> void:
+	var c := _achar_concedida(nome)
+	if not c.is_empty():
+		_remover_concedida(nome)
+		c["executar"].call()
+		return
+	executar_habilidade_propria(nome)
+
+
+func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false) -> void:
+	# empresta uma habilidade TEMPORÁRIA (uso único) a este botão, vinda
+	# de outro personagem. Só fica disponível a partir da PRÓXIMA troca
+	# de turno (nunca no mesmo turno em que foi concedida).
+	habilidades_concedidas.append({
+		"nome": nome,
+		"executar": executar,
+		"custa_acao": custa_acao,
+		"disponivel": false,
+	})
+
+
+func _achar_concedida(nome: String) -> Dictionary:
+	for c in habilidades_concedidas:
+		if c["nome"] == nome and c["disponivel"]:
+			return c
+	return {}
+
+
+func _remover_concedida(nome: String) -> void:
+	for i in range(habilidades_concedidas.size() - 1, -1, -1):
+		if habilidades_concedidas[i]["nome"] == nome:
+			habilidades_concedidas.remove_at(i)
+			return
+
+
+## --- Ganchos que cada personagem sobrescreve ---
+
+func habilidades_proprias() -> Array[String]:
+	return []  # botão base não tem nenhuma
+
+
+func _habilidade_propria_consome_acao(_nome: String) -> bool:
+	return true  # a maioria consome; sobrescreva pra exceções (ex: Metavisão)
+
+
+func _requisito_extra_propria(_nome: String) -> String:
+	return ""
+
+
+func executar_habilidade_propria(_nome: String) -> void:
+	pass
 
 
 func esta_em_cooldown(habilidade: String) -> bool:
@@ -259,6 +331,12 @@ func _on_turno_mudou(_time: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
+
+	# qualquer habilidade concedida ainda pendente passa a ficar
+	# disponível a partir daqui — ela só não podia ser usada no MESMO
+	# turno em que foi concedida
+	for c in habilidades_concedidas:
+		c["disponivel"] = true
 
 
 var pedido_reset: bool = false

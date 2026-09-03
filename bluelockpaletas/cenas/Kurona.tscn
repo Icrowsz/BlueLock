@@ -1,11 +1,32 @@
 [gd_scene format=3 uid="uid://b2n8etxku63qp"]
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://cenas/Botao.tscn" id="1_vkwpk"]
+[ext_resource type="Script" uid="uid://d20u7444lpaak" path="res://codigos/Kurona.gd" id="2_0sdla"]
 [ext_resource type="Texture2D" uid="uid://dr8sq735evcfx" path="res://imagens/kurona2.jpg" id="2_tw3xo"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0sdla"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tw3xo"]
+radius = 80.0
+
 [node name="Kurona" unique_id=755908930 instance=ExtResource("1_vkwpk")]
+script = ExtResource("2_0sdla")
+forca_one_two = 50.0
+cooldown_one_two = 3
+acoes_extra_ao_receber_de_volta = 1
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
-position = Vector2(0, 5.9604645e-07)
-scale = Vector2(0.028, 0.028)
+position = Vector2(4.7683716e-07, -4.7683716e-07)
+scale = Vector2(0.093956515, 0.093956515)
 texture = ExtResource("2_tw3xo")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1063117630]
+shape = SubResource("CircleShape2D_0sdla")
+
+[node name="CollisionShape2D" parent="AreaAlcance" parent_id_path=PackedInt32Array(1011226874) index="0" unique_id=767625532]
+shape = SubResource("CircleShape2D_tw3xo")

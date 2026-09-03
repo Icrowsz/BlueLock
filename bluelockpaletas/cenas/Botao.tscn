@@ -13,6 +13,7 @@ shader_parameter/suavizar_borda = 0.02
 radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tm72u"]
+radius = 80.0
 
 [node name="Botao" type="RigidBody2D" unique_id=755908930]
 gravity_scale = 0.0

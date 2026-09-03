@@ -1,3 +1,4 @@
-res://cenas/Isagi.tscn
-res://codigos/Isagi.gd
+res://codigos/SelecaoAlvo.gd
 res://cenas/Kurona.tscn
+res://codigos/Kurona.gd
+res://cenas/Campo.tscn

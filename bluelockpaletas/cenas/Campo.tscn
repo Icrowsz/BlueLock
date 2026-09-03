@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dav64dqrkbgnd" path="res://codigos/UIHabilidade.gd" id="7_i77rs"]
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
+[ext_resource type="PackedScene" uid="uid://b2n8etxku63qp" path="res://cenas/Kurona.tscn" id="9_5pgv7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
 size = Vector2(1920, 72)
@@ -222,11 +223,12 @@ offset_bottom = 496.0
 position = Vector2(960, 408)
 
 [node name="Isagi" parent="." unique_id=1447645638 instance=ExtResource("5_s60hy")]
-position = Vector2(1256, 404)
-
-[node name="Isagi2" parent="." unique_id=755908930 instance=ExtResource("5_s60hy")]
-position = Vector2(696, 408)
+position = Vector2(736, 408)
 time = "A"
+
+[node name="Kurona" parent="." unique_id=755908930 instance=ExtResource("9_5pgv7")]
+position = Vector2(368, 404)
+forca_one_two = 200.0
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
@@ -307,3 +309,11 @@ offset_top = 120.0
 offset_right = 1209.0
 offset_bottom = 176.0
 theme_override_font_sizes/font_size = 20
+
+[node name="Isagi2" parent="." unique_id=591098731 instance=ExtResource("5_s60hy")]
+position = Vector2(1232, 408)
+
+[node name="Kurona2" parent="." unique_id=858996708 instance=ExtResource("9_5pgv7")]
+position = Vector2(1632, 400)
+forca_one_two = 200.0
+time = "B"
