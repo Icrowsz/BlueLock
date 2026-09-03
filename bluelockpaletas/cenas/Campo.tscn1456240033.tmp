@@ -223,10 +223,26 @@ position = Vector2(960, 408)
 
 [node name="Isagi" parent="." unique_id=1447645638 instance=ExtResource("5_s60hy")]
 position = Vector2(1256, 404)
+forca_chute_direto = null
+cooldown_chute_direto = null
+forca_maxima = null
+distancia_maxima_arrasto = null
+multiplicador_forca = null
+raio_clique = null
+raio_aura = null
+largura_aura = null
 
 [node name="Isagi2" parent="." unique_id=755908930 instance=ExtResource("5_s60hy")]
 position = Vector2(696, 408)
-time = "A"
+forca_chute_direto = null
+cooldown_chute_direto = null
+forca_maxima = null
+distancia_maxima_arrasto = null
+multiplicador_forca = null
+raio_clique = null
+time = null
+raio_aura = null
+largura_aura = null
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
@@ -269,10 +285,8 @@ script = ExtResource("7_i77rs")
 
 [node name="ContainerHabilidades" type="HBoxContainer" parent="UIHabilidade" unique_id=1872510875]
 unique_name_in_owner = true
-offset_left = 941.0
-offset_top = 712.0
-offset_right = 981.0
-offset_bottom = 752.0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="UITurno" type="CanvasLayer" parent="." unique_id=1647282571]
 script = ExtResource("8_57jda")

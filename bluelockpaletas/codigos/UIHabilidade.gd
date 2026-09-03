@@ -1,72 +1,83 @@
 extends CanvasLayer
 
-## Painel de habilidade que mostra a habilidade do personagem CLICADO
-## (nome + estado de cooldown, se houver). Some se o personagem clicado
-## não tiver nenhuma habilidade.
+## Painel de habilidades do personagem CLICADO. Gera um botão pra CADA
+## habilidade que o personagem tiver (Botao.lista_habilidades()) — então
+## funciona automaticamente com 0, 1, 2 ou mais habilidades, sem precisar
+## mexer nessa UI quando um personagem novo for adicionado ao jogo.
 ##
 ## Estrutura de nós esperada (monte no editor):
 ##
 ## CanvasLayer (UIHabilidade)  <- este script aqui
-##   └── BotaoHabilidade (Button)
+##   └── ContainerHabilidades (HBoxContainer)
 ##         ancorado no canto inferior
-##         começa com "visible" desmarcado no editor
 ##         IMPORTANTE: marque como Nome Único (%) na árvore de cenas
 
-@onready var botao_habilidade: Button = %BotaoHabilidade
+@onready var container: HBoxContainer = %ContainerHabilidades
 
 var botao_selecionado: Botao = null  # último personagem clicado
 
 
 func _ready() -> void:
-	if not botao_habilidade:
-		push_error("UIHabilidade: não encontrei o nó 'BotaoHabilidade'. Confira se ele existe e está marcado como Nome Único (%) na árvore de cenas.")
+	if not container:
+		push_error("UIHabilidade: não encontrei 'ContainerHabilidades'. Confira se existe e está marcado como Nome Único (%).")
 		return
 
 	Eventos.botao_selecionado.connect(_on_botao_selecionado)
 	Turnos.turno_iniciado.connect(_on_turno_iniciado)
-	botao_habilidade.pressed.connect(_on_botao_pressionado)
-	botao_habilidade.visible = false
 
 
 func _on_botao_selecionado(botao: Botao) -> void:
-	if botao.nome_habilidade() == "":
-		# personagem sem nenhuma habilidade (ex: Botao base): não mostra nada
-		botao_selecionado = null
-		botao_habilidade.visible = false
-		return
-
 	botao_selecionado = botao
-	_atualizar_texto()
-	botao_habilidade.visible = true
+	_reconstruir_botoes()
 
 
 func _on_turno_iniciado(_time: String) -> void:
-	# os cooldowns são decrementados por cada Botao ao ouvir o mesmo sinal
-	# (ver Botao.gd, _on_turno_mudou). Usamos call_deferred pra garantir
-	# que essa atualização de texto rode DEPOIS que todos os cooldowns já
-	# foram decrementados nesse frame.
-	_atualizar_texto.call_deferred()
+	# cada Botao decrementa seu próprio cooldown ao ouvir esse mesmo
+	# sinal (ver Botao.gd, _on_turno_mudou) — call_deferred garante que
+	# a UI só recalcula DEPOIS que todos já atualizaram nesse frame
+	_reconstruir_botoes.call_deferred()
 
 
-func _atualizar_texto() -> void:
+func _reconstruir_botoes() -> void:
+	for filho in container.get_children():
+		filho.queue_free()
+
 	if not botao_selecionado:
 		return
-	var habilidade := botao_selecionado.nome_habilidade()
-	if botao_selecionado.esta_em_cooldown(habilidade):
-		botao_habilidade.text = "Aguarde (%d)" % botao_selecionado.turnos_restantes_cooldown(habilidade)
+
+	for nome in botao_selecionado.lista_habilidades():
+		var botao_ui := Button.new()
+		botao_ui.custom_minimum_size = Vector2(150, 44)
+		_atualizar_texto_botao(botao_ui, nome)
+		botao_ui.pressed.connect(_on_habilidade_pressionada.bind(nome))
+		container.add_child(botao_ui)
+
+
+func _atualizar_texto_botao(botao_ui: Button, nome: String) -> void:
+	if botao_selecionado.esta_em_cooldown(nome):
+		botao_ui.text = "%s (Aguarde %d)" % [nome, botao_selecionado.turnos_restantes_cooldown(nome)]
 	else:
-		botao_habilidade.text = habilidade
+		botao_ui.text = nome
 
 
-func _on_botao_pressionado() -> void:
+func _on_habilidade_pressionada(nome: String) -> void:
 	if not botao_selecionado:
 		return
 
-	var motivo := botao_selecionado.motivo_bloqueio_habilidade()
+	var motivo := botao_selecionado.motivo_bloqueio_habilidade(nome)
 	if motivo != "":
 		Eventos.mensagem_solicitada.emit(motivo)
 		return
 
-	botao_selecionado.usar_habilidade()
-	Turnos.usar_acao("habilidade")
-	_atualizar_texto()  # reflete o cooldown recém-iniciado na hora
+	# executa ANTES de consumir a ação de turno: se essa for a última
+	# ação disponível, Turnos.usar_acao() já passaria o turno na hora,
+	# e a checagem de segurança dentro da habilidade acharia que não é
+	# mais a vez do time, cancelando o efeito silenciosamente (mesmo bug
+	# que já corrigimos antes pro Chute Direto — vale pra qualquer
+	# habilidade nova também)
+	botao_selecionado.usar_habilidade(nome)
+
+	if botao_selecionado.habilidade_consome_acao(nome):
+		Turnos.usar_acao("habilidade")
+
+	_reconstruir_botoes()  # atualiza os textos (cooldown, etc.) na hora

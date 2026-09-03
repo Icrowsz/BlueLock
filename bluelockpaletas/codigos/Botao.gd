@@ -17,6 +17,9 @@ extends RigidBody2D
 @export var raio_aura: float = 46.0
 @export var largura_aura: float = 4.0
 
+@export_group("Mira")
+@export var cor_mira_padrao: Color = Color(1, 1, 1)
+
 var arrastando: bool = false
 var ponto_inicial: Vector2 = Vector2.ZERO
 
@@ -107,6 +110,15 @@ func _atualizar_mira(pos_atual_global: Vector2) -> void:
 	# ancorada manualmente na posição do botão
 	linha_mira.global_position = global_position
 	var vetor := (ponto_inicial - pos_atual_global).limit_length(distancia_maxima_arrasto)
+	_desenhar_mira(vetor)
+
+
+func _desenhar_mira(vetor: Vector2) -> void:
+	# desenho PADRÃO da mira: uma linha simples indicando a direção do
+	# chute. Personagens com habilidades de mira estendida (ex: a
+	# Metavisão do Isagi) sobrescrevem isso pra desenhar uma trajetória
+	# mais completa, com ricochetes.
+	linha_mira.default_color = cor_mira_padrao
 	linha_mira.points = [Vector2.ZERO, vetor]
 
 
@@ -121,12 +133,21 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 	# conta como jogada de verdade, então não gasta a ação do turno
 	const ARRASTO_MINIMO := 5.0
 	if vetor_arrasto.length() < ARRASTO_MINIMO:
+		_apos_chute(false)
 		return
 
 	var forca := (vetor_arrasto * multiplicador_forca).limit_length(forca_maxima)
 	apply_central_impulse(forca)
 
 	Turnos.usar_acao("movimento")
+	_apos_chute(true)
+
+
+func _apos_chute(_sucesso: bool) -> void:
+	# gancho pra personagens reagirem depois de um chute (com sucesso ou
+	# não) — ex: a Metavisão do Isagi só dura até o PRÓXIMO chute de
+	# verdade, então ele desliga o efeito aqui quando sucesso == true.
+	pass
 
 
 func pode_chutar_bola() -> bool:
@@ -155,51 +176,71 @@ func gol_inimigo_lado() -> String:
 	return Times.gol_inimigo_do_time(time)
 
 
-## --- Funções-gancho: cada personagem sobrescreve o que precisar ---
-## O botão base não tem habilidade nenhuma (retorna vazio/false),
-## então herdar sem sobrescrever = comportamento normal, sem poderes.
+## --- Sistema de habilidades: cada personagem pode ter VÁRIAS ---
+## O botão base não tem nenhuma. Personagens sobrescrevem os métodos
+## abaixo — a maioria já tem um comportamento padrão sensato, então só
+## precisa sobrescrever o que for diferente.
 
-func nome_habilidade() -> String:
+func lista_habilidades() -> Array[String]:
+	# nomes das habilidades desse personagem, na ordem que devem
+	# aparecer na UI. Botão base: nenhuma.
+	return []
+
+
+func habilidade_consome_acao(_nome: String) -> bool:
+	# a maioria das habilidades consome a ação de "habilidade" do turno.
+	# Personagens sobrescrevem caso a caso pra exceções (ex: a Metavisão
+	# do Isagi não consome nada, só entra em cooldown).
+	return true
+
+
+func requisito_extra_habilidade(_nome: String) -> String:
+	# gancho pra requisitos específicos de cada habilidade (ex: "precisa
+	# da bola por perto"). Retorna "" se não há requisito extra, ou a
+	# mensagem de bloqueio pronta pra mostrar ao jogador.
 	return ""
 
 
-func pode_usar_habilidade() -> bool:
-	return tem_habilidade_no_alcance() \
-		and Turnos.tem_acao_disponivel("habilidade") \
-		and not esta_em_cooldown(nome_habilidade())
+func pode_usar_habilidade(nome: String) -> bool:
+	if nome not in lista_habilidades():
+		return false
+	if not pode_agir():
+		return false
+	if esta_em_cooldown(nome):
+		return false
+	if habilidade_consome_acao(nome) and not Turnos.tem_acao_disponivel("habilidade"):
+		return false
+	if requisito_extra_habilidade(nome) != "":
+		return false
+	return true
 
 
-func motivo_bloqueio_habilidade() -> String:
+func motivo_bloqueio_habilidade(nome: String) -> String:
 	# retorna uma string vazia se a habilidade PODE ser usada agora;
 	# senão, o motivo específico do bloqueio, pronto pra mostrar ao
 	# jogador. Centralizado aqui pra qualquer UI reaproveitar sem
 	# duplicar a ordem de prioridade das checagens.
-	var habilidade := nome_habilidade()
-
-	if habilidade == "":
-		return "Esse personagem não tem habilidade especial."
+	if nome not in lista_habilidades():
+		return "Esse personagem não tem essa habilidade."
 
 	if not pode_agir():
 		return "Não é a vez do Time %s!" % time
 
-	if esta_em_cooldown(habilidade):
-		return "%s em cooldown! Aguarde mais %d turno(s)." % [habilidade, turnos_restantes_cooldown(habilidade)]
+	if esta_em_cooldown(nome):
+		return "%s em cooldown! Aguarde mais %d turno(s)." % [nome, turnos_restantes_cooldown(nome)]
 
-	if not Turnos.tem_acao_disponivel("habilidade"):
+	if habilidade_consome_acao(nome) and not Turnos.tem_acao_disponivel("habilidade"):
 		return "Sem ações de habilidade restantes neste turno!"
 
-	if bola_no_alcance == null:
-		return "A bola precisa estar por perto para usar %s!" % habilidade
+	var extra := requisito_extra_habilidade(nome)
+	if extra != "":
+		return extra
 
 	return ""
 
 
-func tem_habilidade_no_alcance() -> bool:
-	# checagem "mais fraca" que pode_usar_habilidade(): não considera
-	# cooldown nem ação disponível, só se a bola está no alcance e é a
-	# vez do time. Serve pra UI decidir se MOSTRA o botão de habilidade
-	# (mesmo em cooldown, mostramos desabilitado com "Aguarde")
-	return bola_no_alcance != null and pode_agir() and nome_habilidade() != ""
+func usar_habilidade(_nome: String) -> void:
+	pass  # cada personagem decide o que cada habilidade faz
 
 
 func esta_em_cooldown(habilidade: String) -> bool:
@@ -218,10 +259,6 @@ func _on_turno_mudou(_time: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
-
-
-func usar_habilidade() -> void:
-	pass
 
 
 var pedido_reset: bool = false
