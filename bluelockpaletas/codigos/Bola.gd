@@ -51,19 +51,34 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 
 func receber_dominio_instantaneo(posicao: Vector2) -> void:
-	# Usado por habilidades tipo "TP guiado" (ex: Shark Assault do Kurona):
-	# a bola aparece já "dominada" junto do alvo, com velocidade ZERO —
-	# diferente de receber_chute_teleguiado(), que aplica um impulso físico
-	# de verdade (por isso PODE ser interceptado no caminho). Aqui a bola
-	# nunca "viaja" fisicamente de um ponto a outro, então não existe
-	# chance de interceptação nenhuma — é um passe automático garantido.
+	# Usado pelos passes AUTOMÁTICOS do Kurona (One Two e Shark Assault):
+	# a bola aparece já dominada junto do alvo, com velocidade ZERO —
+	# diferente de receber_chute_teleguiado(), que aplica um impulso
+	# físico de verdade (por isso PODE ser interceptado no caminho).
+	# Aqui a bola nunca "viaja" fisicamente, então é 100% garantido.
 	#
-	# Reaproveita o mesmo esquema seguro de resetar() (aplicar a mudança
-	# dentro de _integrate_forces) pelo mesmo motivo: mudar a posição
-	# diretamente aqui poderia "piscar e voltar" por causa de contatos
-	# físicos residuais do frame anterior.
+	# CUIDADO COM A FÍSICA: só zerar posição/velocidade não é suficiente
+	# — se o ponto de chegada encostar no corpo físico de alguém (ex: o
+	# próprio alvo), o solver de colisão do Godot vai "empurrar" os dois
+	# pra se separar NO MESMO frame, e a bola sairia voando de novo,
+	# quebrando a ideia de "chegou parada, já dominada". Pra evitar isso
+	# de vez (mesmo se o ponto calculado ficar meio apertado), desligamos
+	# a colisão física da bola por 2 frames ao redor do teleporte —
+	# tempo suficiente pro motor assentar a nova posição sem gerar
+	# nenhum impulso de separação.
+	var camada_original := collision_layer
+	var mascara_original := collision_mask
+	collision_layer = 0
+	collision_mask = 0
+
 	posicao_reset_pendente = posicao
 	pedido_reset = true
+
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+
+	collision_layer = camada_original
+	collision_mask = mascara_original
 
 
 func receber_chute_teleguiado(direcao: Vector2, forca: float) -> void:

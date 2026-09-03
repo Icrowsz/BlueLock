@@ -3,17 +3,20 @@ class_name Kurona
 
 ## Kurona
 ##
-## - One Two: escolhe um alvo (outro botão do MESMO time); a bola é
-##   chutada em direção a ele — é o mesmo chute teleguiado do Chute
-##   Direto do Isagi, então É POSSÍVEL interceptar (a bola viaja pela
-##   física normal do jogo; se um oponente estiver no caminho, ele
-##   esbarra nela normalmente, sem código nenhum extra pra isso).
+## - One Two: escolhe um alvo (outro botão do MESMO time). O passe é
+##   AUTOMÁTICO/garantido — igual ao Shark Assault: a bola faz um "TP"
+##   direto até perto do alvo, já dominada (sem força nenhuma), então
+##   NÃO existe mais chance de interceptação no meio do caminho. A
+##   diferença é só quem escolhe o destino: aqui é o jogador, no Shark
+##   Assault é sorteado.
 ##
-##   Se a bola chegar de verdade no alvo (ninguém interceptou), o alvo
-##   GANHA o One Two emprestado pro turno seguinte DO TIME dele —
-##   podendo repassar a jogada adiante. Se o alvo escolhido nessa
-##   devolução for o Kurona ORIGINAL, ele ganha uma ação de movimento
-##   EXTRA nesse turno (o "impulsionado duas vezes").
+##   Quando o passe chega, o alvo GANHA o One Two emprestado — mas só
+##   pode usá-lo durante o PRÓXIMO turno de verdade do time dele. Se
+##   não usar até lá, a habilidade emprestada expira sozinha (isso é o
+##   que evita ficar acumulando "cópias" antigas — ver Botao.gd,
+##   conceder_habilidade() e _on_turno_mudou()). Se o alvo escolhido
+##   nessa devolução for o Kurona ORIGINAL, ele ganha uma ação de
+##   movimento EXTRA nesse turno (o "impulsionado duas vezes").
 ##
 ## Cooldown e custo de ação: como a jogada só se completa quando o
 ## jogador escolhe o alvo (depois de clicar no botão da habilidade), o
@@ -21,27 +24,27 @@ class_name Kurona
 ## REALMENTE sai — não no clique do botão. Assim, cancelar a seleção
 ## (botão direito ou Esc) não desperdiça nada.
 ##
-## Imunidade: quem RECEBE de verdade o One Two (a bola chegou e ele
-## ganhou a habilidade emprestada) fica imune por algumas rodadas —
-## não pode ser escolhido como alvo de um novo One Two nesse período.
-## Isso evita o "ping-pong infinito" de ficar passando o One Two pra
-## frente e pra trás entre os 2 mesmos jogadores turno após turno.
+## Imunidade: quem RECEBE de verdade o One Two fica imune por algumas
+## rodadas — não pode ser escolhido como alvo de um novo One Two nesse
+## período. Evita o "ping-pong infinito" entre os mesmos 2 jogadores.
 ##
 ## - Shark Assault: se a bola estiver no alcance do Kurona, ele toca
-##   pra um ALIADO ALEATÓRIO em campo. Diferente do One Two, esse passe
-##   é automático/garantido — a bola faz um "TP" direto até perto do
-##   aliado, já "dominada" (velocidade zero), sem viajar de verdade
-##   pelo campo. Por isso NÃO pode ser interceptado no caminho.
+##   pra um ALIADO ALEATÓRIO em campo, com o mesmo passe automático e
+##   garantido do One Two (ver ponto_de_chegada_dominado() em Botao.gd).
 
 @export_group("One Two")
-@export var forca_one_two: float = 200.0
 @export var cooldown_one_two: int = 5
 @export var acoes_extra_ao_receber_de_volta: int = 1
 @export var duracao_imunidade_one_two: int = 5
 
 @export_group("Shark Assault")
 @export var cooldown_shark_assault: int = 4
-@export var margem_chegada_shark_assault: float = 20.0  ## distância da bola até o aliado ao "chegar" (ajuste conforme o tamanho do seu botão/alcance)
+
+@export_group("Passe Automático")
+## Em que fração do alcance do ALVO a bola aparece ao chegar (0 = bem
+## em cima dele, 1 = na borda do alcance). Um valor médio evita tanto
+## sobrepor o corpo dele quanto cair fora do alcance.
+@export_range(0.1, 0.95) var fracao_alcance_dominio: float = 0.6
 
 const NOME_HABILIDADE := "One Two"
 const NOME_SHARK_ASSAULT := "Shark Assault"
@@ -89,18 +92,7 @@ func _executar_shark_assault() -> void:
 		return
 
 	var alvo: Botao = aliados[randi() % aliados.size()]
-
-	# a bola "chega" já dominada bem perto do aliado — não em cima dele
-	# (senão o físico dos dois corpos sobrepostos causaria um empurrão
-	# estranho no frame seguinte). Usamos a direção de onde a bola veio
-	# como referência de onde ela "encosta" no aliado.
-	var direcao := bola.global_position - alvo.global_position
-	if direcao.length() < 0.001:
-		direcao = Vector2.RIGHT  # fallback: bola já estava bem em cima do alvo
-	direcao = direcao.normalized()
-
-	var distancia_chegada := alvo.raio_clique + margem_chegada_shark_assault
-	bola.receber_dominio_instantaneo(alvo.global_position + direcao * distancia_chegada)
+	_mandar_bola_dominada(bola, alvo)
 
 	Eventos.mensagem_solicitada.emit("Shark Assault! %s dominou a bola." % alvo.name)
 
@@ -144,31 +136,22 @@ func _executar_passe(ator: Botao, alvo: Botao, quem_originou: Kurona, eh_lance_o
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto!")
 		return
 
-	var direcao := (alvo.global_position - bola.global_position).normalized()
-	bola.receber_chute_teleguiado(direcao, forca_one_two)
+	# passe AUTOMÁTICO/garantido (mesmo mecanismo do Shark Assault): sem
+	# física de verdade, então não existe chance de interceptação
+	_mandar_bola_dominada(bola, alvo)
 
 	Turnos.usar_acao("habilidade")
 	if eh_lance_original:
 		iniciar_cooldown(NOME_HABILIDADE, cooldown_one_two)
 
-	_aguardar_chegada_no_alvo(bola, alvo, quem_originou)
+	# como o passe é garantido, já sabemos NA HORA que "chegou" — não
+	# precisa mais esperar nenhum sinal de física pra confirmar
+	_completar_one_two(alvo, quem_originou)
 
 
-func _aguardar_chegada_no_alvo(bola: RigidBody2D, alvo: Botao, quem_originou: Kurona) -> void:
-	# reaproveita a MESMA AreaAlcance que já existe pra chutar — se a
-	# bola entrar no alcance do alvo, consideramos que "chegou" (o passe
-	# deu certo). Se for interceptada no caminho, ela nunca entra aqui.
-	if not alvo.area_alcance:
-		return
-
-	var callback: Callable
-	callback = func(body: Node) -> void:
-		if body != bola:
-			return
-		alvo.area_alcance.body_entered.disconnect(callback)
-		_completar_one_two(alvo, quem_originou)
-
-	alvo.area_alcance.body_entered.connect(callback)
+func _mandar_bola_dominada(bola: RigidBody2D, alvo: Botao) -> void:
+	var ponto := alvo.ponto_de_chegada_dominado(bola.global_position, fracao_alcance_dominio)
+	bola.receber_dominio_instantaneo(ponto)
 
 
 func _completar_one_two(alvo: Botao, quem_originou: Kurona) -> void:
@@ -186,7 +169,8 @@ func _completar_one_two(alvo: Botao, quem_originou: Kurona) -> void:
 	# empresta o One Two pro alvo poder continuar/fechar a jogada —
 	# funciona em QUALQUER personagem que receber, não só outro Kurona,
 	# porque toda a lógica continua rodando aqui (esse Kurona.gd), só
-	# muda quem está "segurando" a bola
+	# muda quem está "segurando" a bola. Só vale pro PRÓXIMO turno de
+	# verdade do time do alvo (ver Botao.conceder_habilidade).
 	alvo.conceder_habilidade(NOME_HABILIDADE, func() -> void:
 		_pedir_alvo_para_passe(alvo, quem_originou, false)
 	)

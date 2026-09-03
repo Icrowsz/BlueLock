@@ -202,6 +202,35 @@ func gol_inimigo_lado() -> String:
 	return Times.gol_inimigo_do_time(time)
 
 
+## --- Suporte a passes "automáticos" (tipo TP, sem física de verdade) ---
+## Usado por habilidades como o One Two e o Shark Assault do Kurona.
+
+func raio_area_alcance() -> float:
+	# tenta descobrir o raio de verdade da AreaAlcance deste personagem
+	# (funciona pra CircleShape2D, o formato mais comum pra esse tipo de
+	# alcance). Se não achar, cai pra um valor de segurança baseado no
+	# raio de clique.
+	if area_alcance:
+		for filho in area_alcance.get_children():
+			if filho is CollisionShape2D and filho.shape is CircleShape2D:
+				return filho.shape.radius
+	return raio_clique * 1.5
+
+
+func ponto_de_chegada_dominado(origem: Vector2, fracao_do_alcance: float = 0.6) -> Vector2:
+	# calcula um ponto de chegada SEGURO pra um passe automático: fica
+	# DENTRO do alcance deste botão (pra já contar como "recebido" na
+	# hora, ativando bola_no_alcance), mas afastado o bastante do corpo
+	# físico dele pra não gerar nenhum "empurrão" quando a bola aparecer
+	# ali do nada. `origem` é só usado pra decidir de que LADO a bola
+	# chega (efeito visual, ela "vem" da direção de quem chutou).
+	var direcao := origem - global_position
+	if direcao.length() < 0.001:
+		direcao = Vector2.RIGHT  # fallback: origem bem em cima do alvo
+	direcao = direcao.normalized()
+	return global_position + direcao * (raio_area_alcance() * fracao_do_alcance)
+
+
 ## --- Sistema de habilidades: cada personagem pode ter VÁRIAS ---
 ## IMPORTANTE: personagens sobrescrevem os métodos com prefixo/sufixo
 ## "_propria" (habilidades_proprias, executar_habilidade_propria, etc.),
@@ -283,7 +312,15 @@ func usar_habilidade(nome: String) -> void:
 func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false) -> void:
 	# empresta uma habilidade TEMPORÁRIA (uso único) a este botão, vinda
 	# de outro personagem. Só fica disponível a partir da PRÓXIMA troca
-	# de turno (nunca no mesmo turno em que foi concedida).
+	# de turno (nunca no mesmo turno em que foi concedida), e expira
+	# sozinha se não for usada até o fim desse turno seguinte (ver
+	# _on_turno_mudou) — pra nunca ficar acumulando cópias antigas.
+	#
+	# Se esse botão já tinha uma concessão pendente com o MESMO nome
+	# (ex: ganhou um novo One Two antes de usar o anterior), a nova
+	# substitui a antiga, nunca "empilha" em cima.
+	_remover_concedida(nome)
+
 	habilidades_concedidas.append({
 		"nome": nome,
 		"executar": executar,
@@ -303,7 +340,6 @@ func _remover_concedida(nome: String) -> void:
 	for i in range(habilidades_concedidas.size() - 1, -1, -1):
 		if habilidades_concedidas[i]["nome"] == nome:
 			habilidades_concedidas.remove_at(i)
-			return
 
 
 ## --- Ganchos que cada personagem sobrescreve ---
@@ -350,7 +386,7 @@ func aplicar_efeito_temporario(nome: String, turnos: int) -> void:
 	efeitos_temporarios[nome] = turnos
 
 
-func _on_turno_mudou(_time: String) -> void:
+func _on_turno_mudou(time_iniciado: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
@@ -359,11 +395,21 @@ func _on_turno_mudou(_time: String) -> void:
 		if efeitos_temporarios[chave] > 0:
 			efeitos_temporarios[chave] -= 1
 
-	# qualquer habilidade concedida ainda pendente passa a ficar
-	# disponível a partir daqui — ela só não podia ser usada no MESMO
-	# turno em que foi concedida
-	for c in habilidades_concedidas:
-		c["disponivel"] = true
+	# habilidades CONCEDIDAS (emprestadas por outro personagem, ex: o
+	# One Two do Kurona) só devem existir durante o PRÓXIMO turno de
+	# verdade DESTE time — não em qualquer troca de turno global (que
+	# também acontece quando é a vez do time ADVERSÁRIO). Por isso só
+	# mexemos nelas quando é realmente a vez do MEU time:
+	if time_iniciado == time:
+		for i in range(habilidades_concedidas.size() - 1, -1, -1):
+			var c = habilidades_concedidas[i]
+			if c["disponivel"]:
+				# já teve a chance de ser usada no meu turno anterior e
+				# não foi: expira agora, pra nunca ficar acumulando
+				# cópias antigas da mesma habilidade
+				habilidades_concedidas.remove_at(i)
+			else:
+				c["disponivel"] = true
 
 
 var pedido_reset: bool = false

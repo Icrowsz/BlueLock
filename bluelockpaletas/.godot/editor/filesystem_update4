@@ -1,1 +1,4 @@
 res://cenas/Campo.tscn
+res://codigos/Bola.gd
+res://codigos/Botao.gd
+res://codigos/Kurona.gd
