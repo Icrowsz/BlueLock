@@ -17,7 +17,7 @@ class_name Sendou
 @export var cooldown_star_talent: int = 4  ## não especificado — ajuste como preferir
 
 @export_group("Sabrina Shot")
-@export var forca_sabrina_shot: float = 900.0  ## mais fraco que o Chute Direto (1400)
+@export var forca_sabrina_shot: float = 150.0  ## mais fraco que o Chute Direto (1400)
 @export var cooldown_sabrina_shot: int = 3  ## não especificado — ajuste como preferir
 
 const NOME_STAR_TALENT := "Star Talent"

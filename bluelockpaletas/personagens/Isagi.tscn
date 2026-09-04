@@ -2,30 +2,29 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_w6436"]
 [ext_resource type="Script" uid="uid://pvqxa0rpae82" path="res://codigos/Isagi.gd" id="2_u0tgr"]
-[ext_resource type="Texture2D" uid="uid://b1xxhrighid22" path="res://imagens/isagialien.jpg" id="3_ohwau"]
+[ext_resource type="Texture2D" uid="uid://dmfm8dm8yuln6" path="res://imagens/CVisagi.jpg" id="3_hk84y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i77rs"]
 radius = 80.0
 
 [node name="Isagi" unique_id=755908930 instance=ExtResource("1_w6436")]
 script = ExtResource("2_u0tgr")
-forca_chute_direto = 1400.0
-cooldown_chute_direto = 2
-cooldown_metavisao = 4
-alcance_metavisao = 900.0
-max_ricochetes_metavisao = 4
+forca_chute_direto = 100.0
+cooldown_chute_direto = 5
+cooldown_metavisao = 5
+alcance_metavisao = 700.0
+max_ricochetes_metavisao = 5
 cor_trajetoria_chute = Color(1, 0.85, 0.15, 1)
 cor_trajetoria_bola = Color(1, 1, 1, 0.65)
 forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
-time = "B"
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 position = Vector2(0, 9.536743e-07)
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("3_ohwau")
+texture = ExtResource("3_hk84y")
 
 [node name="CollisionShape2D" parent="AreaAlcance" parent_id_path=PackedInt32Array(1011226874) index="0" unique_id=767625532]
 shape = SubResource("CircleShape2D_i77rs")

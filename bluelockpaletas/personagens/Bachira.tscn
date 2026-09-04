@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://o2reqxsrxtd6"]
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_av02w"]
-[ext_resource type="Texture2D" uid="uid://duv5yxokkj1ab" path="res://imagens/bachiraalien.jpg" id="2_a1i2o"]
 [ext_resource type="Script" uid="uid://dsgjsc42q4mxb" path="res://codigos/Bachira.gd" id="2_km1gk"]
+[ext_resource type="Texture2D" uid="uid://utvtxl5meo28" path="res://imagens/CVbachira.jpg" id="3_xcn4m"]
 
 [node name="Bachira" unique_id=755908930 instance=ExtResource("1_av02w")]
 script = ExtResource("2_km1gk")
-forca_bee_shot = 500.0
-cooldown_bee_shot = 5
+forca_bee_shot = 65.0
+cooldown_bee_shot = 6
 bee_shot_duracao_intangivel = 1.0
 monster_trance_multiplicador_distancia = 0.5
 cooldown_monster_trance = 5
@@ -18,4 +18,4 @@ raio_clique = 40.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("2_a1i2o")
+texture = ExtResource("3_xcn4m")

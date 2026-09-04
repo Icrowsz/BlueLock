@@ -3,22 +3,25 @@ class_name Isagi
 
 ## Isagi Yoichi
 ##
-## - Chute Direto: chute forte, reto e teleguiado direto no gol inimigo.
-##   Custa a ação de habilidade do turno. Cooldown de 2 turnos.
+## - Chute Direto: chute na força-base padrão (150), reto e teleguiado
+##   direto no gol inimigo. Custa a ação de habilidade do turno.
+##   Precisa da bola por perto.
 ##
 ## - Metavisão: ativa uma prévia de trajetória bem mais longa e precisa
 ##   que a mira normal (com ricochete em paredes/outros botões, e
 ##   continua prevendo pra onde a BOLA vai depois de ser atingida). NÃO
-##   custa a ação de habilidade — só entra em cooldown de 4 turnos.
+##   custa a ação de habilidade, e NÃO precisa mais da bola por perto —
+##   pode ser usada só pra "escanear" o campo antes de decidir o
+##   próximo movimento. Só entra em cooldown ao ser usada.
 
 @export_group("Chute Direto")
-@export var forca_chute_direto: float = 1400.0
-@export var cooldown_chute_direto: int = 2
+@export var forca_chute_direto: float = 150.0
+@export var cooldown_chute_direto: int = 5
 
 @export_group("Metavisão")
-@export var cooldown_metavisao: int = 4
-@export var alcance_metavisao: float = 900.0
-@export var max_ricochetes_metavisao: int = 4
+@export var cooldown_metavisao: int = 5
+@export var alcance_metavisao: float = 700.0
+@export var max_ricochetes_metavisao: int = 5
 @export var cor_trajetoria_chute: Color = Color(1.0, 0.85, 0.15)
 @export var cor_trajetoria_bola: Color = Color(1.0, 1.0, 1.0, 0.65)
 
@@ -46,7 +49,7 @@ func _habilidade_propria_consome_acao(nome: String) -> bool:
 
 
 func _requisito_extra_propria(nome: String) -> String:
-	if bola_no_alcance == null:
+	if nome == "Chute Direto" and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
 	return ""
 

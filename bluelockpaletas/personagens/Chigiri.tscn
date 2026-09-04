@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_tlpvi"]
 [ext_resource type="Script" uid="uid://bwgvr65ef20jm" path="res://codigos/Chigiri.gd" id="2_nkr7f"]
-[ext_resource type="Texture2D" uid="uid://d1epuajtdo6ww" path="res://imagens/chigirialien.jpg" id="3_job3l"]
+[ext_resource type="Texture2D" uid="uid://bikly7r7s560x" path="res://imagens/CVchigiri.jpg" id="3_aj5e7"]
 
 [node name="Chigiri" unique_id=755908930 instance=ExtResource("1_tlpvi")]
 script = ExtResource("2_nkr7f")
@@ -10,9 +10,9 @@ accelerate_duracao = 4
 accelerate_multiplicador_distancia = 1.6
 accelerate_multiplicador_forca = 1.6
 cooldown_accelerate = 5
-forca_base_panther_shot = 900.0
-bonus_forca_por_turno_accelerate = 200.0
-cooldown_panther_shot = 3
+forca_base_panther_shot = 80.0
+bonus_forca_por_turno_accelerate = 20.0
+cooldown_panther_shot = 5
 forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
@@ -20,4 +20,4 @@ raio_clique = 40.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("3_job3l")
+texture = ExtResource("3_aj5e7")

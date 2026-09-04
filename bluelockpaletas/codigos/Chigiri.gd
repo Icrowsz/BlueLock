@@ -7,10 +7,10 @@ class_name Chigiri
 ##   chute normal (por arrasto). Cooldown de 5 turnos.
 ##
 ## - 44 Panther Shot: chute teleguiado no gol inimigo (igual ao Chute
-##   Direto do Isagi), só que mais fraco na base — ganha um bônus de
-##   força por turno que o Accelerate estiver ativo no momento do chute
-##   (turno 1 de Accelerate = +200; turno 4 = +800, no padrão default).
-##   Cooldown de 3 turnos.
+##   Direto do Isagi), só que mais fraco na base (100, vs. 150 padrão)
+##   — ganha um bônus de força por turno que o Accelerate estiver ativo
+##   no momento do chute (turno 1 de Accelerate = +20; turno 4 = +80,
+##   no padrão default). Cooldown de 3 turnos.
 ##
 ## Nota de temporização: assim como os cooldowns, a duração do
 ## Accelerate é contada em trocas de turno GLOBAIS (de qualquer time),
@@ -24,8 +24,8 @@ class_name Chigiri
 @export var cooldown_accelerate: int = 5
 
 @export_group("44 Panther Shot")
-@export var forca_base_panther_shot: float = 900.0  # mais fraco que o Chute Direto padrão (1400)
-@export var bonus_forca_por_turno_accelerate: float = 200.0
+@export var forca_base_panther_shot: float = 100.0  ## mais fraco que a força-base padrão (150); era 900, valor da escala antiga
+@export var bonus_forca_por_turno_accelerate: float = 20.0  ## também recalculado pra nova escala (era 200)
 @export var cooldown_panther_shot: int = 3
 
 var accelerate_turnos_restantes: int = 0

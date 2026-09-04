@@ -4,15 +4,17 @@ class_name Bachira
 ## Meguru Bachira
 ##
 ## - Bee Shot: chute teleguiado no gol inimigo (igual ao Chute Direto do
-##   Isagi), mas BEM mais fraco na base. Em compensação, a bola fica
-##   intangível aos outros botões durante o voo — nenhum oponente
-##   consegue entrar na frente pra interceptar. Cooldown de 5 turnos.
+##   Isagi), mas com metade da força-base padrão (75, vs. 150). Em
+##   compensação, a bola fica intangível aos outros botões durante o
+##   voo — nenhum oponente consegue entrar na frente pra interceptar.
+##   Precisa da bola por perto.
 ##
 ## - Monster Trance: concede, só PRA ELE (não pro time), uma ação de
 ##   movimento extra (na METADE da distância normal) e uma ação de
-##   habilidade extra, ambas válidas só até o fim deste turno. Fluxo
-##   pretendido: deslocamento padrão -> Monster Trance -> deslocamento
-##   extra (reduzido) -> Bee Shot, tudo no mesmo turno.
+##   habilidade extra, ambas válidas só até o fim deste turno. Precisa
+##   da bola por perto pra ser ativada. Fluxo pretendido: deslocamento
+##   padrão -> Monster Trance -> deslocamento extra (reduzido) -> Bee Shot,
+##   tudo no mesmo turno.
 ##
 ## Nota: como as ações bônus (acoes_movimento_bonus/acoes_habilidade_bonus,
 ## ver Botao.gd) são sempre gastas ANTES da ação compartilhada do time,
@@ -23,13 +25,13 @@ class_name Bachira
 ## jogador disso na hora de jogar.
 
 @export_group("Bee Shot")
-@export var forca_bee_shot: float = 500.0  ## bem mais fraco que os chutes teleguiados dos outros (Chute Direto = 1400)
-@export var cooldown_bee_shot: int = 5
+@export var forca_bee_shot: float = 75.0  ## metade da força-base padrão (150)
+@export var cooldown_bee_shot: int = 6
 @export var bee_shot_duracao_intangivel: float = 1.0  ## segundos que a bola ignora colisão com botões
 
 @export_group("Monster Trance")
 @export var monster_trance_multiplicador_distancia: float = 0.5
-@export var cooldown_monster_trance: int = 5  ## não especificado — ajuste como preferir
+@export var cooldown_monster_trance: int = 5
 
 var _monster_trance_ativo: bool = false
 
@@ -42,7 +44,7 @@ func habilidades_proprias() -> Array[String]:
 
 
 func _requisito_extra_propria(nome: String) -> String:
-	if nome == NOME_BEE_SHOT and bola_no_alcance == null:
+	if (nome == NOME_BEE_SHOT or nome == NOME_MONSTER_TRANCE) and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
 	return ""
 

@@ -22,13 +22,13 @@ class_name Raichi
 @export var stalker_multiplicador_forca: float = 0.5
 @export var stalker_multiplicador_distancia: float = 0.5
 @export var stalker_distancia_perseguicao: float = 70.0
-@export var cooldown_stalker: int = 3
+@export var cooldown_stalker: int = 6
 
 @export_group("Bet")
 @export var bet_alcance: float = 260.0
 @export var bet_duracao_turnos: int = 3
 @export var bet_multiplicador_forca_inimigo: float = 0.5
-@export var cooldown_bet: int = 4
+@export var cooldown_bet: int = 6
 @export var bet_textura: Texture2D  ## opcional: arraste uma imagem aqui pra preencher o "transferidor"
 @export var bet_cor: Color = Color(1, 0.2, 0.2, 0.35)  ## usada se bet_textura estiver vazio, ou como tint por cima da textura
 

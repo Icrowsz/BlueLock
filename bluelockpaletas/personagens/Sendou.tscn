@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://ct2h3k0hxbfgj"]
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_ujegm"]
-[ext_resource type="Texture2D" uid="uid://chc02erncy4vo" path="res://imagens/sendoualien.jpg" id="2_rj06m"]
 [ext_resource type="Script" uid="uid://buli1cq4ccljd" path="res://codigos/Sendou.gd" id="2_uu5be"]
+[ext_resource type="Texture2D" uid="uid://baaiacldoo4xc" path="res://imagens/CVsendou.jpg" id="3_rj06m"]
 
 [node name="Sendou" unique_id=755908930 instance=ExtResource("1_ujegm")]
 script = ExtResource("2_uu5be")
+duracao_star_talent = 0.6
+cooldown_star_talent = 5
+forca_sabrina_shot = 100.0
+cooldown_sabrina_shot = 5
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
-scale = Vector2(0.08, 0.08)
-texture = ExtResource("2_rj06m")
+scale = Vector2(0.055, 0.055)
+texture = ExtResource("3_rj06m")

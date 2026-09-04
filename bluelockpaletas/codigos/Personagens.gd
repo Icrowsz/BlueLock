@@ -12,10 +12,10 @@ extends Node
 const PERSONAGENS: Dictionary = {
 	"Isagi": preload("res://personagens/Isagi.tscn"),
 	"Bachira": preload("res://personagens/Bachira.tscn"),
-	"Raichi": preload("res://personagens/Raichi.tscn"),
-	"Kurona": preload("res://personagens/Kurona.tscn"),
-	"Sendou": preload("res://personagens/Sendou.tscn"),
 	"Chigiri": preload("res://personagens/Chigiri.tscn"),
+	"Kurona": preload("res://personagens/Kurona.tscn"),
+	"Raichi": preload("res://personagens/Raichi.tscn"),
+	"Sendou": preload("res://personagens/Sendou.tscn"),
 }
 
 
