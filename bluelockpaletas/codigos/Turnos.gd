@@ -86,3 +86,7 @@ func _iniciar_turno(time: String) -> void:
 	acoes_restantes = acoes_padrao.duplicate()
 	turno_iniciado.emit(time_da_vez)
 	acoes_atualizadas.emit(acoes_restantes)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("passar_turno"):
+		passar_turno_manual()

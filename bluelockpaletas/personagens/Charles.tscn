@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dlqho2mjxr1ws"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_ovqh8"]
+[ext_resource type="Script" uid="uid://dra6v4odvpnyv" path="res://codigos/Charles.gd" id="2_0fqjx"]
+[ext_resource type="Texture2D" uid="uid://ojrgpankn7e1" path="res://imagens/CVcharlesss.png" id="2_6yl2x"]
+
+[node name="Charles" unique_id=755908930 instance=ExtResource("1_ovqh8")]
+script = ExtResource("2_0fqjx")
+linear_damp_charles = 0.5
+forca_rabona_cross = 150.0
+cooldown_rabona_cross = 6
+intensidade_curva_rabona = 70.0
+duracao_curva_rabona = 1.0
+cooldown_devil_contract = 6
+duracao_bola_seguindo = 0.3
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.089, 0.089)
+texture = ExtResource("2_6yl2x")

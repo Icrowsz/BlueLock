@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://58yeyyd2b0th"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_3qttp"]
+[ext_resource type="Script" uid="uid://b6khterh7xpfm" path="res://codigos/Aiku.gd" id="2_d4n78"]
+[ext_resource type="Texture2D" uid="uid://pthotpn4s1ca" path="res://imagens/CVaikuu.jpg" id="2_oagau"]
+
+[node name="Aiku" unique_id=755908930 instance=ExtResource("1_3qttp")]
+script = ExtResource("2_d4n78")
+alcance_serpent_sway = 300.0
+duracao_movimento_serpent_sway = 0.5
+distancia_parada_da_bola = 40.0
+forca_passe_serpent_sway = 500.0
+cooldown_serpent_sway = 5
+distancia_parada_do_alvo = 50.0
+duracao_movimento_snake_hunt = 0.5
+duracao_bloqueio_alvo = 4
+fracao_deslocamento_reduzido_aiku = 0.6
+cooldown_snake_hunt = 6
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_oagau")

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bf4ihkcdscsky"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_6cypd"]
+[ext_resource type="Script" uid="uid://df41qgwiaktf7" path="res://codigos/Rin.gd" id="2_to547"]
+[ext_resource type="Texture2D" uid="uid://d0fvi8td5gv2e" path="res://imagens/CVrin.jpg" id="2_wok5p"]
+
+[node name="Rin" unique_id=755908930 instance=ExtResource("1_6cypd")]
+script = ExtResource("2_to547")
+forca_curve_shot = 150.0
+cooldown_curve_shot = 6
+intensidade_curva = 260.0
+duracao_curva = 1.1
+opposite_direction_distancia = 90.0
+cooldown_opposite_direction = 5
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.133, 0.133)
+texture = ExtResource("2_wok5p")

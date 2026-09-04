@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d2eyqvwnipirv"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_sitau"]
+[ext_resource type="Texture2D" uid="uid://u3q4h8hbharh" path="res://imagens/CVhiori.jpg" id="2_86sjo"]
+[ext_resource type="Script" uid="uid://cbsfdoygino8u" path="res://codigos/Hiori.gd" id="2_finct"]
+
+[node name="Hiori" unique_id=755908930 instance=ExtResource("1_sitau")]
+script = ExtResource("2_finct")
+cooldown_millimeter_precision = 6
+alcance_millimeter_precision = 900.0
+raio_exclusao_gol = 90.0
+cooldown_fine_tuning = 5
+fracao_alcance_drible = 0.3
+forca_passe_classico = 120.0
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_86sjo")

@@ -13,9 +13,14 @@ const PERSONAGENS: Dictionary = {
 	"Isagi": preload("res://personagens/Isagi.tscn"),
 	"Bachira": preload("res://personagens/Bachira.tscn"),
 	"Chigiri": preload("res://personagens/Chigiri.tscn"),
-	"Kurona": preload("res://personagens/Kurona.tscn"),
-	"Raichi": preload("res://personagens/Raichi.tscn"),
+	"Rin": preload("res://personagens/Rin.tscn"),
 	"Sendou": preload("res://personagens/Sendou.tscn"),
+	"Charles": preload("res://personagens/Charles.tscn"),
+	"Kurona": preload("res://personagens/Kurona.tscn"),
+	"Hiori": preload("res://personagens/Hiori.tscn"),
+	"Raichi": preload("res://personagens/Raichi.tscn"),
+	"Aiku": preload("res://personagens/Aiku.tscn"),
+	"Teste": preload("res://personagens/Botao.tscn"),
 }
 
 

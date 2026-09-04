@@ -90,7 +90,7 @@ func _executar_passe(ator: Botao, alvo: Botao, quem_originou: Kurona, eh_lance_o
 	var direcao := (alvo.global_position - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_one_two)
 
-	Turnos.usar_acao("habilidade")
+	ator.consumir_acao_habilidade()
 	if eh_lance_original:
 		iniciar_cooldown(NOME_ONE_TWO, cooldown_one_two)
 

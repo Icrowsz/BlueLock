@@ -76,6 +76,19 @@ func consumir_acao_habilidade() -> void:
 var multiplicador_forca_externo: float = 1.0
 var bloqueado_de_usar_habilidade_por_zona: bool = false
 
+## Bloqueio de MOVIMENTO por um número de turnos (ex: Snake Hunt do
+## Aiku) — diferente do bloqueio de zona acima (que é on/off, ligado
+## por uma área), esse tem uma DURAÇÃO em turnos, decrementada junto
+## com os cooldowns em _on_turno_mudou(). Qualquer personagem pode
+## aplicar isso em OUTRO botão via aplicar_bloqueio_movimento().
+var bloqueado_de_mover_turnos_restantes: int = 0
+
+
+func aplicar_bloqueio_movimento(turnos: int) -> void:
+	# max() em vez de sobrescrever: se já houver um bloqueio mais longo
+	# rolando, um bloqueio novo mais curto não deve "encurtar" ele à toa
+	bloqueado_de_mover_turnos_restantes = maxi(bloqueado_de_mover_turnos_restantes, turnos)
+
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
 
@@ -152,6 +165,8 @@ func _mouse_no_corpo(pos_mouse_global: Vector2) -> bool:
 func _pode_arrastar() -> bool:
 	if not pode_agir():
 		return false
+	if bloqueado_de_mover_turnos_restantes > 0:
+		return false
 	return Turnos.tem_acao_disponivel("movimento") or acoes_movimento_bonus > 0
 
 
@@ -211,8 +226,7 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 		_apos_chute(false)
 		return
 
-	var forca := (vetor_arrasto * multiplicador_forca * multiplicador_forca_chute_total()).limit_length(forca_maxima * multiplicador_forca_chute_total())
-	apply_central_impulse(forca)
+	_executar_deslocamento(vetor_arrasto)
 
 	# a ação BÔNUS pessoal (ex: One Two do Kurona) é gasta antes da ação
 	# compartilhada do time — assim ela realmente funciona como um
@@ -223,6 +237,17 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 		Turnos.usar_acao("movimento")
 
 	_apos_chute(true)
+
+
+func _executar_deslocamento(vetor_arrasto: Vector2) -> void:
+	# comportamento PADRÃO: aplica um impulso físico na direção do
+	# arrasto, como qualquer botão sem habilidade especial de movimento.
+	# Personagens como o Rin (Opposite Direction) sobrescrevem ISSO pra
+	# substituir o deslocamento físico por outra coisa (ex: teleporte em
+	# direção cardinal), mantendo toda a contabilidade de ação/cooldown
+	# aqui em _soltar_e_chutar() intacta.
+	var forca := (vetor_arrasto * multiplicador_forca * multiplicador_forca_chute_total()).limit_length(forca_maxima * multiplicador_forca_chute_total())
+	apply_central_impulse(forca)
 
 
 func _apos_chute(sucesso: bool) -> void:
@@ -441,6 +466,9 @@ func _on_turno_mudou(_time: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
+
+	if bloqueado_de_mover_turnos_restantes > 0:
+		bloqueado_de_mover_turnos_restantes -= 1
 
 	# qualquer habilidade concedida ainda pendente passa a ficar
 	# disponível a partir daqui — ela só não podia ser usada no MESMO
