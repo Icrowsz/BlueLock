@@ -78,6 +78,6 @@ func _on_habilidade_pressionada(nome: String) -> void:
 	botao_selecionado.usar_habilidade(nome)
 
 	if botao_selecionado.habilidade_consome_acao(nome):
-		Turnos.usar_acao("habilidade")
+		botao_selecionado.consumir_acao_habilidade()
 
 	_reconstruir_botoes()  # atualiza os textos (cooldown, etc.) na hora

@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://o6st7lcw8vrs"]
 
 [ext_resource type="Script" uid="uid://cltl0sh01h2sn" path="res://codigos/Gol.gd" id="1_05kuh"]
+[ext_resource type="Script" uid="uid://cod6420ilvhac" path="res://codigos/MontagemDeTime.gd" id="1_57jda"]
 [ext_resource type="Texture2D" uid="uid://qmrhi16py0t8" path="res://imagens/rede.webp" id="1_u26dp"]
 [ext_resource type="PackedScene" uid="uid://csb1eo5p4qwum" path="res://cenas/Bola.tscn" id="2_6v1fn"]
 [ext_resource type="Script" uid="uid://bd08y5h40xpml" path="res://codigos/Placar.gd" id="5_03kpf"]
-[ext_resource type="PackedScene" uid="uid://c6diob41p1sf" path="res://cenas/Isagi.tscn" id="5_s60hy"]
 [ext_resource type="Script" uid="uid://dav64dqrkbgnd" path="res://codigos/UIHabilidade.gd" id="7_i77rs"]
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
-[ext_resource type="PackedScene" uid="uid://b2n8etxku63qp" path="res://cenas/Kurona.tscn" id="9_5pgv7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
 size = Vector2(1920, 72)
@@ -50,6 +49,41 @@ size = Vector2(16, 288)
 font_size = 200
 
 [node name="Campo" type="Node2D" unique_id=13280438]
+script = ExtResource("1_57jda")
+
+[node name="PosicoesTimeA" type="Node2D" parent="." unique_id=10764558]
+
+[node name="Atacante" type="Marker2D" parent="PosicoesTimeA" unique_id=428671303]
+position = Vector2(832, 408)
+
+[node name="Meio" type="Marker2D" parent="PosicoesTimeA" unique_id=383581781]
+position = Vector2(552, 408)
+
+[node name="Zagueiro" type="Marker2D" parent="PosicoesTimeA" unique_id=1615570421]
+position = Vector2(256, 408)
+
+[node name="Ponta Esquerda" type="Marker2D" parent="PosicoesTimeA" unique_id=1355958008]
+position = Vector2(704, 120)
+
+[node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeA" unique_id=458822360]
+position = Vector2(704, 696)
+
+[node name="PosicoesTimeB" type="Node2D" parent="." unique_id=1430346641]
+
+[node name="Atacante" type="Marker2D" parent="PosicoesTimeB" unique_id=1644227166]
+position = Vector2(1152, 552)
+
+[node name="Meio" type="Marker2D" parent="PosicoesTimeB" unique_id=489442631]
+position = Vector2(1152, 264)
+
+[node name="Zagueiro" type="Marker2D" parent="PosicoesTimeB" unique_id=1726039855]
+position = Vector2(1616, 408)
+
+[node name="Ponta Esquerda" type="Marker2D" parent="PosicoesTimeB" unique_id=1003871537]
+position = Vector2(1416, 120)
+
+[node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeB" unique_id=1103953457]
+position = Vector2(1416, 696)
 
 [node name="Verde" type="ColorRect" parent="." unique_id=2110983968]
 offset_left = 128.0
@@ -222,17 +256,6 @@ offset_bottom = 496.0
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
 position = Vector2(960, 408)
 
-[node name="Isagi" parent="." unique_id=1447645638 instance=ExtResource("5_s60hy")]
-position = Vector2(1232, 128)
-time = "A"
-
-[node name="Kurona" parent="." unique_id=755908930 instance=ExtResource("9_5pgv7")]
-position = Vector2(896, 408)
-forca_one_two = 200.0
-duracao_imunidade_one_two = 5
-cooldown_shark_assault = 4
-margem_chegada_shark_assault = 20.0
-
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
 posicao_reinicio_bola = Vector2(960, 408)
@@ -274,10 +297,11 @@ script = ExtResource("7_i77rs")
 
 [node name="ContainerHabilidades" type="HBoxContainer" parent="UIHabilidade" unique_id=1872510875]
 unique_name_in_owner = true
-offset_left = 941.0
-offset_top = 712.0
-offset_right = 981.0
-offset_bottom = 752.0
+offset_left = 832.0
+offset_top = 696.0
+offset_right = 872.0
+offset_bottom = 736.0
+alignment = 1
 
 [node name="UITurno" type="CanvasLayer" parent="." unique_id=1647282571]
 script = ExtResource("8_57jda")
@@ -312,14 +336,3 @@ offset_top = 120.0
 offset_right = 1209.0
 offset_bottom = 176.0
 theme_override_font_sizes/font_size = 20
-
-[node name="Isagi2" parent="." unique_id=591098731 instance=ExtResource("5_s60hy")]
-position = Vector2(1480, 616)
-
-[node name="Kurona2" parent="." unique_id=858996708 instance=ExtResource("9_5pgv7")]
-position = Vector2(1632, 400)
-forca_one_two = 200.0
-duracao_imunidade_one_two = 5
-cooldown_shark_assault = 4
-margem_chegada_shark_assault = 20.0
-time = "B"

@@ -3,112 +3,69 @@ class_name Kurona
 
 ## Kurona
 ##
-## - One Two: escolhe um alvo (outro botão do MESMO time). O passe é
-##   AUTOMÁTICO/garantido — igual ao Shark Assault: a bola faz um "TP"
-##   direto até perto do alvo, já dominada (sem força nenhuma), então
-##   NÃO existe mais chance de interceptação no meio do caminho. A
-##   diferença é só quem escolhe o destino: aqui é o jogador, no Shark
-##   Assault é sorteado.
+## - One Two: escolhe um alvo (outro botão do MESMO time); a bola é
+##   chutada em direção a ele — mesmo chute teleguiado do Chute Direto
+##   do Isagi, então É POSSÍVEL interceptar (a bola viaja pela física
+##   normal; se um oponente estiver no caminho, esbarra nela normalmente,
+##   sem código nenhum extra pra isso).
 ##
-##   Quando o passe chega, o alvo GANHA o One Two emprestado — mas só
-##   pode usá-lo durante o PRÓXIMO turno de verdade do time dele. Se
-##   não usar até lá, a habilidade emprestada expira sozinha (isso é o
-##   que evita ficar acumulando "cópias" antigas — ver Botao.gd,
-##   conceder_habilidade() e _on_turno_mudou()). Se o alvo escolhido
-##   nessa devolução for o Kurona ORIGINAL, ele ganha uma ação de
-##   movimento EXTRA nesse turno (o "impulsionado duas vezes").
+##   Se a bola chegar de verdade no alvo, ele GANHA o One Two emprestado
+##   pro turno seguinte DO TIME dele (só uma concessão pendente por vez;
+##   se não usar em até "cooldown_one_two" turnos, ela desaparece
+##   sozinha). Se o alvo escolhido nessa devolução for o Kurona
+##   ORIGINAL, é ELE (não quem devolveu) que ganha uma ação de
+##   movimento EXTRA pessoal nesse turno.
 ##
-## Cooldown e custo de ação: como a jogada só se completa quando o
-## jogador escolhe o alvo (depois de clicar no botão da habilidade), o
-## custo da ação e o início do cooldown só acontecem quando o passe
-## REALMENTE sai — não no clique do botão. Assim, cancelar a seleção
-## (botão direito ou Esc) não desperdiça nada.
+## - Shark Assault: com a bola no alcance, toca automaticamente pra um
+##   aliado ALEATÓRIO em campo. É um passe "garantido" (sem chute de
+##   verdade physics-based, sem chance de interceptação) que chega sem
+##   força nenhuma — como se o aliado tivesse dominado a bola parada.
 ##
-## Imunidade: quem RECEBE de verdade o One Two fica imune por algumas
-## rodadas — não pode ser escolhido como alvo de um novo One Two nesse
-## período. Evita o "ping-pong infinito" entre os mesmos 2 jogadores.
-##
-## - Shark Assault: se a bola estiver no alcance do Kurona, ele toca
-##   pra um ALIADO ALEATÓRIO em campo, com o mesmo passe automático e
-##   garantido do One Two (ver ponto_de_chegada_dominado() em Botao.gd).
+## Custo de ação e cooldown do One Two só acontecem quando o passe de
+## fato SAI (depois de escolher o alvo) — não no clique do botão de
+## habilidade. Assim, cancelar a seleção (botão direito ou Esc) não
+## desperdiça nada.
 
 @export_group("One Two")
+@export var forca_one_two: float = 1200.0
 @export var cooldown_one_two: int = 5
 @export var acoes_extra_ao_receber_de_volta: int = 1
-@export var duracao_imunidade_one_two: int = 5
 
 @export_group("Shark Assault")
-@export var cooldown_shark_assault: int = 4
+@export var cooldown_shark_assault: int = 3
 
-@export_group("Passe Automático")
-## Em que fração do alcance do ALVO a bola aparece ao chegar (0 = bem
-## em cima dele, 1 = na borda do alcance). Um valor médio evita tanto
-## sobrepor o corpo dele quanto cair fora do alcance.
-@export_range(0.1, 0.95) var fracao_alcance_dominio: float = 0.6
-
-const NOME_HABILIDADE := "One Two"
+const NOME_ONE_TWO := "One Two"
 const NOME_SHARK_ASSAULT := "Shark Assault"
-const EFEITO_IMUNE_ONE_TWO := "Imunidade One Two"
 
 
 func habilidades_proprias() -> Array[String]:
-	return [NOME_HABILIDADE, NOME_SHARK_ASSAULT]
+	return [NOME_ONE_TWO, NOME_SHARK_ASSAULT]
 
 
 func _habilidade_propria_consome_acao(nome: String) -> bool:
-	if nome == NOME_HABILIDADE:
-		# consome manualmente dentro de _executar_passe(), só quando o
-		# passe de fato acontece — por isso aqui é false
+	if nome == NOME_ONE_TWO:
+		# consumida manualmente dentro de _executar_passe(), só quando o
+		# passe de fato acontece
 		return false
-	return true  # Shark Assault consome a ação normalmente, na hora do clique
+	return true  # Shark Assault consome normalmente
 
 
 func _requisito_extra_propria(nome: String) -> String:
 	if bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
-	if nome == NOME_SHARK_ASSAULT and _aliados_disponiveis().is_empty():
-		return "Não há nenhum aliado em campo para o %s!" % NOME_SHARK_ASSAULT
 	return ""
 
 
 func executar_habilidade_propria(nome: String) -> void:
 	match nome:
-		NOME_HABILIDADE:
+		NOME_ONE_TWO:
 			_pedir_alvo_para_passe(self, self, true)
 		NOME_SHARK_ASSAULT:
 			_executar_shark_assault()
-			iniciar_cooldown(NOME_SHARK_ASSAULT, cooldown_shark_assault)
+			iniciar_cooldown(nome, cooldown_shark_assault)
 
 
-## --- Shark Assault ---
-
-func _executar_shark_assault() -> void:
-	var bola := bola_no_alcance
-	if not bola:
-		return
-
-	var aliados := _aliados_disponiveis()
-	if aliados.is_empty():
-		return
-
-	var alvo: Botao = aliados[randi() % aliados.size()]
-	_mandar_bola_dominada(bola, alvo)
-
-	Eventos.mensagem_solicitada.emit("Shark Assault! %s dominou a bola." % alvo.name)
-
-
-func _aliados_disponiveis() -> Array[Botao]:
-	# qualquer botão do MESMO time, em campo, que não seja este Kurona
-	var aliados: Array[Botao] = []
-	for nodo in get_tree().get_nodes_in_group("botoes"):
-		var botao := nodo as Botao
-		if botao and botao != self and botao.time == time:
-			aliados.append(botao)
-	return aliados
-
-
-## --- Fluxo do One Two (reaproveitado tanto pelo Kurona quanto por
-## quem receber a habilidade emprestada) ---
+## --- One Two ---
 
 func _pedir_alvo_para_passe(ator: Botao, quem_originou: Kurona, eh_lance_original: bool) -> void:
 	SelecaoAlvo.pedir_alvo(ator, func(alvo: Botao) -> void:
@@ -125,52 +82,73 @@ func _executar_passe(ator: Botao, alvo: Botao, quem_originou: Kurona, eh_lance_o
 		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
 		return
 
-	if alvo.tem_efeito(EFEITO_IMUNE_ONE_TWO):
-		Eventos.mensagem_solicitada.emit(
-			"%s ainda está imune ao One Two (mais %d turno(s))!" % [alvo.name, alvo.turnos_restantes_efeito(EFEITO_IMUNE_ONE_TWO)]
-		)
-		return
-
 	var bola := ator.bola_no_alcance
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto!")
 		return
 
-	# passe AUTOMÁTICO/garantido (mesmo mecanismo do Shark Assault): sem
-	# física de verdade, então não existe chance de interceptação
-	_mandar_bola_dominada(bola, alvo)
+	var direcao := (alvo.global_position - bola.global_position).normalized()
+	bola.receber_chute_teleguiado(direcao, forca_one_two)
 
 	Turnos.usar_acao("habilidade")
 	if eh_lance_original:
-		iniciar_cooldown(NOME_HABILIDADE, cooldown_one_two)
+		iniciar_cooldown(NOME_ONE_TWO, cooldown_one_two)
 
-	# como o passe é garantido, já sabemos NA HORA que "chegou" — não
-	# precisa mais esperar nenhum sinal de física pra confirmar
-	_completar_one_two(alvo, quem_originou)
+	_aguardar_chegada_no_alvo(bola, alvo, quem_originou)
 
 
-func _mandar_bola_dominada(bola: RigidBody2D, alvo: Botao) -> void:
-	var ponto := alvo.ponto_de_chegada_dominado(bola.global_position, fracao_alcance_dominio)
-	bola.receber_dominio_instantaneo(ponto)
+func _aguardar_chegada_no_alvo(bola: RigidBody2D, alvo: Botao, quem_originou: Kurona) -> void:
+	# reaproveita a MESMA AreaAlcance que já existe pra chutar — se a
+	# bola entrar no alcance do alvo, consideramos que "chegou". Se for
+	# interceptada no caminho, ela nunca entra aqui.
+	if not alvo.area_alcance:
+		return
+
+	var callback: Callable
+	callback = func(body: Node) -> void:
+		if body != bola:
+			return
+		alvo.area_alcance.body_entered.disconnect(callback)
+		_completar_one_two(alvo, quem_originou)
+
+	alvo.area_alcance.body_entered.connect(callback)
 
 
 func _completar_one_two(alvo: Botao, quem_originou: Kurona) -> void:
 	if alvo == quem_originou:
-		# a bola voltou pro Kurona que começou a jogada: bônus!
-		Turnos.adicionar_acoes("movimento", acoes_extra_ao_receber_de_volta)
-		Eventos.mensagem_solicitada.emit("One Two completo! Ação de movimento extra concedida.")
+		# a bola voltou pro Kurona que começou a jogada: SÓ ELE ganha o
+		# bônus, mesmo que quem tenha devolvido seja outro personagem
+		quem_originou.conceder_acao_movimento_extra(acoes_extra_ao_receber_de_volta)
+		Eventos.mensagem_solicitada.emit("One Two completo! Kurona ganhou uma ação de movimento extra.")
 		return
 
-	# o alvo recebeu de verdade o One Two: fica imune por algumas
-	# rodadas, pra não poder ser escolhido de novo enquanto isso (evita
-	# ping-pong infinito entre os mesmos 2 jogadores)
-	alvo.aplicar_efeito_temporario(EFEITO_IMUNE_ONE_TWO, duracao_imunidade_one_two)
-
-	# empresta o One Two pro alvo poder continuar/fechar a jogada —
-	# funciona em QUALQUER personagem que receber, não só outro Kurona,
-	# porque toda a lógica continua rodando aqui (esse Kurona.gd), só
-	# muda quem está "segurando" a bola. Só vale pro PRÓXIMO turno de
-	# verdade do time do alvo (ver Botao.conceder_habilidade).
-	alvo.conceder_habilidade(NOME_HABILIDADE, func() -> void:
+	# empresta o One Two pro alvo poder continuar/fechar a jogada (teto
+	# de 1 concessão pendente e expiração são tratados pelo Botao.gd)
+	alvo.conceder_habilidade(NOME_ONE_TWO, func() -> void:
 		_pedir_alvo_para_passe(alvo, quem_originou, false)
-	)
+	, false, cooldown_one_two)
+
+
+## --- Shark Assault ---
+
+func _executar_shark_assault() -> void:
+	var bola := bola_no_alcance
+	if not bola:
+		return
+
+	var aliados := _aliados_disponiveis()
+	if aliados.is_empty():
+		Eventos.mensagem_solicitada.emit("Não há aliados em campo para o Shark Assault!")
+		return
+
+	var alvo: Botao = aliados[randi() % aliados.size()]
+	bola.mover_para_com_trajetoria(alvo.global_position)
+
+
+func _aliados_disponiveis() -> Array[Botao]:
+	var lista: Array[Botao] = []
+	for nodo in get_tree().get_nodes_in_group("botoes"):
+		var botao := nodo as Botao
+		if botao and botao != self and botao.time == time:
+			lista.append(botao)
+	return lista

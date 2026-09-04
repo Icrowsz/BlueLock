@@ -43,14 +43,38 @@ var cooldowns: Dictionary = {}
 ## em que foi concedida.
 var habilidades_concedidas: Array = []
 
-## Efeitos temporários genéricos (buffs/debuffs) que outras habilidades
-## podem aplicar neste botão — funciona ao "contrário" dos cooldowns:
-## aqui o efeito fica ATIVO por N turnos, em vez de bloqueado.
-## Ex: a imunidade que o alvo do One Two do Kurona ganha, pra não poder
-## receber outro One Two logo em seguida. Um Dictionary (nome -> turnos
-## restantes) pelo mesmo motivo dos cooldowns: funciona pra qualquer
-## efeito futuro, de qualquer personagem, sem precisar de caso especial.
-var efeitos_temporarios: Dictionary = {}
+## Ações de movimento BÔNUS, pessoais deste botão específico — diferente
+## da ação de movimento compartilhada do Turnos (que qualquer botão do
+## time pode usar), essa aqui só pode ser gasta por ESTE botão. Usado
+## por efeitos como o bônus do One Two do Kurona ("impulsionado duas
+## vezes" — só ele, não qualquer um do time).
+var acoes_movimento_bonus: int = 0
+
+## Mesma ideia, mas pra ação de HABILIDADE — irmã do bônus de movimento
+## acima. Usado por efeitos como o Monster Trance do Bachira, que
+## concede uma segunda ação de habilidade só PRA ELE, sem dar de graça
+## pro time inteiro (diferente de Turnos.adicionar_acoes(), que é
+## compartilhado).
+var acoes_habilidade_bonus: int = 0
+
+func conceder_acao_habilidade_extra(quantidade: int = 1) -> void:
+	acoes_habilidade_bonus += quantidade
+
+
+func consumir_acao_habilidade() -> void:
+	# mesma prioridade do movimento: gasta o bônus PESSOAL antes da ação
+	# compartilhada do time, senão o bônus nunca seria realmente "extra"
+	if acoes_habilidade_bonus > 0:
+		acoes_habilidade_bonus -= 1
+	else:
+		Turnos.usar_acao("habilidade")
+
+## Efeitos impostos por ZONAS de outros personagens (ex: Bet do Raichi),
+## diferentes de buffs/debuffs PRÓPRIOS (que usam os ganchos
+## multiplicador_*). Como podem vir de fora, a zona que os criou é quem
+## liga/desliga isso via body_entered/body_exited — este botão só lê.
+var multiplicador_forca_externo: float = 1.0
+var bloqueado_de_usar_habilidade_por_zona: bool = false
 
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
@@ -126,7 +150,13 @@ func _mouse_no_corpo(pos_mouse_global: Vector2) -> bool:
 
 
 func _pode_arrastar() -> bool:
-	return pode_agir() and Turnos.tem_acao_disponivel("movimento")
+	if not pode_agir():
+		return false
+	return Turnos.tem_acao_disponivel("movimento") or acoes_movimento_bonus > 0
+
+
+func conceder_acao_movimento_extra(quantidade: int = 1) -> void:
+	acoes_movimento_bonus += quantidade
 
 
 func _atualizar_mira(pos_atual_global: Vector2) -> void:
@@ -135,8 +165,26 @@ func _atualizar_mira(pos_atual_global: Vector2) -> void:
 	# como a LinhaMira agora é "top_level", precisamos manter ela
 	# ancorada manualmente na posição do botão
 	linha_mira.global_position = global_position
-	var vetor := (ponto_inicial - pos_atual_global).limit_length(distancia_maxima_arrasto)
+	var alcance := distancia_maxima_arrasto * multiplicador_distancia_arrasto()
+	var vetor := (ponto_inicial - pos_atual_global).limit_length(alcance)
 	_desenhar_mira(vetor)
+
+
+func multiplicador_distancia_arrasto() -> float:
+	# gancho pra buffs temporários (ex: Accelerate do Chigiri). Botão
+	# base: sem alteração nenhuma.
+	return 1.0
+
+
+func multiplicador_forca_chute() -> float:
+	# mesma ideia, mas pra força do chute por arrasto.
+	return 1.0
+
+
+func multiplicador_forca_chute_total() -> float:
+	# combina o multiplicador PRÓPRIO do personagem (ex: Accelerate do
+	# Chigiri) com o IMPOSTO por zonas externas (ex: Bet do Raichi)
+	return multiplicador_forca_chute() * multiplicador_forca_externo
 
 
 func _desenhar_mira(vetor: Vector2) -> void:
@@ -153,7 +201,8 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 	if linha_mira:
 		linha_mira.visible = false
 
-	var vetor_arrasto := (ponto_inicial - pos_solta_global).limit_length(distancia_maxima_arrasto)
+	var alcance := distancia_maxima_arrasto * multiplicador_distancia_arrasto()
+	var vetor_arrasto := (ponto_inicial - pos_solta_global).limit_length(alcance)
 
 	# um arrasto muito curto (ex: clique acidental sem soltar longe) não
 	# conta como jogada de verdade, então não gasta a ação do turno
@@ -162,18 +211,26 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 		_apos_chute(false)
 		return
 
-	var forca := (vetor_arrasto * multiplicador_forca).limit_length(forca_maxima)
+	var forca := (vetor_arrasto * multiplicador_forca * multiplicador_forca_chute_total()).limit_length(forca_maxima * multiplicador_forca_chute_total())
 	apply_central_impulse(forca)
 
-	Turnos.usar_acao("movimento")
+	# a ação BÔNUS pessoal (ex: One Two do Kurona) é gasta antes da ação
+	# compartilhada do time — assim ela realmente funciona como um
+	# "extra" só desse botão, sem consumir a ação do time à toa
+	if acoes_movimento_bonus > 0:
+		acoes_movimento_bonus -= 1
+	else:
+		Turnos.usar_acao("movimento")
+
 	_apos_chute(true)
 
 
-func _apos_chute(_sucesso: bool) -> void:
+func _apos_chute(sucesso: bool) -> void:
 	# gancho pra personagens reagirem depois de um chute (com sucesso ou
 	# não) — ex: a Metavisão do Isagi só dura até o PRÓXIMO chute de
 	# verdade, então ele desliga o efeito aqui quando sucesso == true.
-	pass
+	if sucesso:
+		Eventos.botao_chutado.emit(self)
 
 
 func pode_chutar_bola() -> bool:
@@ -202,33 +259,32 @@ func gol_inimigo_lado() -> String:
 	return Times.gol_inimigo_do_time(time)
 
 
-## --- Suporte a passes "automáticos" (tipo TP, sem física de verdade) ---
-## Usado por habilidades como o One Two e o Shark Assault do Kurona.
-
-func raio_area_alcance() -> float:
-	# tenta descobrir o raio de verdade da AreaAlcance deste personagem
-	# (funciona pra CircleShape2D, o formato mais comum pra esse tipo de
-	# alcance). Se não achar, cai pra um valor de segurança baseado no
-	# raio de clique.
-	if area_alcance:
-		for filho in area_alcance.get_children():
-			if filho is CollisionShape2D and filho.shape is CircleShape2D:
-				return filho.shape.radius
-	return raio_clique * 1.5
+func encontrar_gol_inimigo() -> Gol:
+	# compartilhado por qualquer personagem que precise mirar no gol
+	# inimigo (Chute Direto do Isagi, 44 Panther Shot do Chigiri, etc.)
+	var lado_alvo := gol_inimigo_lado()
+	for nodo in get_tree().get_nodes_in_group("gols"):
+		var gol := nodo as Gol
+		if gol and gol.lado == lado_alvo:
+			return gol
+	return null
 
 
-func ponto_de_chegada_dominado(origem: Vector2, fracao_do_alcance: float = 0.6) -> Vector2:
-	# calcula um ponto de chegada SEGURO pra um passe automático: fica
-	# DENTRO do alcance deste botão (pra já contar como "recebido" na
-	# hora, ativando bola_no_alcance), mas afastado o bastante do corpo
-	# físico dele pra não gerar nenhum "empurrão" quando a bola aparecer
-	# ali do nada. `origem` é só usado pra decidir de que LADO a bola
-	# chega (efeito visual, ela "vem" da direção de quem chutou).
-	var direcao := origem - global_position
-	if direcao.length() < 0.001:
-		direcao = Vector2.RIGHT  # fallback: origem bem em cima do alvo
-	direcao = direcao.normalized()
-	return global_position + direcao * (raio_area_alcance() * fracao_do_alcance)
+func encontrar_gol_mais_proximo() -> Gol:
+	# diferente de encontrar_gol_inimigo(): NÃO filtra por time — usado
+	# por habilidades de posicionamento puro (ex: Star Talent do
+	# Sendou), que vão pro gol mais perto, seja o próprio ou o inimigo.
+	var mais_proximo: Gol = null
+	var menor_distancia := INF
+	for nodo in get_tree().get_nodes_in_group("gols"):
+		var gol := nodo as Gol
+		if not gol:
+			continue
+		var distancia := global_position.distance_to(gol.ponto_para_mira())
+		if distancia < menor_distancia:
+			menor_distancia = distancia
+			mais_proximo = gol
+	return mais_proximo
 
 
 ## --- Sistema de habilidades: cada personagem pode ter VÁRIAS ---
@@ -267,9 +323,11 @@ func pode_usar_habilidade(nome: String) -> bool:
 		return false
 	if not pode_agir():
 		return false
+	if bloqueado_de_usar_habilidade_por_zona:
+		return false
 	if esta_em_cooldown(nome):
 		return false
-	if habilidade_consome_acao(nome) and not Turnos.tem_acao_disponivel("habilidade"):
+	if habilidade_consome_acao(nome) and not (Turnos.tem_acao_disponivel("habilidade") or acoes_habilidade_bonus > 0):
 		return false
 	if requisito_extra_habilidade(nome) != "":
 		return false
@@ -287,10 +345,13 @@ func motivo_bloqueio_habilidade(nome: String) -> String:
 	if not pode_agir():
 		return "Não é a vez do Time %s!" % time
 
+	if bloqueado_de_usar_habilidade_por_zona:
+		return "Uma área inimiga está bloqueando suas habilidades!"
+
 	if esta_em_cooldown(nome):
 		return "%s em cooldown! Aguarde mais %d turno(s)." % [nome, turnos_restantes_cooldown(nome)]
 
-	if habilidade_consome_acao(nome) and not Turnos.tem_acao_disponivel("habilidade"):
+	if habilidade_consome_acao(nome) and not (Turnos.tem_acao_disponivel("habilidade") or acoes_habilidade_bonus > 0):
 		return "Sem ações de habilidade restantes neste turno!"
 
 	var extra := requisito_extra_habilidade(nome)
@@ -309,23 +370,26 @@ func usar_habilidade(nome: String) -> void:
 	executar_habilidade_propria(nome)
 
 
-func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false) -> void:
+func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false, turnos_para_expirar: int = -1) -> void:
 	# empresta uma habilidade TEMPORÁRIA (uso único) a este botão, vinda
 	# de outro personagem. Só fica disponível a partir da PRÓXIMA troca
-	# de turno (nunca no mesmo turno em que foi concedida), e expira
-	# sozinha se não for usada até o fim desse turno seguinte (ver
-	# _on_turno_mudou) — pra nunca ficar acumulando cópias antigas.
+	# de turno (nunca no mesmo turno em que foi concedida).
 	#
-	# Se esse botão já tinha uma concessão pendente com o MESMO nome
-	# (ex: ganhou um novo One Two antes de usar o anterior), a nova
-	# substitui a antiga, nunca "empilha" em cima.
-	_remover_concedida(nome)
+	# Só pode existir UMA concessão pendente do mesmo nome por vez neste
+	# botão — se já tiver uma, a nova é ignorada (não acumula).
+	#
+	# "turnos_para_expirar": se > 0, a concessão desaparece sozinha após
+	# esse tanto de turnos SEM ser usada (-1 = nunca expira).
+	for c in habilidades_concedidas:
+		if c["nome"] == nome:
+			return
 
 	habilidades_concedidas.append({
 		"nome": nome,
 		"executar": executar,
 		"custa_acao": custa_acao,
 		"disponivel": false,
+		"turnos_para_expirar": turnos_para_expirar,
 	})
 
 
@@ -340,6 +404,7 @@ func _remover_concedida(nome: String) -> void:
 	for i in range(habilidades_concedidas.size() - 1, -1, -1):
 		if habilidades_concedidas[i]["nome"] == nome:
 			habilidades_concedidas.remove_at(i)
+			return
 
 
 ## --- Ganchos que cada personagem sobrescreve ---
@@ -372,44 +437,25 @@ func iniciar_cooldown(habilidade: String, turnos: int) -> void:
 	cooldowns[habilidade] = turnos
 
 
-## --- Efeitos temporários (ver comentário na declaração da variável) ---
-
-func tem_efeito(nome: String) -> bool:
-	return efeitos_temporarios.get(nome, 0) > 0
-
-
-func turnos_restantes_efeito(nome: String) -> int:
-	return efeitos_temporarios.get(nome, 0)
-
-
-func aplicar_efeito_temporario(nome: String, turnos: int) -> void:
-	efeitos_temporarios[nome] = turnos
-
-
-func _on_turno_mudou(time_iniciado: String) -> void:
+func _on_turno_mudou(_time: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
 
-	for chave in efeitos_temporarios.keys():
-		if efeitos_temporarios[chave] > 0:
-			efeitos_temporarios[chave] -= 1
+	# qualquer habilidade concedida ainda pendente passa a ficar
+	# disponível a partir daqui — ela só não podia ser usada no MESMO
+	# turno em que foi concedida. As com prazo de expiração são
+	# removidas sozinhas se ninguém usar a tempo.
+	for i in range(habilidades_concedidas.size() - 1, -1, -1):
+		var c = habilidades_concedidas[i]
+		c["disponivel"] = true
 
-	# habilidades CONCEDIDAS (emprestadas por outro personagem, ex: o
-	# One Two do Kurona) só devem existir durante o PRÓXIMO turno de
-	# verdade DESTE time — não em qualquer troca de turno global (que
-	# também acontece quando é a vez do time ADVERSÁRIO). Por isso só
-	# mexemos nelas quando é realmente a vez do MEU time:
-	if time_iniciado == time:
-		for i in range(habilidades_concedidas.size() - 1, -1, -1):
-			var c = habilidades_concedidas[i]
-			if c["disponivel"]:
-				# já teve a chance de ser usada no meu turno anterior e
-				# não foi: expira agora, pra nunca ficar acumulando
-				# cópias antigas da mesma habilidade
+		if c["turnos_para_expirar"] > 0:
+			c["turnos_para_expirar"] -= 1
+			if c["turnos_para_expirar"] <= 0:
+				var nome_expirado: String = c["nome"]
 				habilidades_concedidas.remove_at(i)
-			else:
-				c["disponivel"] = true
+				Eventos.mensagem_solicitada.emit("%s expirou sem ser usado." % nome_expirado)
 
 
 var pedido_reset: bool = false

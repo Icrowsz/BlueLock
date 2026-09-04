@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://brp2mvlaw7hvg"]
+
+[ext_resource type="Script" uid="uid://dinubyxpdxmqi" path="res://codigos/TelaInicio.gd" id="1_7oc4c"]
+[ext_resource type="Texture2D" uid="uid://b87tme1khk76t" path="res://imagens/JOGO DOS BLUE LOCK.png" id="2_6ymsb"]
+
+[node name="TelaInicio" type="Control" unique_id=1530976650]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7oc4c")
+
+[node name="JogoDosBlueLock" type="Sprite2D" parent="." unique_id=1073796361]
+position = Vector2(960, 405)
+texture = ExtResource("2_6ymsb")
+
+[node name="Botao3v3" type="Button" parent="." unique_id=1544249243]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 600.0
+offset_top = 312.0
+offset_right = 1320.0
+offset_bottom = 496.0
+flat = true
+
+[node name="Botao5v5" type="Button" parent="." unique_id=1450266373]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 600.0
+offset_top = 536.0
+offset_right = 1320.0
+offset_bottom = 728.0
+flat = true

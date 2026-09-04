@@ -68,21 +68,12 @@ func _executar_chute_direto() -> void:
 	if not bola:
 		return
 
-	var gol := _encontrar_gol_inimigo()
+	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_chute_direto)
-
-
-func _encontrar_gol_inimigo() -> Gol:
-	var lado_alvo := gol_inimigo_lado()
-	for nodo in get_tree().get_nodes_in_group("gols"):
-		var gol := nodo as Gol
-		if gol and gol.lado == lado_alvo:
-			return gol
-	return null
 
 
 ## --- Metavisão ---
@@ -133,6 +124,7 @@ func _desenhar_trajetoria_prevista(direcao: Vector2) -> void:
 
 
 func _apos_chute(sucesso: bool) -> void:
+	super._apos_chute(sucesso)
 	if sucesso:
 		metavisao_ativa = false
 	if linha_trajetoria_bola:

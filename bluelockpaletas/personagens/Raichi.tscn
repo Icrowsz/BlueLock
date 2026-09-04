@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cubvb42vt5jt4"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_jekbv"]
+[ext_resource type="Texture2D" uid="uid://d057vfdsghs7h" path="res://imagens/raichialien.jpg" id="2_bx61m"]
+[ext_resource type="Script" uid="uid://cn4pp0fhonu58" path="res://codigos/Raichi.gd" id="2_xgqou"]
+
+[node name="Raichi" unique_id=755908930 instance=ExtResource("1_jekbv")]
+script = ExtResource("2_xgqou")
+stalker_duracao = 4
+stalker_multiplicador_forca = 0.5
+stalker_multiplicador_distancia = 0.5
+stalker_distancia_perseguicao = 70.0
+cooldown_stalker = 3
+bet_alcance = 260.0
+bet_duracao_turnos = 3
+bet_multiplicador_forca_inimigo = 0.5
+cooldown_bet = 4
+bet_textura = null
+bet_cor = Color(1, 0.2, 0.2, 0.35)
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_bx61m")

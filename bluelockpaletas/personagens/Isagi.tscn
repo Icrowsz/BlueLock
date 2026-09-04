@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c6diob41p1sf"]
 
-[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://cenas/Botao.tscn" id="1_w6436"]
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_w6436"]
 [ext_resource type="Script" uid="uid://pvqxa0rpae82" path="res://codigos/Isagi.gd" id="2_u0tgr"]
-[ext_resource type="Texture2D" uid="uid://c5rkr8cucwnuk" path="res://imagens/isagi.jpg" id="3_ohwau"]
+[ext_resource type="Texture2D" uid="uid://b1xxhrighid22" path="res://imagens/isagialien.jpg" id="3_ohwau"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i77rs"]
 radius = 80.0
@@ -23,6 +23,8 @@ raio_clique = 40.0
 time = "B"
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+position = Vector2(0, 9.536743e-07)
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_ohwau")
 
 [node name="CollisionShape2D" parent="AreaAlcance" parent_id_path=PackedInt32Array(1011226874) index="0" unique_id=767625532]

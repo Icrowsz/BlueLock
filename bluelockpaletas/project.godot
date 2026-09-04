@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="bluelockpaletas"
-run/main_scene="uid://o6st7lcw8vrs"
+run/main_scene="uid://brp2mvlaw7hvg"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
@@ -20,6 +20,8 @@ Eventos="*uid://du57b3icc5nyi"
 Times="*uid://d1g4oc6f5em3v"
 Turnos="*uid://cy4b3vldhhv7s"
 SelecaoAlvo="*res://codigos/SelecaoAlvo.gd"
+Personagens="*res://codigos/Personagens.gd"
+ConfiguracaoPartida="*res://codigos/ConfiguracaoPartida.gd"
 
 [display]
 

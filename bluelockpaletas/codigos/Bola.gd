@@ -6,6 +6,14 @@ extends RigidBody2D
 
 @export var velocidade_maxima: float = 900.0
 
+## Camada de física dos "Botao" (jogadores) — usada pelo Bee Shot do
+## Bachira pra ignorar SÓ a colisão com eles durante o voo, sem afetar
+## a colisão com paredes/gol. Ajuste no Inspector se seus botões
+## estiverem em outra camada.
+@export_flags_2d_physics var camada_botoes: int = 1
+
+var _mascara_original_botoes: int = -1  # -1 = não está intangível agora
+
 @onready var material_fisico := PhysicsMaterial.new()
 
 
@@ -50,37 +58,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		pedido_reset = false
 
 
-func receber_dominio_instantaneo(posicao: Vector2) -> void:
-	# Usado pelos passes AUTOMÁTICOS do Kurona (One Two e Shark Assault):
-	# a bola aparece já dominada junto do alvo, com velocidade ZERO —
-	# diferente de receber_chute_teleguiado(), que aplica um impulso
-	# físico de verdade (por isso PODE ser interceptado no caminho).
-	# Aqui a bola nunca "viaja" fisicamente, então é 100% garantido.
-	#
-	# CUIDADO COM A FÍSICA: só zerar posição/velocidade não é suficiente
-	# — se o ponto de chegada encostar no corpo físico de alguém (ex: o
-	# próprio alvo), o solver de colisão do Godot vai "empurrar" os dois
-	# pra se separar NO MESMO frame, e a bola sairia voando de novo,
-	# quebrando a ideia de "chegou parada, já dominada". Pra evitar isso
-	# de vez (mesmo se o ponto calculado ficar meio apertado), desligamos
-	# a colisão física da bola por 2 frames ao redor do teleporte —
-	# tempo suficiente pro motor assentar a nova posição sem gerar
-	# nenhum impulso de separação.
-	var camada_original := collision_layer
-	var mascara_original := collision_mask
-	collision_layer = 0
-	collision_mask = 0
-
-	posicao_reset_pendente = posicao
-	pedido_reset = true
-
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-
-	collision_layer = camada_original
-	collision_mask = mascara_original
-
-
 func receber_chute_teleguiado(direcao: Vector2, forca: float) -> void:
 	# Usado por habilidades especiais (ex: Chute Direto do Isagi) que
 	# precisam de um chute preciso numa direção exata, ignorando pra
@@ -92,3 +69,31 @@ func receber_chute_teleguiado(direcao: Vector2, forca: float) -> void:
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
 	apply_central_impulse(direcao.normalized() * forca)
+
+
+func mover_para_com_trajetoria(destino: Vector2, duracao: float = 0.4) -> void:
+	# Usado por passes "automáticos" (ex: Shark Assault do Kurona): a
+	# bola viaja suavemente até o destino, mas chega SEM FORÇA (não
+	# empurra quem estiver lá, como se tivesse sido dominada).
+	MovimentoSuave.mover(self, destino, duracao)
+
+
+func ativar_intangivel_para_botoes(duracao: float) -> void:
+	# Usado pelo Bee Shot do Bachira: durante o voo, a bola atravessa os
+	# botões como se eles não estivessem lá (sem transferir momento, sem
+	# ser desviada) — só volta a poder ser interceptada depois de
+	# "duracao" segundos. Colisão com paredes/gol continua normal, já
+	# que só mexemos na camada dos BOTÕES especificamente.
+	if _mascara_original_botoes == -1:
+		_mascara_original_botoes = collision_mask
+	collision_mask = collision_mask & ~camada_botoes
+
+	var temporizador := get_tree().create_timer(duracao)
+	temporizador.timeout.connect(_restaurar_colisao_com_botoes)
+
+
+func _restaurar_colisao_com_botoes() -> void:
+	if _mascara_original_botoes == -1:
+		return  # já foi restaurado por um timer anterior (ex: dois Bee Shots seguidos)
+	collision_mask = _mascara_original_botoes
+	_mascara_original_botoes = -1

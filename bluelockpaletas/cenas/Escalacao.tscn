@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://i3bhdkx6rh8"]
+
+[ext_resource type="Script" uid="uid://bwpt6ibwge6ah" path="res://codigos/Escalacao.gd" id="1_ok3pp"]
+
+[node name="Escalacao" type="Control" unique_id=188143248]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ok3pp")
+
+[node name="ContainerTimeA" type="VBoxContainer" parent="." unique_id=1187377495]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 456.0
+offset_top = 344.0
+offset_right = 496.0
+offset_bottom = 384.0
+
+[node name="ContainerTimeB" type="VBoxContainer" parent="." unique_id=555936228]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1240.0
+offset_top = 344.0
+offset_right = 1280.0
+offset_bottom = 384.0
+
+[node name="BotaoConfirmar" type="Button" parent="." unique_id=729832173]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 928.0
+offset_top = 688.0
+offset_right = 1160.0
+offset_bottom = 768.0
