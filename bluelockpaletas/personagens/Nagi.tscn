@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://blvixs2u2f8o"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_ktgxj"]
+[ext_resource type="Script" uid="uid://cuftnwqdyq07u" path="res://codigos/Nagi.gd" id="2_itoty"]
+[ext_resource type="Texture2D" uid="uid://d2cgi4o8dakh7" path="res://imagens/CVnagii.jpg" id="2_ynn7h"]
+
+[node name="Nagi" unique_id=755908930 instance=ExtResource("1_ktgxj")]
+script = ExtResource("2_itoty")
+duracao_genius_control = 0.25
+distancia_parada_da_bola = 30.0
+cooldown_genius_control = 6
+forca_death_volley = 200.0
+cooldown_awaken = 7
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_ynn7h")

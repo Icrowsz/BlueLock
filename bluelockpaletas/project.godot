@@ -22,6 +22,7 @@ Turnos="*uid://cy4b3vldhhv7s"
 SelecaoAlvo="*res://codigos/SelecaoAlvo.gd"
 Personagens="*res://codigos/Personagens.gd"
 ConfiguracaoPartida="*res://codigos/ConfiguracaoPartida.gd"
+MenuEscolha="*res://codigos/MenuEscolha.gd"
 
 [display]
 

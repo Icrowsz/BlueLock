@@ -54,3 +54,56 @@ static func mover(corpo: RigidBody2D, destino: Vector2, duracao: float = 0.4, ao
 		if ao_terminar.is_valid():
 			ao_terminar.call()
 	)
+
+
+static func mover_zigzag(corpo: RigidBody2D, destino: Vector2, duracao: float = 0.6, zigues: int = 3, amplitude: float = 40.0, ao_terminar: Callable = Callable()) -> void:
+	# mesma ideia do mover() acima (freeze + tween + kill do tween
+	# anterior), só que em vez de um trajeto reto, monta uma sequência de
+	# pontos alternando de lado perpendicular à linha reta — usado pelo
+	# Alohomora do Alexis Ness (passe "garantido" em zigue-zague).
+	var id := corpo.get_instance_id()
+
+	if _tweens_ativos.has(id):
+		var tween_antigo: Tween = _tweens_ativos[id]
+		if is_instance_valid(tween_antigo):
+			tween_antigo.kill()
+		_tweens_ativos.erase(id)
+
+	corpo.linear_velocity = Vector2.ZERO
+	corpo.angular_velocity = 0.0
+	corpo.freeze = true
+
+	var origem := corpo.global_position
+	var reta := destino - origem
+	if reta.length() < 1.0:
+		corpo.freeze = false
+		if ao_terminar.is_valid():
+			ao_terminar.call()
+		return
+
+	var direcao := reta.normalized()
+	var perpendicular := Vector2(-direcao.y, direcao.x)
+	var passos := maxi(zigues, 1) * 2  # cada "zigue" = ida pra um lado + volta pro centro da reta
+
+	var pontos: Array[Vector2] = []
+	for i in range(1, passos + 1):
+		var t := float(i) / float(passos + 1)
+		var lado := 1.0 if i % 2 == 1 else -1.0
+		pontos.append(origem.lerp(destino, t) + perpendicular * amplitude * lado)
+	pontos.append(destino)  # último trecho sempre termina exatamente no alvo
+
+	var tween := corpo.create_tween()
+	_tweens_ativos[id] = tween
+	var duracao_por_trecho := duracao / float(pontos.size())
+	for ponto in pontos:
+		tween.tween_property(corpo, "global_position", ponto, duracao_por_trecho)
+
+	tween.finished.connect(func() -> void:
+		_tweens_ativos.erase(id)
+		corpo.freeze = false
+		corpo.linear_velocity = Vector2.ZERO
+		corpo.angular_velocity = 0.0
+		corpo.reset_physics_interpolation()
+		if ao_terminar.is_valid():
+			ao_terminar.call()
+	)

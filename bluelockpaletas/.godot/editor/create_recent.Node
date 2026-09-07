@@ -1,10 +1,11 @@
+VBoxContainer
+Label
+PanelContainer
+CanvasLayer
 Marker2D
 Node2D
 Button
-VBoxContainer
 Container
 Control
 HBoxContainer
 Line2D
-Label
-CanvasLayer

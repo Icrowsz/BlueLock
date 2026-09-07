@@ -89,8 +89,111 @@ func aplicar_bloqueio_movimento(turnos: int) -> void:
 	# rolando, um bloqueio novo mais curto não deve "encurtar" ele à toa
 	bloqueado_de_mover_turnos_restantes = maxi(bloqueado_de_mover_turnos_restantes, turnos)
 
+
+## Irmão do bloqueio de movimento acima, só que pra HABILIDADES (ex:
+## Expelliarmus do Alexis Ness) — diferente de
+## bloqueado_de_usar_habilidade_por_zona (que é on/off, ligado por uma
+## área), esse tem uma DURAÇÃO em turnos própria.
+var bloqueado_de_usar_habilidade_turnos_restantes: int = 0
+
+
+func aplicar_bloqueio_habilidade(turnos: int) -> void:
+	bloqueado_de_usar_habilidade_turnos_restantes = maxi(bloqueado_de_usar_habilidade_turnos_restantes, turnos)
+
+
+## Redução TEMPORIZADA de multiplicador_forca_externo (ex: Expelliarmus
+## do Alexis Ness) — diferente de uma zona (que liga/desliga sozinha via
+## body_entered/exited), essa precisa se restaurar sozinha depois de N
+## turnos, então guardamos a contagem aqui.
+var _turnos_restantes_reducao_forca_externa: int = 0
+
+
+func aplicar_reducao_forca(fracao: float, turnos: int) -> void:
+	# ATENÇÃO: usa a MESMA variável que zonas externas (Bet do Raichi)
+	# usam — evite empilhar os dois efeitos no mesmo alvo ao mesmo
+	# tempo, um pode sobrescrever o outro ao expirar.
+	multiplicador_forca_externo = fracao
+	_turnos_restantes_reducao_forca_externa = turnos
+
+
+## Sistema PADRONIZADO de "grudar a bola em mim" (Devil Contract do
+## Charles, Awaken do Nagi, e qualquer personagem futuro do tipo).
+## A bola vira FILHA deste botão e tem a física congelada — assim ela
+## segue a transformação dele automaticamente (sem nenhum código
+## rodando por frame) e ninguém consegue roubar/empurrar enquanto isso.
+## Cada personagem decide POR SI SÓ quando chamar soltar_bola_grudada()
+## (ex: depois de X turnos, ou depois do próximo deslocamento) — a
+## classe base só cuida do "grudar"/"soltar" em si.
+var _bola_grudada_em_mim: RigidBody2D = null
+var _pai_original_da_bola_grudada: Node = null
+
+
+func grudar_bola(bola: RigidBody2D) -> void:
+	_bola_grudada_em_mim = bola
+	_pai_original_da_bola_grudada = bola.get_parent()
+
+	bola.linear_velocity = Vector2.ZERO
+	bola.angular_velocity = 0.0
+	bola.freeze = true  # congela a física dela: ninguém empurra, ninguém rouba
+
+	# reparent(..., true) = MANTÉM a posição global atual no momento da
+	# troca — a bola não teleporta pra cima de quem grudou, ela gruda
+	# exatamente onde já estava (perto dele), só que agora como filha:
+	# a partir daqui, toda vez que ele se mover, ela se move junto,
+	# automaticamente, sem nenhum código rodando a cada frame.
+	bola.reparent(self, true)
+	bola.reset_physics_interpolation()  # evita a bola "não acompanhar" visualmente logo ao grudar
+
+
+func soltar_bola_grudada() -> void:
+	if not _bola_grudada_em_mim or not is_instance_valid(_bola_grudada_em_mim):
+		_bola_grudada_em_mim = null
+		return
+
+	var pai_destino := _pai_original_da_bola_grudada if is_instance_valid(_pai_original_da_bola_grudada) else get_tree().current_scene
+	_bola_grudada_em_mim.reparent(pai_destino, true)  # true = mantém a posição global — não "pula" ao soltar
+	_bola_grudada_em_mim.freeze = false
+	_bola_grudada_em_mim.reset_physics_interpolation()
+	_bola_grudada_em_mim = null
+	_pai_original_da_bola_grudada = null
+
+
+func bola_esta_grudada_em_mim() -> bool:
+	return _bola_grudada_em_mim != null
+
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
+
+## --- Visão estendida (mira com ricochete, tipo Metavisão do Isagi) ---
+## Generalizado aqui pra qualquer botão poder mostrar isso, não só quem
+## tem a habilidade própria — necessário pro Niko conceder essa visão
+## aos ALIADOS (que não têm Metavisão própria nenhuma). Mantive os nomes
+## de export iguais aos que já existiam só no Isagi.gd, pra não perder
+## valores que você já tenha ajustado no Inspector dele.
+@export_group("Visão Estendida (mira com ricochete)")
+@export var alcance_metavisao: float = 700.0
+@export var max_ricochetes_metavisao: int = 5
+@export var cor_trajetoria_chute: Color = Color(1.0, 0.85, 0.15)
+@export var cor_trajetoria_bola: Color = Color(1.0, 1.0, 1.0, 0.65)
+
+## Concedida por OUTRO personagem (ex: Metavisão do Niko, nos aliados) —
+## diferente de uma habilidade PRÓPRIA de visão estendida (ex: Metavisão
+## do Isagi, ver _tem_visao_estendida_propria()). Decrementa a cada
+## troca de turno, igual aos outros bloqueios/bônus temporizados.
+var visao_estendida_turnos_restantes: int = 0
+
+@onready var linha_trajetoria_bola: Line2D = $LinhaTrajetoriaBola if has_node("LinhaTrajetoriaBola") else null
+
+
+func conceder_visao_estendida(turnos: int) -> void:
+	visao_estendida_turnos_restantes = maxi(visao_estendida_turnos_restantes, turnos)
+
+
+func _tem_visao_estendida_propria() -> bool:
+	# gancho pra habilidades PRÓPRIAS de visão estendida (ex: Metavisão
+	# do Isagi) — sobrescreva retornando true enquanto a habilidade
+	# própria estiver ativa.
+	return false
 
 
 func _ready() -> void:
@@ -111,6 +214,11 @@ func _ready() -> void:
 		# Sem isso, quando o botão gira (após uma colisão), a seta gira
 		# junto e para de apontar corretamente em relação ao mouse.
 		linha_mira.top_level = true
+
+	if linha_trajetoria_bola:
+		linha_trajetoria_bola.top_level = true
+		linha_trajetoria_bola.visible = false
+		linha_trajetoria_bola.default_color = cor_trajetoria_bola
 
 	if area_alcance:
 		area_alcance.body_entered.connect(_on_bola_entrou_alcance)
@@ -204,11 +312,48 @@ func multiplicador_forca_chute_total() -> float:
 
 func _desenhar_mira(vetor: Vector2) -> void:
 	# desenho PADRÃO da mira: uma linha simples indicando a direção do
-	# chute. Personagens com habilidades de mira estendida (ex: a
-	# Metavisão do Isagi) sobrescrevem isso pra desenhar uma trajetória
-	# mais completa, com ricochetes.
+	# chute. Quando há visão estendida — própria (Metavisão do Isagi) OU
+	# concedida por outro personagem (Metavisão do Niko nos aliados) —
+	# desenha a trajetória completa com ricochete em vez disso.
+	if _tem_visao_estendida_propria() or visao_estendida_turnos_restantes > 0:
+		_desenhar_trajetoria_estendida(vetor.normalized())
+		return
+
 	linha_mira.default_color = cor_mira_padrao
 	linha_mira.points = [Vector2.ZERO, vetor]
+	if linha_trajetoria_bola:
+		linha_trajetoria_bola.visible = false
+
+
+func _desenhar_trajetoria_estendida(direcao: Vector2) -> void:
+	var espaco := get_world_2d().direct_space_state
+
+	var previsao := PreditorTrajetoria.prever(
+		espaco, global_position, direcao, alcance_metavisao, max_ricochetes_metavisao, [get_rid()]
+	)
+
+	linha_mira.global_position = Vector2.ZERO
+	linha_mira.default_color = cor_trajetoria_chute
+	linha_mira.points = previsao["pontos"]
+	linha_mira.visible = true
+
+	var corpo_atingido = previsao["corpo_atingido"]
+
+	if linha_trajetoria_bola and corpo_atingido and corpo_atingido.is_in_group("bola"):
+		var pontos_fase1: PackedVector2Array = previsao["pontos"]
+		var ponto_impacto: Vector2 = pontos_fase1[pontos_fase1.size() - 1]
+
+		var previsao_bola := PreditorTrajetoria.prever(
+			espaco, ponto_impacto, direcao, alcance_metavisao * 0.6, max_ricochetes_metavisao,
+			[get_rid(), corpo_atingido.get_rid()]
+		)
+
+		linha_trajetoria_bola.global_position = Vector2.ZERO
+		linha_trajetoria_bola.default_color = cor_trajetoria_bola
+		linha_trajetoria_bola.points = previsao_bola["pontos"]
+		linha_trajetoria_bola.visible = true
+	elif linha_trajetoria_bola:
+		linha_trajetoria_bola.visible = false
 
 
 func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
@@ -257,6 +402,15 @@ func _apos_chute(sucesso: bool) -> void:
 	if sucesso:
 		Eventos.botao_chutado.emit(self)
 
+func receber_empurrao(direcao: Vector2, forca: float) -> void:
+	# Empurrão físico direto em OUTRO botão (não em si mesmo) — usado por
+	# habilidades de impacto/controle de multidão (ex: Lefty Shot e
+	# Joker Shove do Kunigami). Zera a velocidade atual antes de aplicar
+	# o impulso, pra garantir um empurrão forte e previsível, não
+	# somado/cancelado com o que o alvo já estava fazendo.
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	apply_central_impulse(direcao.normalized() * forca)
 
 func pode_chutar_bola() -> bool:
 	return not arrastando
@@ -312,6 +466,14 @@ func encontrar_gol_mais_proximo() -> Gol:
 	return mais_proximo
 
 
+func encontrar_bola() -> RigidBody2D:
+	# só existe UMA bola em campo — compartilhado por qualquer habilidade
+	# que precise dela sem depender do AreaAlcance (ex: Serpent Sway do
+	# Aiku, Genius Control do Nagi).
+	var bolas := get_tree().get_nodes_in_group("bola")
+	return bolas[0] as RigidBody2D if not bolas.is_empty() else null
+
+
 ## --- Sistema de habilidades: cada personagem pode ter VÁRIAS ---
 ## IMPORTANTE: personagens sobrescrevem os métodos com prefixo/sufixo
 ## "_propria" (habilidades_proprias, executar_habilidade_propria, etc.),
@@ -348,7 +510,7 @@ func pode_usar_habilidade(nome: String) -> bool:
 		return false
 	if not pode_agir():
 		return false
-	if bloqueado_de_usar_habilidade_por_zona:
+	if bloqueado_de_usar_habilidade_por_zona or bloqueado_de_usar_habilidade_turnos_restantes > 0:
 		return false
 	if esta_em_cooldown(nome):
 		return false
@@ -372,6 +534,9 @@ func motivo_bloqueio_habilidade(nome: String) -> String:
 
 	if bloqueado_de_usar_habilidade_por_zona:
 		return "Uma área inimiga está bloqueando suas habilidades!"
+
+	if bloqueado_de_usar_habilidade_turnos_restantes > 0:
+		return "Habilidades desativadas por mais %d turno(s)!" % bloqueado_de_usar_habilidade_turnos_restantes
 
 	if esta_em_cooldown(nome):
 		return "%s em cooldown! Aguarde mais %d turno(s)." % [nome, turnos_restantes_cooldown(nome)]
@@ -469,6 +634,17 @@ func _on_turno_mudou(_time: String) -> void:
 
 	if bloqueado_de_mover_turnos_restantes > 0:
 		bloqueado_de_mover_turnos_restantes -= 1
+
+	if bloqueado_de_usar_habilidade_turnos_restantes > 0:
+		bloqueado_de_usar_habilidade_turnos_restantes -= 1
+
+	if _turnos_restantes_reducao_forca_externa > 0:
+		_turnos_restantes_reducao_forca_externa -= 1
+		if _turnos_restantes_reducao_forca_externa == 0:
+			multiplicador_forca_externo = 1.0
+
+	if visao_estendida_turnos_restantes > 0:
+		visao_estendida_turnos_restantes -= 1
 
 	# qualquer habilidade concedida ainda pendente passa a ficar
 	# disponível a partir daqui — ela só não podia ser usada no MESMO

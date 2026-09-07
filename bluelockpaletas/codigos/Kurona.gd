@@ -27,7 +27,7 @@ class_name Kurona
 ## desperdiça nada.
 
 @export_group("One Two")
-@export var forca_one_two: float = 1200.0
+@export var forca_one_two: float = 200.0
 @export var cooldown_one_two: int = 5
 @export var acoes_extra_ao_receber_de_volta: int = 1
 

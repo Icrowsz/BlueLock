@@ -30,7 +30,7 @@ class_name Raichi
 @export var bet_multiplicador_forca_inimigo: float = 0.5
 @export var cooldown_bet: int = 6
 @export var bet_textura: Texture2D  ## opcional: arraste uma imagem aqui pra preencher o "transferidor"
-@export var bet_cor: Color = Color(1, 0.2, 0.2, 0.35)  ## usada se bet_textura estiver vazio, ou como tint por cima da textura
+@export var bet_cor: Color = Color(1.0, 0.749, 0.2, 0.349)  ## usada se bet_textura estiver vazio, ou como tint por cima da textura
 
 const NOME_STALKER := "Stalker"
 const NOME_BET := "Bet"

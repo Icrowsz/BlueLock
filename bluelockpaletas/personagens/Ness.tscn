@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b7lrpx7v58m7l"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_063k6"]
+[ext_resource type="Script" uid="uid://t86vj4dnh4n1" path="res://codigos/Ness.gd" id="2_s78ri"]
+[ext_resource type="Texture2D" uid="uid://sqvtf71jsqbe" path="res://imagens/CVness.png" id="3_cx6wa"]
+
+[node name="Ness" unique_id=755908930 instance=ExtResource("1_063k6")]
+script = ExtResource("2_s78ri")
+duracao_alohomora = 0.6
+zigues_alohomora = 2
+amplitude_zigzag_alohomora = 40.0
+cooldown_alohomora = 5
+alcance_expelliarmus = 250.0
+distancia_parada_do_alvo = 50.0
+duracao_movimento_expelliarmus = 0.5
+duracao_bloqueio_habilidade_alvo = 4
+fracao_reducao_forca_alvo = 0.5
+cooldown_expelliarmus = 6
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("3_cx6wa")

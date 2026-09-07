@@ -6,10 +6,10 @@
 
 [node name="Aiku" unique_id=755908930 instance=ExtResource("1_3qttp")]
 script = ExtResource("2_d4n78")
-alcance_serpent_sway = 300.0
+alcance_serpent_sway = 170.0
 duracao_movimento_serpent_sway = 0.5
 distancia_parada_da_bola = 40.0
-forca_passe_serpent_sway = 500.0
+forca_passe_serpent_sway = 175.0
 cooldown_serpent_sway = 5
 distancia_parada_do_alvo = 50.0
 duracao_movimento_snake_hunt = 0.5

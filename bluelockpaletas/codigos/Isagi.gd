@@ -3,16 +3,17 @@ class_name Isagi
 
 ## Isagi Yoichi
 ##
-## - Chute Direto: chute na força-base padrão (150), reto e teleguiado
-##   direto no gol inimigo. Custa a ação de habilidade do turno.
-##   Precisa da bola por perto.
+## - Chute Direto: chute médio (150), reto e teleguiado direto no gol inimigo.
+##   Custa a ação de habilidade do turno. Cooldown de 5 turnos.
 ##
 ## - Metavisão: ativa uma prévia de trajetória bem mais longa e precisa
 ##   que a mira normal (com ricochete em paredes/outros botões, e
 ##   continua prevendo pra onde a BOLA vai depois de ser atingida). NÃO
-##   custa a ação de habilidade, e NÃO precisa mais da bola por perto —
-##   pode ser usada só pra "escanear" o campo antes de decidir o
-##   próximo movimento. Só entra em cooldown ao ser usada.
+##   custa a ação de habilidade — só entra em cooldown de 4 turnos.
+##   O DESENHO em si (linha_mira, linha_trajetoria_bola,
+##   alcance_metavisao, etc.) mora no Botao.gd base agora — generalizado
+##   pra também servir a habilidades que CONCEDEM isso a outros (ex:
+##   Metavisão do Niko, nos aliados). Aqui só ativamos a flag própria.
 
 @export_group("Chute Direto")
 @export var forca_chute_direto: float = 150.0
@@ -20,22 +21,8 @@ class_name Isagi
 
 @export_group("Metavisão")
 @export var cooldown_metavisao: int = 5
-@export var alcance_metavisao: float = 700.0
-@export var max_ricochetes_metavisao: int = 5
-@export var cor_trajetoria_chute: Color = Color(1.0, 0.85, 0.15)
-@export var cor_trajetoria_bola: Color = Color(1.0, 1.0, 1.0, 0.65)
 
 var metavisao_ativa: bool = false
-
-@onready var linha_trajetoria_bola: Line2D = $LinhaTrajetoriaBola if has_node("LinhaTrajetoriaBola") else null
-
-
-func _ready() -> void:
-	super._ready()
-	if linha_trajetoria_bola:
-		linha_trajetoria_bola.top_level = true
-		linha_trajetoria_bola.visible = false
-		linha_trajetoria_bola.default_color = cor_trajetoria_bola
 
 
 ## --- Ganchos do sistema de habilidades (ver Botao.gd) ---
@@ -86,44 +73,8 @@ func _executar_metavisao() -> void:
 	Eventos.mensagem_solicitada.emit("Metavisão ativada! Sua próxima mira mostra a trajetória completa.")
 
 
-func _desenhar_mira(vetor: Vector2) -> void:
-	if not metavisao_ativa:
-		super._desenhar_mira(vetor)
-		if linha_trajetoria_bola:
-			linha_trajetoria_bola.visible = false
-		return
-
-	_desenhar_trajetoria_prevista(vetor.normalized())
-
-
-func _desenhar_trajetoria_prevista(direcao: Vector2) -> void:
-	var espaco := get_world_2d().direct_space_state
-
-	var previsao := PreditorTrajetoria.prever(
-		espaco, global_position, direcao, alcance_metavisao, max_ricochetes_metavisao, [get_rid()]
-	)
-
-	linha_mira.global_position = Vector2.ZERO
-	linha_mira.default_color = cor_trajetoria_chute
-	linha_mira.points = previsao["pontos"]
-	linha_mira.visible = true
-
-	var corpo_atingido = previsao["corpo_atingido"]
-
-	if linha_trajetoria_bola and corpo_atingido and corpo_atingido.is_in_group("bola"):
-		var pontos_fase1: PackedVector2Array = previsao["pontos"]
-		var ponto_impacto: Vector2 = pontos_fase1[pontos_fase1.size() - 1]
-
-		var previsao_bola := PreditorTrajetoria.prever(
-			espaco, ponto_impacto, direcao, alcance_metavisao * 0.6, max_ricochetes_metavisao,
-			[get_rid(), corpo_atingido.get_rid()]
-		)
-
-		linha_trajetoria_bola.global_position = Vector2.ZERO
-		linha_trajetoria_bola.points = previsao_bola["pontos"]
-		linha_trajetoria_bola.visible = true
-	elif linha_trajetoria_bola:
-		linha_trajetoria_bola.visible = false
+func _tem_visao_estendida_propria() -> bool:
+	return metavisao_ativa
 
 
 func _apos_chute(sucesso: bool) -> void:

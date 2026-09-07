@@ -72,6 +72,13 @@ func mover_para_com_trajetoria(destino: Vector2, duracao: float = 0.4) -> void:
 	MovimentoSuave.mover(self, destino, duracao)
 
 
+func mover_para_com_trajetoria_zigzag(destino: Vector2, duracao: float = 0.6, zigues: int = 3, amplitude: float = 40.0) -> void:
+	# Mesma ideia do mover_para_com_trajetoria() acima (passe garantido,
+	# sem força, sem interceptação), só que em zigue-zague em vez de reto
+	# — usado pelo Alohomora do Alexis Ness.
+	MovimentoSuave.mover_zigzag(self, destino, duracao, zigues, amplitude)
+
+
 func ativar_intangivel_para_botoes(duracao: float = 1.0) -> void:
 	# Usado por chutes "garantidos" (ex: Bee Shot do Bachira): durante
 	# "duracao" segundos, a bola ignora colisão com TODOS os botões (dos

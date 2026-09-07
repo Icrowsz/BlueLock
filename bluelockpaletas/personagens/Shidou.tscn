@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cccq6oemhxo5m"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_lsvt6"]
+[ext_resource type="Texture2D" uid="uid://do6gokupdpujh" path="res://imagens/CVshidou.png" id="2_5hx48"]
+[ext_resource type="Script" uid="uid://dejjq1hl81g6b" path="res://codigos/Shidou.gd" id="2_jgs36"]
+
+[node name="Shidou" unique_id=755908930 instance=ExtResource("1_lsvt6")]
+script = ExtResource("2_jgs36")
+forca_dragon_drive = 220.0
+duracao_dragon_drive = 1.0
+cooldown_dragon_drive = 6
+duracao_demon_rush = 0.4
+distancia_parada_da_bola = 30.0
+cooldown_demon_rush = 6
+forca_kakaboom = 220.0
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("2_5hx48")

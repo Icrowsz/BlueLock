@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://4ydlbe37pwns"]
+
+[ext_resource type="Script" uid="uid://1007j3psbqq5" path="res://codigos/UIMenuEscolha.gd" id="1_u6edn"]
+
+[node name="UiMenuEscolha" type="CanvasLayer" unique_id=1211051750]
+visible = false
+script = ExtResource("1_u6edn")
+
+[node name="PainelOpcoes" type="PanelContainer" parent="." unique_id=379168321]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PainelOpcoes" unique_id=132631120]
+layout_mode = 2
+
+[node name="LabelTitulo" type="Label" parent="PainelOpcoes/VBoxContainer" unique_id=470006167]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ContainerOpcoes" type="VBoxContainer" parent="PainelOpcoes/VBoxContainer" unique_id=1060514224]
+unique_name_in_owner = true
+layout_mode = 2

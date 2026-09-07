@@ -26,7 +26,7 @@ class_name Chigiri
 @export_group("44 Panther Shot")
 @export var forca_base_panther_shot: float = 100.0  ## mais fraco que a força-base padrão (150); era 900, valor da escala antiga
 @export var bonus_forca_por_turno_accelerate: float = 20.0  ## também recalculado pra nova escala (era 200)
-@export var cooldown_panther_shot: int = 3
+@export var cooldown_panther_shot: int = 5
 
 var accelerate_turnos_restantes: int = 0
 var accelerate_turnos_ativos: int = 0

@@ -49,7 +49,7 @@ class_name Hiori
 ## (0.3 = 30% do alcance normal). Só vale enquanto o toque está rolando.
 @export_range(0.05, 0.9) var fracao_alcance_drible: float = 0.3
 ## Força do chute em direção ao aliado escolhido, ao final do Fine-Tuning.
-@export var forca_passe_classico: float = 500.0
+@export var forca_passe_classico: float = 300.0
 
 const NOME_MILLIMETER := "Millimeter Precision"
 const NOME_FINE_TUNING := "Fine-Tuning"

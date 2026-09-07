@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cpcrxxt536818"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_7t2bf"]
+[ext_resource type="Script" uid="uid://bhm2uc5dlq0bv" path="res://codigos/Barou.gd" id="2_4uvaw"]
+[ext_resource type="Texture2D" uid="uid://dlhdqdi7sqjil" path="res://imagens/CVbarou.jpg" id="2_te1lo"]
+
+[node name="Barou" unique_id=755908930 instance=ExtResource("1_7t2bf")]
+script = ExtResource("2_4uvaw")
+alcance_dash_devour = 70.0
+multiplicador_hitbox_devour = 1.8
+cooldown_devour = 7
+alcance_dash_king_path = 100.0
+cooldown_king_path = 6
+forca_base_lion_kingdom = 300.0
+bonus_forca_por_botao_proximo = 80.0
+raio_contagem_lion_kingdom = 150.0
+forca_nero = 500.0
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.066, 0.066)
+texture = ExtResource("2_te1lo")

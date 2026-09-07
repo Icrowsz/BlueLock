@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://o2ry8u7i4kcj"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_5e8u0"]
+[ext_resource type="Script" uid="uid://dmqry2ig4iirc" path="res://codigos/Otoya.gd" id="2_8n338"]
+[ext_resource type="Texture2D" uid="uid://beto3dpe25ffq" path="res://imagens/CVotoyaa.png" id="2_on4k6"]
+
+[node name="Otoya" unique_id=755908930 instance=ExtResource("1_5e8u0")]
+script = ExtResource("2_8n338")
+turnos_para_stealth = 3
+opacidade_em_stealth = 0.3
+forca_ninja_shot = 150.0
+bonus_forca_stealth = 100.0
+cooldown_ninja_shot = 5
+alcance_shadow_step = 500.0
+distancia_parada_do_aliado = 50.0
+duracao_shadow_step = 0.5
+cooldown_shadow_step = 5
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("2_on4k6")

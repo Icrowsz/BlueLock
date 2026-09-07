@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://besm22jmo4ugj"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_wab4b"]
+[ext_resource type="Texture2D" uid="uid://b401bf8bcravx" path="res://imagens/CVreoo.jpg" id="2_vmaf3"]
+[ext_resource type="Script" uid="uid://dexci1bnn6q27" path="res://codigos/Reo.gd" id="2_y5mtv"]
+
+[node name="Reo" unique_id=755908930 instance=ExtResource("1_wab4b")]
+script = ExtResource("2_y5mtv")
+bet_alcance = 260.0
+bet_duracao_turnos = 3
+bet_multiplicador_forca_inimigo = 0.5
+bet_cor = Color(0.754, 0.369, 1, 0.349)
+cooldown_bet_copiado = 6
+forca_rabona_cross = 150.0
+intensidade_curva_rabona = 70.0
+duracao_curva_rabona = 1.0
+cooldown_rabona_copiado = 6
+forca_dragon_drive = 220.0
+duracao_dragon_drive = 1.0
+cooldown_dragon_drive_copiado = 6
+duracao_lob_pass = 0.4
+cooldown_lob_pass = 3
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_vmaf3")

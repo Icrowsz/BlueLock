@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bhdpyv2gwndxj"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_nf54o"]
+[ext_resource type="Texture2D" uid="uid://cidhv1aebq0y0" path="res://imagens/CVkiyora.jpg" id="2_ktnvj"]
+[ext_resource type="Script" uid="uid://xoxwbjkc1gk" path="res://codigos/Kiyora.gd" id="2_mgobg"]
+
+[node name="Kiyora" unique_id=755908930 instance=ExtResource("1_nf54o")]
+script = ExtResource("2_mgobg")
+cooldown_injustice = 5
+duracao_passe_injustice = 0.5
+multiplicador_forca_break_dance = 0.35
+cooldown_break_dance = 3
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.134, 0.134)
+texture = ExtResource("2_ktnvj")

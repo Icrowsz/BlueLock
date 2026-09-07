@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://csb1eo5p4qwum" path="res://cenas/Bola.tscn" id="2_6v1fn"]
 [ext_resource type="Script" uid="uid://bd08y5h40xpml" path="res://codigos/Placar.gd" id="5_03kpf"]
 [ext_resource type="Script" uid="uid://dav64dqrkbgnd" path="res://codigos/UIHabilidade.gd" id="7_i77rs"]
+[ext_resource type="PackedScene" uid="uid://4ydlbe37pwns" path="res://cenas/UiMenuEscolha.tscn" id="7_v3s62"]
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
 
@@ -302,6 +303,8 @@ offset_top = 696.0
 offset_right = 872.0
 offset_bottom = 736.0
 alignment = 1
+
+[node name="UiMenuEscolha" parent="." unique_id=1211051750 instance=ExtResource("7_v3s62")]
 
 [node name="UITurno" type="CanvasLayer" parent="." unique_id=1647282571]
 script = ExtResource("8_57jda")

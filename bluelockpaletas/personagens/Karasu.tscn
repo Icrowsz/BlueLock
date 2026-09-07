@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://es7fwnwe1u68"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_il75b"]
+[ext_resource type="Script" uid="uid://cnvvobq6s483b" path="res://codigos/Karasu.gd" id="2_gt5w0"]
+[ext_resource type="Texture2D" uid="uid://cqobs8sbx6wsk" path="res://imagens/CVkarasuu.jpg" id="2_u1nf5"]
+
+[node name="Karasu" unique_id=755908930 instance=ExtResource("1_il75b")]
+script = ExtResource("2_gt5w0")
+forca_raven_relay = 650.0
+tempo_limite_chegada_raven_relay = 2.5
+cooldown_raven_relay = 7
+forca_new_goal_method = 200.0
+duracao_new_goal_method = 1.0
+turnos_para_expirar_new_goal_method = 3
+new_goal_method_consome_acao = true
+alcance_wing_arm_block = 250.0
+distancia_puxao_final = 55.0
+duracao_puxao_wing_arm = 0.4
+duracao_bloqueio_wing_arm = 4
+cooldown_wing_arm_block = 6
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.083, 0.083)
+texture = ExtResource("2_u1nf5")

@@ -29,7 +29,7 @@ class_name Charles
 ##   Cooldown de 6 turnos.
 
 @export_group("Passiva: Deslize")
-@export var linear_damp_charles: float = 1  ## padrão da classe base é 1.5 — quanto MENOR, mais ele desliza
+@export var linear_damp_charles: float = 0.5  ## padrão da classe base é 1.5 — quanto MENOR, mais ele desliza
 
 @export_group("Rabona Cross")
 @export var forca_rabona_cross: float = 150.0
@@ -45,8 +45,6 @@ const NOME_DEVIL_CONTRACT := "Devil Contract"
 
 var _devil_contract_ativo: bool = false
 var _devil_contract_ja_passou_um_turno_dele: bool = false
-var _bola_grudada: RigidBody2D = null
-var _pai_original_da_bola: Node = null
 
 
 func _ready() -> void:
@@ -114,42 +112,13 @@ func _executar_devil_contract() -> void:
 
 	_devil_contract_ativo = true
 	_devil_contract_ja_passou_um_turno_dele = false
-	_grudar_bola(bola)
+	grudar_bola(bola)
 	Eventos.mensagem_solicitada.emit("Devil Contract! A bola grudou no Charles até o fim do próximo turno dele.")
-
-
-func _grudar_bola(bola: RigidBody2D) -> void:
-	_bola_grudada = bola
-	_pai_original_da_bola = bola.get_parent()
-
-	bola.linear_velocity = Vector2.ZERO
-	bola.angular_velocity = 0.0
-	bola.freeze = true  # congela a física dela: ninguém empurra, ninguém rouba
-
-	# reparent(..., true) = MANTÉM a posição global atual no momento da
-	# troca — a bola não teleporta pra cima do Charles, ela gruda
-	# exatamente onde já estava (perto dele), só que agora como filha:
-	# a partir daqui, toda vez que ele se mover, ela se move junto,
-	# automaticamente, sem nenhum código rodando a cada frame.
-	bola.reparent(self, true)
-
-
-func _soltar_bola_grudada() -> void:
-	if not _bola_grudada or not is_instance_valid(_bola_grudada):
-		_bola_grudada = null
-		return
-
-	var pai_destino := _pai_original_da_bola if is_instance_valid(_pai_original_da_bola) else get_tree().current_scene
-	_bola_grudada.reparent(pai_destino, true)  # true = mantém a posição global — não "pula" ao soltar
-	_bola_grudada.freeze = false
-	_bola_grudada.reset_physics_interpolation()
-	_bola_grudada = null
-	_pai_original_da_bola = null
 
 
 func _on_gol_marcado(_lado: String) -> void:
 	if _devil_contract_ativo:
-		_soltar_bola_grudada()
+		soltar_bola_grudada()
 
 
 func _on_turno_mudou(time_iniciado: String) -> void:
@@ -162,7 +131,7 @@ func _on_turno_mudou(time_iniciado: String) -> void:
 		# esse turno_iniciado(self.time) é o turno DEPOIS do "próximo
 		# turno" prometido — agora sim expira e solta a bola
 		_devil_contract_ativo = false
-		_soltar_bola_grudada()
+		soltar_bola_grudada()
 		Eventos.mensagem_solicitada.emit("Devil Contract acabou — a bola não gruda mais no Charles.")
 	else:
 		# esse turno_iniciado(self.time) É o "próximo turno" — continua

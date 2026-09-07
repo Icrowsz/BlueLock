@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cm5p335dxyldn"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_exxtd"]
+[ext_resource type="Script" uid="uid://b1jtyxrmifdus" path="res://codigos/Zantetsu.gd" id="2_44l48"]
+[ext_resource type="Texture2D" uid="uid://cdmdc60sxqtb8" path="res://imagens/CVzantetsu.png" id="3_mwh34"]
+
+[node name="Zantetsu" unique_id=755908930 instance=ExtResource("1_exxtd")]
+script = ExtResource("2_44l48")
+bullet_train_distancia = 130.0
+bullet_train_duracao_movimento = 0.15
+cooldown_bullet_train = 6
+forca_left_footed_shot = 450.0
+multiplicador_bonus_bullet_train = 1.5
+cooldown_left_footed_shot = 6
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("3_mwh34")
