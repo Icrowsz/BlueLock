@@ -6,7 +6,7 @@
 
 [node name="Nagi" unique_id=755908930 instance=ExtResource("1_ktgxj")]
 script = ExtResource("2_itoty")
-duracao_genius_control = 0.25
+duracao_genius_control = 0.6
 distancia_parada_da_bola = 30.0
 cooldown_genius_control = 6
 forca_death_volley = 200.0
@@ -15,6 +15,7 @@ forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.7363401, 0.7515787, 0.7729404, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.08, 0.08)

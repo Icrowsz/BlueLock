@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brp2mvlaw7hvg"]
 
 [ext_resource type="Script" uid="uid://dinubyxpdxmqi" path="res://codigos/TelaInicio.gd" id="1_7oc4c"]
-[ext_resource type="Texture2D" uid="uid://b87tme1khk76t" path="res://imagens/JOGO DOS BLUE LOCK.png" id="2_6ymsb"]
+[ext_resource type="Texture2D" uid="uid://c2x55gc2fyma7" path="res://imagens/JOGO DOS BLUE LOCK (1).png" id="2_6ymsb"]
 
 [node name="TelaInicio" type="Control" unique_id=1530976650]
 layout_mode = 3
@@ -27,7 +27,7 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 600.0
-offset_top = 536.0
+offset_top = 552.0
 offset_right = 1320.0
-offset_bottom = 728.0
+offset_bottom = 744.0
 flat = true

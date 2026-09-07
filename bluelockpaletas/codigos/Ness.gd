@@ -15,14 +15,14 @@ class_name AlexisNess
 ##   (aplicar_reducao_forca, também na base). Cooldown de 6 turnos.
 
 @export_group("Alohomora")
-@export var duracao_alohomora: float = 0.6
+@export var duracao_alohomora: float = 0.8
 @export var zigues_alohomora: int = 3
 @export var amplitude_zigzag_alohomora: float = 40.0
-@export var cooldown_alohomora: int = 5
+@export var cooldown_alohomora: int = 8
 
 @export_group("Expelliarmus")
-@export var alcance_expelliarmus: float = 250.0  ## distância MÁXIMA até o inimigo pra poder ativar
-@export var distancia_parada_do_alvo: float = 50.0
+@export var alcance_expelliarmus: float = 170.0  ## distância MÁXIMA até o inimigo pra poder ativar
+@export var distancia_parada_do_alvo: float = 40.0
 @export var duracao_movimento_expelliarmus: float = 0.5
 @export var duracao_bloqueio_habilidade_alvo: int = 4
 @export var fracao_reducao_forca_alvo: float = 0.5  ## 0.5 = alvo fica com metade da força de deslocamento

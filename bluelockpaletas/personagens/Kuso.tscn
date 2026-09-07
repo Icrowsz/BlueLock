@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b6tsqa23ksjmh"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_8l6dh"]
+[ext_resource type="Script" uid="uid://b36g6bjaoj77p" path="res://codigos/Kuso.gd" id="2_1v0f8"]
+[ext_resource type="Texture2D" uid="uid://c2ov41myonrmh" path="res://imagens/CVkusoo.png" id="3_rqh6t"]
+
+[node name="Kuso" unique_id=755908930 instance=ExtResource("1_8l6dh")]
+script = ExtResource("2_1v0f8")
+duracao_best_move = 2.5
+cooldown_best_move = 6
+godwin_dribble_multiplicador_distancia = 0.6
+cooldown_godwin_dribble = 7
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+cor_mira_padrao = Color(0.6666667, 0.59607846, 0.5372549, 0.78431374)
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("3_rqh6t")

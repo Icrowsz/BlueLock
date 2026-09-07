@@ -22,18 +22,18 @@ class_name Aiku
 ## mesmo efeito em outro.
 
 @export_group("Serpent Sway")
-@export var alcance_serpent_sway: float = 170.0  ## distância MÁXIMA até a bola pra poder ativar
+@export var alcance_serpent_sway: float = 270.0  ## distância MÁXIMA até a bola pra poder ativar
 @export var duracao_movimento_serpent_sway: float = 0.5
 @export var distancia_parada_da_bola: float = 40.0  ## não termina EM CIMA da bola, para a uma distância curta dela
-@export var forca_passe_serpent_sway: float = 175.0
-@export var cooldown_serpent_sway: int = 5
+@export var forca_passe_serpent_sway: float = 90.0
+@export var cooldown_serpent_sway: int = 6
 
 @export_group("Snake Hunt")
 @export var distancia_parada_do_alvo: float = 50.0
 @export var duracao_movimento_snake_hunt: float = 0.5
 @export var duracao_bloqueio_alvo: int = 4  ## turnos que o ALVO fica sem poder se mover
 @export var fracao_deslocamento_reduzido_aiku: float = 0.6  ## 0.6 = Aiku fica com 60% do alcance (reduzido em 40%)
-@export var cooldown_snake_hunt: int = 6
+@export var cooldown_snake_hunt: int = 8
 
 const NOME_SERPENT_SWAY := "Serpent Sway"
 const NOME_SNAKE_HUNT := "Snake Hunt"

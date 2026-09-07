@@ -20,16 +20,16 @@ class_name Otoya
 ##   Cooldown de 5 turnos.
 
 @export_group("Passiva: Stealth")
-@export var turnos_para_stealth: int = 3
+@export var turnos_para_stealth: int = 2
 @export var opacidade_em_stealth: float = 0.3  ## 0.3 = reduzida em 70%
 
 @export_group("Ninja Shot")
-@export var forca_ninja_shot: float = 150.0
-@export var bonus_forca_stealth: float = 100.0  ## força extra recebida se o chute sair EM Stealth
-@export var cooldown_ninja_shot: int = 5
+@export var forca_ninja_shot: float = 90.0
+@export var bonus_forca_stealth: float = 30.0  ## força extra recebida se o chute sair EM Stealth
+@export var cooldown_ninja_shot: int = 6
 
 @export_group("Shadow Step")
-@export var alcance_shadow_step: float = 500.0  ## grande, mas não cobre o campo inteiro
+@export var alcance_shadow_step: float = 300.0  ## grande, mas não cobre o campo inteiro
 @export var distancia_parada_do_aliado: float = 50.0
 @export var duracao_shadow_step: float = 0.5
 @export var cooldown_shadow_step: int = 5

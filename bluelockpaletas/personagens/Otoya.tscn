@@ -6,12 +6,12 @@
 
 [node name="Otoya" unique_id=755908930 instance=ExtResource("1_5e8u0")]
 script = ExtResource("2_8n338")
-turnos_para_stealth = 3
+turnos_para_stealth = 2
 opacidade_em_stealth = 0.3
 forca_ninja_shot = 150.0
-bonus_forca_stealth = 100.0
-cooldown_ninja_shot = 5
-alcance_shadow_step = 500.0
+bonus_forca_stealth = 50.0
+cooldown_ninja_shot = 6
+alcance_shadow_step = 300.0
 distancia_parada_do_aliado = 50.0
 duracao_shadow_step = 0.5
 cooldown_shadow_step = 5
@@ -19,6 +19,7 @@ forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.76862746, 0.84705883, 0.3647059, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)

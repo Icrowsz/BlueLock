@@ -16,6 +16,7 @@ forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0, 0.8901961, 0.8392157, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.133, 0.133)

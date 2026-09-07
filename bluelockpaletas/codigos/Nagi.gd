@@ -23,12 +23,12 @@ class_name Nagi
 ##   7 turnos.
 
 @export_group("Genius Control")
-@export var duracao_genius_control: float = 0.25  ## rápido — "desloca rapidamente"
+@export var duracao_genius_control: float = 0.6  ## rápido — "desloca rapidamente"
 @export var distancia_parada_da_bola: float = 30.0
 @export var cooldown_genius_control: int = 6
 
 @export_group("Death Volley (Follow Up)")
-@export var forca_death_volley: float = 200.0
+@export var forca_death_volley: float = 130.0
 
 @export_group("Awaken")
 @export var cooldown_awaken: int = 7

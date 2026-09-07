@@ -12,14 +12,15 @@ radius = 80.0
 
 [node name="Kurona" unique_id=755908930 instance=ExtResource("1_vkwpk")]
 script = ExtResource("2_0sdla")
-forca_one_two = 120.0
-cooldown_one_two = 5
+forca_one_two = 90.0
+cooldown_one_two = 6
 acoes_extra_ao_receber_de_volta = 1
-cooldown_shark_assault = 5
+cooldown_shark_assault = 7
 forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.8784314, 0.5137255, 0.627451, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 position = Vector2(-3.3881318e-21, 8.940697e-08)

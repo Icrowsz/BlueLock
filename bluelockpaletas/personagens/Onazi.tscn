@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bxogae30ckt5f"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_8t4ai"]
+[ext_resource type="Script" uid="uid://d0lpalrk0bmwc" path="res://codigos/Onazi.gd" id="2_8fhyr"]
+[ext_resource type="Texture2D" uid="uid://dbj2ysvomg0sp" path="res://imagens/CVonazii.png" id="2_wtgjx"]
+
+[node name="Onazi" unique_id=755908930 instance=ExtResource("1_8t4ai")]
+script = ExtResource("2_8fhyr")
+forca_ego_unlock = 150.0
+ego_unlock_duracao_sem_colisao = 0.5
+cooldown_ego_unlock = 6
+since_im_here_multiplicador_forca = 0.65
+cooldown_since_im_here = 8
+forca_maxima = 800.0
+distancia_maxima_arrasto = 150.0
+multiplicador_forca = 6.0
+raio_clique = 40.0
+cor_mira_padrao = Color(0.05882353, 0.43529412, 0.039215688, 0.78431374)
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("2_wtgjx")

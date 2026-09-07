@@ -30,8 +30,8 @@ class_name Barou
 @export var cooldown_king_path: int = 6
 
 @export_group("Lion Kingdom (Follow Up do Devour)")
-@export var forca_base_lion_kingdom: float = 300.0
-@export var bonus_forca_por_botao_proximo: float = 80.0
+@export var forca_base_lion_kingdom: float = 140.0
+@export var bonus_forca_por_botao_proximo: float = 30.0
 @export var raio_contagem_lion_kingdom: float = 150.0
 
 @export_group("Nero (Follow Up do King Path)")

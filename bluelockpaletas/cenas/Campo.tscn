@@ -4,7 +4,9 @@
 [ext_resource type="Script" uid="uid://cod6420ilvhac" path="res://codigos/MontagemDeTime.gd" id="1_57jda"]
 [ext_resource type="Texture2D" uid="uid://qmrhi16py0t8" path="res://imagens/rede.webp" id="1_u26dp"]
 [ext_resource type="PackedScene" uid="uid://csb1eo5p4qwum" path="res://cenas/Bola.tscn" id="2_6v1fn"]
+[ext_resource type="Texture2D" uid="uid://djqrvh10d0u3c" path="res://imagens/campio.png" id="2_tt72j"]
 [ext_resource type="Script" uid="uid://bd08y5h40xpml" path="res://codigos/Placar.gd" id="5_03kpf"]
+[ext_resource type="FontFile" uid="uid://d3ccb6f1n0mn7" path="res://imagens/Daydream DEMO.otf" id="6_cvsoc"]
 [ext_resource type="Script" uid="uid://dav64dqrkbgnd" path="res://codigos/UIHabilidade.gd" id="7_i77rs"]
 [ext_resource type="PackedScene" uid="uid://4ydlbe37pwns" path="res://cenas/UiMenuEscolha.tscn" id="7_v3s62"]
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
@@ -23,25 +25,25 @@ size = Vector2(72, 272)
 size = Vector2(73.625, 272)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tm72u"]
-size = Vector2(96, 264)
+size = Vector2(88, 264)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwcru"]
 size = Vector2(96, 264)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_liqno"]
-size = Vector2(96, 16)
+size = Vector2(88, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn13m"]
-size = Vector2(96, 16)
+size = Vector2(88, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p3dpo"]
 size = Vector2(16, 288)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ni8ar"]
-size = Vector2(96, 16)
+size = Vector2(88, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41as4"]
-size = Vector2(96, 16)
+size = Vector2(88, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05kuh"]
 size = Vector2(16, 288)
@@ -55,7 +57,7 @@ script = ExtResource("1_57jda")
 [node name="PosicoesTimeA" type="Node2D" parent="." unique_id=10764558]
 
 [node name="Atacante" type="Marker2D" parent="PosicoesTimeA" unique_id=428671303]
-position = Vector2(832, 408)
+position = Vector2(840, 405)
 
 [node name="Meio" type="Marker2D" parent="PosicoesTimeA" unique_id=383581781]
 position = Vector2(552, 408)
@@ -86,50 +88,44 @@ position = Vector2(1416, 120)
 [node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeB" unique_id=1103953457]
 position = Vector2(1416, 696)
 
-[node name="Verde" type="ColorRect" parent="." unique_id=2110983968]
-offset_left = 128.0
-offset_right = 1792.0
-offset_bottom = 808.0
-color = Color(0.34044653, 0.60338825, 0.31801134, 1)
+[node name="Campio" type="Sprite2D" parent="." unique_id=746530438]
+position = Vector2(960, 404)
+texture = ExtResource("2_tt72j")
 
-[node name="Verde2" type="ColorRect" parent="." unique_id=497128874]
+[node name="rede" type="ColorRect" parent="." unique_id=497128874]
 offset_left = 32.0
 offset_top = 272.0
 offset_right = 136.0
 offset_bottom = 544.0
 color = Color(0.98039216, 0.99607843, 0.98039216, 0.32941177)
 
-[node name="Verde3" type="ColorRect" parent="." unique_id=288494959]
+[node name="rede2" type="ColorRect" parent="." unique_id=288494959]
 offset_left = 1792.0
 offset_top = 272.0
 offset_right = 1888.0
 offset_bottom = 544.0
 color = Color(0.98039216, 0.99607843, 0.98039216, 0.32941177)
 
-[node name="VerdeEscuro" type="ColorRect" parent="." unique_id=1658540767]
-offset_left = 120.0
+[node name="Branco" type="ColorRect" parent="." unique_id=1658540767]
+offset_left = 128.0
 offset_right = 136.0
 offset_bottom = 808.0
-color = Color(0.27689648, 0.46742374, 0.25867972, 1)
 
-[node name="VerdeEscuro2" type="ColorRect" parent="." unique_id=971856005]
+[node name="Branco2" type="ColorRect" parent="." unique_id=971856005]
 offset_left = 1784.0
-offset_right = 1800.0
+offset_right = 1792.0
 offset_bottom = 808.0
-color = Color(0.27689648, 0.46742374, 0.25867972, 1)
 
-[node name="VerdeEscuro3" type="ColorRect" parent="." unique_id=421160627]
-offset_left = 120.0
-offset_right = 1800.0
-offset_bottom = 16.0
-color = Color(0.2784314, 0.46666667, 0.25882354, 1)
+[node name="Branco3" type="ColorRect" parent="." unique_id=421160627]
+offset_left = 128.0
+offset_right = 1792.0
+offset_bottom = 8.0
 
-[node name="VerdeEscuro4" type="ColorRect" parent="." unique_id=486695360]
-offset_left = 120.0
+[node name="Branco4" type="ColorRect" parent="." unique_id=486695360]
+offset_left = 128.0
 offset_top = 800.0
-offset_right = 1800.0
-offset_bottom = 816.0
-color = Color(0.2784314, 0.46666667, 0.25882354, 1)
+offset_right = 1792.0
+offset_bottom = 808.0
 
 [node name="Limite" type="StaticBody2D" parent="." unique_id=1356180793]
 
@@ -161,11 +157,11 @@ shape = SubResource("RectangleShape2D_6v1fn")
 script = ExtResource("1_05kuh")
 
 [node name="GolEsquerda" type="CollisionShape2D" parent="GolEsq" unique_id=1328587022]
-position = Vector2(88, 404)
+position = Vector2(84, 404)
 shape = SubResource("RectangleShape2D_tm72u")
 
 [node name="PontoMira" type="Marker2D" parent="GolEsq" unique_id=1974835675]
-position = Vector2(128, 404)
+position = Vector2(112, 405)
 
 [node name="GolDir" type="Area2D" parent="." unique_id=1939362770]
 script = ExtResource("1_05kuh")
@@ -176,22 +172,22 @@ position = Vector2(1840, 408)
 shape = SubResource("RectangleShape2D_nwcru")
 
 [node name="PontoMira" type="Marker2D" parent="GolDir" unique_id=301184756]
-position = Vector2(1792, 408)
+position = Vector2(1808, 405)
 
 [node name="TraveEsq" type="StaticBody2D" parent="." unique_id=1214320622]
 position = Vector2(8, 48)
 
 [node name="RedeEsquerda" type="Sprite2D" parent="TraveEsq" unique_id=701277393]
-position = Vector2(55.411522, 392.00003)
-scale = Vector2(-0.18352878, 0.4175)
+position = Vector2(51.00234, 397.27786)
+scale = Vector2(-0.17250583, 0.43069458)
 texture = ExtResource("1_u26dp")
 
 [node name="TraveEsquerda1" type="CollisionShape2D" parent="TraveEsq" unique_id=1812727455]
-position = Vector2(80, 224)
+position = Vector2(76, 224)
 shape = SubResource("RectangleShape2D_liqno")
 
 [node name="TraveEsquerda2" type="CollisionShape2D" parent="TraveEsq" unique_id=1021010966]
-position = Vector2(80, 496)
+position = Vector2(76, 496)
 shape = SubResource("RectangleShape2D_bn13m")
 
 [node name="TraveEsquerda3" type="CollisionShape2D" parent="TraveEsq" unique_id=747979789]
@@ -201,13 +197,13 @@ shape = SubResource("RectangleShape2D_p3dpo")
 [node name="CorEsquerda1" type="ColorRect" parent="TraveEsq" unique_id=1995534767]
 offset_left = 32.0
 offset_top = 216.0
-offset_right = 128.0
+offset_right = 120.0
 offset_bottom = 232.0
 
 [node name="CorEsquerda2" type="ColorRect" parent="TraveEsq" unique_id=1903783615]
 offset_left = 32.0
 offset_top = 488.0
-offset_right = 128.0
+offset_right = 120.0
 offset_bottom = 504.0
 
 [node name="CorEsquerda3" type="ColorRect" parent="TraveEsq" unique_id=1929513408]
@@ -225,11 +221,11 @@ scale = Vector2(0.16, 0.44)
 texture = ExtResource("1_u26dp")
 
 [node name="TraveDireita1" type="CollisionShape2D" parent="TraveDir" unique_id=737947118]
-position = Vector2(1840, 216)
+position = Vector2(1844, 216)
 shape = SubResource("RectangleShape2D_ni8ar")
 
 [node name="TraveDireita2" type="CollisionShape2D" parent="TraveDir" unique_id=705577526]
-position = Vector2(1840, 488)
+position = Vector2(1844, 488)
 shape = SubResource("RectangleShape2D_41as4")
 
 [node name="TraveDireita3" type="CollisionShape2D" parent="TraveDir" unique_id=1395783417]
@@ -237,13 +233,13 @@ position = Vector2(1896, 352)
 shape = SubResource("RectangleShape2D_05kuh")
 
 [node name="CorDireita1" type="ColorRect" parent="TraveDir" unique_id=437572686]
-offset_left = 1792.0
+offset_left = 1800.0
 offset_top = 208.0
 offset_right = 1888.0
 offset_bottom = 224.0
 
 [node name="CorDireita2" type="ColorRect" parent="TraveDir" unique_id=1857767466]
-offset_left = 1792.0
+offset_left = 1800.0
 offset_top = 480.0
 offset_right = 1888.0
 offset_bottom = 496.0
@@ -255,15 +251,16 @@ offset_right = 1904.0
 offset_bottom = 496.0
 
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(960, 408)
+position = Vector2(1009, 408)
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
 posicao_reinicio_bola = Vector2(960, 408)
 
 [node name="PainelPlacar" type="PanelContainer" parent="Placar" unique_id=1940460534]
-offset_left = 896.0
-offset_right = 1024.0
+offset_left = 913.0
+offset_top = 16.0
+offset_right = 1009.0
 offset_bottom = 49.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Placar/PainelPlacar" unique_id=1742474809]
@@ -272,14 +269,17 @@ alignment = 1
 
 [node name="LabelEsquerda" type="Label" parent="Placar/PainelPlacar/HBoxContainer" unique_id=956411262]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_cvsoc")
 text = "0"
 
 [node name="LabelSeparador" type="Label" parent="Placar/PainelPlacar/HBoxContainer" unique_id=2045776739]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_cvsoc")
 text = "x"
 
 [node name="LabelDireita" type="Label" parent="Placar/PainelPlacar/HBoxContainer" unique_id=91473641]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_cvsoc")
 text = "0"
 
 [node name="LabelGol" type="Label" parent="Placar" unique_id=113128721]
@@ -296,12 +296,15 @@ vertical_alignment = 1
 [node name="UIHabilidade" type="CanvasLayer" parent="." unique_id=997637144]
 script = ExtResource("7_i77rs")
 
-[node name="ContainerHabilidades" type="HBoxContainer" parent="UIHabilidade" unique_id=1872510875]
+[node name="PanelContainer" type="PanelContainer" parent="UIHabilidade" unique_id=340160831]
+offset_left = 808.0
+offset_top = 824.0
+offset_right = 1112.0
+offset_bottom = 872.0
+
+[node name="ContainerHabilidades" type="HBoxContainer" parent="UIHabilidade/PanelContainer" unique_id=1872510875]
 unique_name_in_owner = true
-offset_left = 832.0
-offset_top = 696.0
-offset_right = 872.0
-offset_bottom = 736.0
+layout_mode = 2
 alignment = 1
 
 [node name="UiMenuEscolha" parent="." unique_id=1211051750 instance=ExtResource("7_v3s62")]
@@ -309,24 +312,28 @@ alignment = 1
 [node name="UITurno" type="CanvasLayer" parent="." unique_id=1647282571]
 script = ExtResource("8_57jda")
 
-[node name="LabelTurno" type="Label" parent="UITurno" unique_id=1302711984]
+[node name="PanelContainer" type="PanelContainer" parent="UITurno" unique_id=1091308291]
+offset_left = 1616.0
+offset_top = 824.0
+offset_right = 1792.0
+offset_bottom = 857.0
+
+[node name="LabelTurno" type="Label" parent="UITurno/PanelContainer" unique_id=1302711984]
 unique_name_in_owner = true
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -320.0
-offset_right = -136.0
-offset_bottom = 72.0
-grow_horizontal = 0
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_cvsoc")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BotaoPularTurno" type="Button" parent="UITurno" unique_id=129683379]
 unique_name_in_owner = true
-offset_left = 904.0
-offset_top = 56.0
-offset_right = 1016.0
-offset_bottom = 96.0
+offset_left = 872.0
+offset_top = 54.0
+offset_right = 1048.0
+offset_bottom = 86.0
+theme_override_fonts/font = ExtResource("6_cvsoc")
+theme_override_font_sizes/font_size = 13
 text = "Pular Turno"
 
 [node name="UIMensagem" type="CanvasLayer" parent="." unique_id=424843351]
@@ -334,8 +341,11 @@ script = ExtResource("8_5pgv7")
 
 [node name="LabelMensagem" type="Label" parent="UIMensagem" unique_id=974411143]
 unique_name_in_owner = true
-offset_left = 720.0
-offset_top = 120.0
-offset_right = 1209.0
-offset_bottom = 176.0
-theme_override_font_sizes/font_size = 20
+offset_left = 640.0
+offset_top = 880.0
+offset_right = 1280.0
+offset_bottom = 936.0
+theme_override_fonts/font = ExtResource("6_cvsoc")
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+vertical_alignment = 1

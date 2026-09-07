@@ -18,15 +18,15 @@ class_name Chigiri
 ## turnos do próprio time do Chigiri.
 
 @export_group("Accelerate")
-@export var accelerate_duracao: int = 4
+@export var accelerate_duracao: int = 5
 @export var accelerate_multiplicador_distancia: float = 1.6
 @export var accelerate_multiplicador_forca: float = 1.6
-@export var cooldown_accelerate: int = 5
+@export var cooldown_accelerate: int = 9
 
 @export_group("44 Panther Shot")
-@export var forca_base_panther_shot: float = 100.0  ## mais fraco que a força-base padrão (150); era 900, valor da escala antiga
+@export var forca_base_panther_shot: float = 90.0  ## mais fraco que a força-base padrão (150); era 900, valor da escala antiga
 @export var bonus_forca_por_turno_accelerate: float = 20.0  ## também recalculado pra nova escala (era 200)
-@export var cooldown_panther_shot: int = 5
+@export var cooldown_panther_shot: int = 6
 
 var accelerate_turnos_restantes: int = 0
 var accelerate_turnos_ativos: int = 0

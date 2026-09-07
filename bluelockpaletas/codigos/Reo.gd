@@ -42,35 +42,35 @@ class_name Reo
 @export var bet_alcance: float = 260.0
 @export var bet_duracao_turnos: int = 3
 @export var bet_multiplicador_forca_inimigo: float = 0.5
-@export var bet_cor: Color = Color(1.0, 0.749, 0.2, 0.349)
-@export var cooldown_bet_copiado: int = 6
+@export var bet_cor: Color = Color(0.753, 0.369, 1.0, 0.349)
+@export var cooldown_bet_copiado: int = 5
 
 @export_group("Copy - Rabona Cross (Charles)")
-@export var forca_rabona_cross: float = 150.0
+@export var forca_rabona_cross: float = 125.0
 @export var intensidade_curva_rabona: float = 70.0
 @export var duracao_curva_rabona: float = 1.0
-@export var cooldown_rabona_copiado: int = 6
+@export var cooldown_rabona_copiado: int = 7
 
 @export_group("Copy - Dragon Drive (Shidou)")
-@export var forca_dragon_drive: float = 220.0
+@export var forca_dragon_drive: float = 130.0
 @export var duracao_dragon_drive: float = 1.0
-@export var cooldown_dragon_drive_copiado: int = 6
+@export var cooldown_dragon_drive_copiado: int = 7
 
 @export_group("Copy - Accelerate (Chigiri)")
 @export var accelerate_duracao: int = 4
 @export var accelerate_multiplicador_distancia: float = 1.6
 @export var accelerate_multiplicador_forca: float = 1.6
-@export var cooldown_accelerate_copiado: int = 5
+@export var cooldown_accelerate_copiado: int = 7
 
 @export_group("Copy - Metavisão (Isagi)")
-@export var cooldown_metavisao_copiada: int = 5
+@export var cooldown_metavisao_copiada: int = 6
 
 @export_group("Copy - cooldown próprio")
-@export var cooldown_copy: int = 5  ## entra em cooldown só quando a cópia é DE FATO gasta, nunca ao ser escolhida/guardada
+@export var cooldown_copy: int = 7  ## entra em cooldown só quando a cópia é DE FATO gasta, nunca ao ser escolhida/guardada
 
 @export_group("Lob Pass")
-@export var duracao_lob_pass: float = 0.4
-@export var cooldown_lob_pass: int = 3
+@export var duracao_lob_pass: float = 2.5
+@export var cooldown_lob_pass: int = 6
 
 const NOME_COPY := "Copy"
 const NOME_LOB_PASS := "Lob Pass"

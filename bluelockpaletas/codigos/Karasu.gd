@@ -31,19 +31,19 @@ class_name Karasu
 ##   turnos.
 
 @export_group("Raven Relay")
-@export var forca_raven_relay: float = 650.0  ## "passe longo" precisa de bastante força
+@export var forca_raven_relay: float = 110.0  ## "passe longo" precisa de bastante força
 @export var tempo_limite_chegada_raven_relay: float = 2.5  ## se não chegar no alvo dentro desse tempo, consideramos que foi interceptado
 @export var cooldown_raven_relay: int = 7
 
 @export_group("New Goal Method (concedida)")
-@export var forca_new_goal_method: float = 200.0  ## "chute médio", valor fixo
+@export var forca_new_goal_method: float = 120.0  ## "chute médio", valor fixo
 @export var duracao_new_goal_method: float = 1.0
 @export var turnos_para_expirar_new_goal_method: int = 3  ## se quem recebeu não usar a tempo, a concessão expira sozinha
 @export var new_goal_method_consome_acao: bool = true
 
 @export_group("Wing Arm Block")
-@export var alcance_wing_arm_block: float = 250.0  ## distância simples (não o AreaAlcance) pra escolher os inimigos E pra saber se Karasu "saiu do alcance" depois
-@export var distancia_puxao_final: float = 55.0  ## a que distância de Karasu cada inimigo puxado para, pra não empilhar os dois em cima dele
+@export var alcance_wing_arm_block: float = 200.0  ## distância simples (não o AreaAlcance) pra escolher os inimigos E pra saber se Karasu "saiu do alcance" depois
+@export var distancia_puxao_final: float = 65.0  ## a que distância de Karasu cada inimigo puxado para, pra não empilhar os dois em cima dele
 @export var duracao_puxao_wing_arm: float = 0.4
 @export var duracao_bloqueio_wing_arm: int = 4
 @export var cooldown_wing_arm_block: int = 6

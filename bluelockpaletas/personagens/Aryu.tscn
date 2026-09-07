@@ -7,9 +7,9 @@
 [node name="Aryu" unique_id=755908930 instance=ExtResource("1_qcijk")]
 script = ExtResource("2_a01qh")
 glam_reach_duracao = 3
-glam_reach_multiplicador_hitbox = 1.3
+glam_reach_multiplicador_hitbox = 1.5
 glam_reach_multiplicador_distancia = 0.7
-cooldown_glam_reach = 8
+cooldown_glam_reach = 7
 glam_block_alcance = 300.0
 glam_block_distancia_parada = 40.0
 glam_block_duracao_movimento = 0.4
@@ -18,6 +18,7 @@ forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.38039216, 0.32941177, 0.28235295, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.095, 0.095)

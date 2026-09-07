@@ -15,14 +15,14 @@ class_name Rin
 ##   deslocamento normal.
 
 @export_group("Curve Shot")
-@export var forca_curve_shot: float = 150.0
+@export var forca_curve_shot: float = 135.0
 @export var cooldown_curve_shot: int = 6
 @export var intensidade_curva: float = 90.0  ## desvio lateral MÁXIMO em pixels (só atinge isso num chute 100% lateral; de frente, escala pra perto de zero)
 @export var duracao_curva: float = 1.1
 
 @export_group("Opposite Direction")
-@export var opposite_direction_distancia: float = 90.0
-@export var cooldown_opposite_direction: int = 4
+@export var opposite_direction_distancia: float = 100.0
+@export var cooldown_opposite_direction: int = 6
 
 const NOME_CURVE_SHOT := "Curve Shot"
 const NOME_OPPOSITE_DIRECTION := "Opposite Direction"

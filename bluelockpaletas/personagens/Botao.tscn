@@ -16,12 +16,15 @@ radius = 32.0
 radius = 80.0
 
 [node name="Botao" type="RigidBody2D" unique_id=755908930]
+rotation = -0.0047919527
 gravity_scale = 0.0
 script = ExtResource("1_wabi8")
 forca_maxima = null
 distancia_maxima_arrasto = null
 multiplicador_forca = null
 raio_clique = null
+raio_aura = 40.0
+largura_aura = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2039803516]
 material = SubResource("ShaderMaterial_awupd")
@@ -32,6 +35,11 @@ texture = ExtResource("2_uukq6")
 shape = SubResource("CircleShape2D_uukq6")
 
 [node name="LinhaMira" type="Line2D" parent="." unique_id=1252350703]
+scale = Vector2(1.0000002, 1.0000002)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
 
 [node name="AreaAlcance" type="Area2D" parent="." unique_id=1011226874]
 

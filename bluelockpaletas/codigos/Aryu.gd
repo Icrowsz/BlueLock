@@ -18,12 +18,12 @@ class_name Aryu
 
 @export_group("Glam Reach")
 @export var glam_reach_duracao: int = 3
-@export var glam_reach_multiplicador_hitbox: float = 1.3    ## +30% de hitbox física
+@export var glam_reach_multiplicador_hitbox: float = 1.5   ## +50% de hitbox física
 @export var glam_reach_multiplicador_distancia: float = 0.7 ## -30% de alcance de arrasto (mesma % do hitbox)
-@export var cooldown_glam_reach: int = 8
+@export var cooldown_glam_reach: int = 7
 
 @export_group("Glam Block")
-@export var glam_block_alcance: float = 300.0
+@export var glam_block_alcance: float = 250.0
 @export var glam_block_distancia_parada: float = 40.0
 @export var glam_block_duracao_movimento: float = 0.4
 @export var cooldown_glam_block: int = 6

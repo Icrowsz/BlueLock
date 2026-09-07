@@ -30,21 +30,21 @@ class_name Hiori
 ##   PODE ser interceptado), dessa vez escolhendo um ALIADO como alvo.
 
 @export_group("Millimeter Precision")
-@export var cooldown_millimeter_precision: int = 6
+@export var cooldown_millimeter_precision: int = 7
 ## Distância MÁXIMA (a partir da posição atual da bola) que o ponto
 ## escolhido pode ficar. Nível médio/baixo de propósito: é um passe
 ## garantido (sem interceptação), então não pode alcançar o campo
 ## inteiro — se o jogador clicar mais longe que isso, o ponto é
 ## "puxado" de volta pra essa distância, na mesma direção do clique.
-@export var alcance_millimeter_precision: float = 350.0
+@export var alcance_millimeter_precision: float = 390.0
 ## Raio de segurança ao redor de QUALQUER gol (o próprio e o inimigo).
 ## Se o ponto calculado cair mais perto de um gol do que isso, ele é
 ## empurrado pra fora dessa zona — é isso que fecha a brecha do "gol
 ## automático" (chutar direto pra dentro do gol inimigo sem risco).
-@export var raio_exclusao_gol: float = 90.0
+@export var raio_exclusao_gol: float = 150.0
 
 @export_group("Fine-Tuning")
-@export var cooldown_fine_tuning: int = 4
+@export var cooldown_fine_tuning: int = 6
 ## Quanto sobra do alcance normal de arrasto durante o toque reduzido
 ## (0.3 = 30% do alcance normal). Só vale enquanto o toque está rolando.
 @export_range(0.05, 0.9) var fracao_alcance_drible: float = 0.3

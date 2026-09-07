@@ -29,16 +29,16 @@ class_name Charles
 ##   Cooldown de 6 turnos.
 
 @export_group("Passiva: Deslize")
-@export var linear_damp_charles: float = 0.5  ## padrão da classe base é 1.5 — quanto MENOR, mais ele desliza
+@export var linear_damp_charles: float = 1.2  ## padrão da classe base é 1.5 — quanto MENOR, mais ele desliza
 
 @export_group("Rabona Cross")
-@export var forca_rabona_cross: float = 150.0
-@export var cooldown_rabona_cross: int = 6
-@export var intensidade_curva_rabona: float = 70.0
+@export var forca_rabona_cross: float = 130.0
+@export var cooldown_rabona_cross: int = 7
+@export var intensidade_curva_rabona: float = 100.0
 @export var duracao_curva_rabona: float = 1.0
 
 @export_group("Devil Contract")
-@export var cooldown_devil_contract: int = 6
+@export var cooldown_devil_contract: int = 8
 
 const NOME_RABONA_CROSS := "Rabona Cross"
 const NOME_DEVIL_CONTRACT := "Devil Contract"

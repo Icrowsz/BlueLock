@@ -2,21 +2,22 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_1bs8x"]
 [ext_resource type="Script" uid="uid://cerv15aed1vg3" path="res://codigos/Kunigami.gd" id="2_a10fm"]
-[ext_resource type="Texture2D" uid="uid://cum28loxe68br" path="res://imagens/CVkunigami.png" id="2_pninf"]
+[ext_resource type="Texture2D" uid="uid://b2k7lqlwmmoel" path="res://imagens/CVkunigamiii.png" id="3_a10fm"]
 
 [node name="Kunigami" unique_id=755908930 instance=ExtResource("1_1bs8x")]
 script = ExtResource("2_a10fm")
-forca_lefty_shot = 300.0
+forca_lefty_shot = 200.0
 bonus_forca_com_inimigo_perto = 150.0
-forca_empurrao_lefty_shot = 500.0
+forca_empurrao_lefty_shot = 300.0
 cooldown_lefty_shot = 7
-forca_joker_shove = 600.0
-cooldown_joker_shove = 6
+forca_joker_shove = 400.0
+cooldown_joker_shove = 5
 forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.8666667, 0.42352942, 0.10980392, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
-scale = Vector2(0.095, 0.095)
-texture = ExtResource("2_pninf")
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("3_a10fm")

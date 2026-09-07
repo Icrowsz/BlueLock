@@ -18,12 +18,12 @@ class_name Kiyora
 ##   ela "se paga" na economia de ações de habilidade.
 
 @export_group("Injustice")
-@export var cooldown_injustice: int = 5
+@export var cooldown_injustice: int = 8
 @export var duracao_passe_injustice: float = 0.5
 
 @export_group("Break Dance")
 @export var multiplicador_forca_break_dance: float = 0.35
-@export var cooldown_break_dance: int = 3
+@export var cooldown_break_dance: int = 4
 
 const NOME_INJUSTICE := "Injustice"
 const NOME_BREAK_DANCE := "Break Dance"

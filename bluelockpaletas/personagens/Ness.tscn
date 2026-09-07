@@ -9,9 +9,9 @@ script = ExtResource("2_s78ri")
 duracao_alohomora = 0.6
 zigues_alohomora = 2
 amplitude_zigzag_alohomora = 40.0
-cooldown_alohomora = 5
-alcance_expelliarmus = 250.0
-distancia_parada_do_alvo = 50.0
+cooldown_alohomora = 7
+alcance_expelliarmus = 170.0
+distancia_parada_do_alvo = 40.0
 duracao_movimento_expelliarmus = 0.5
 duracao_bloqueio_habilidade_alvo = 4
 fracao_reducao_forca_alvo = 0.5
@@ -20,6 +20,7 @@ forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.5529412, 0.13333334, 0.4, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)

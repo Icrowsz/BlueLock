@@ -16,16 +16,16 @@ class_name Yukimiya
 ##   sobrar alguma sem usar. Cooldown de 5 turnos.
 
 @export_group("Gyro Shot")
-@export var forca_gyro_shot: float = 150.0
-@export var intensidade_curva_gyro_shot: float = 30.0  ## bem menor que o Curve Shot do Rin (padrão 90)
+@export var forca_gyro_shot: float = 65.0
+@export var intensidade_curva_gyro_shot: float = 20.0  ## bem menor que o Curve Shot do Rin (padrão 90)
 @export var duracao_curva_gyro_shot: float = 1.0
-@export var cooldown_gyro_shot: int = 5
+@export var cooldown_gyro_shot: int = 7
 
 @export_group("Scissors Dribble")
 @export var quantidade_acoes_scissors_dribble: int = 3
 @export var multiplicador_distancia_scissors_dribble: float = 0.5  ## "curtas"
 @export var multiplicador_forca_scissors_dribble: float = 0.6  ## "fracas"
-@export var cooldown_scissors_dribble: int = 5
+@export var cooldown_scissors_dribble: int = 6
 
 const NOME_GYRO_SHOT := "Gyro Shot"
 const NOME_SCISSORS_DRIBBLE := "Scissors Dribble"

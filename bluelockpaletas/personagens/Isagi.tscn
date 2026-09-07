@@ -9,17 +9,17 @@ radius = 80.0
 
 [node name="Isagi" unique_id=755908930 instance=ExtResource("1_w6436")]
 script = ExtResource("2_u0tgr")
-forca_chute_direto = 150.0
-cooldown_chute_direto = 5
+forca_chute_direto = 120.0
+cooldown_chute_direto = 6
 cooldown_metavisao = 5
-alcance_metavisao = 700.0
-max_ricochetes_metavisao = 5
-cor_trajetoria_chute = Color(1, 0.85, 0.15, 1)
-cor_trajetoria_bola = Color(1, 1, 1, 0.65)
 forca_maxima = 800.0
 distancia_maxima_arrasto = 150.0
 multiplicador_forca = 6.0
 raio_clique = 40.0
+cor_mira_padrao = Color(0.13333334, 0.44705883, 0.7882353, 0.78431374)
+alcance_metavisao = 500.0
+cor_trajetoria_chute = Color(0.13333334, 0.44705883, 0.7882353, 0.78431374)
+cor_trajetoria_bola = Color(0.040090222, 0.22969058, 0.43251276, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 position = Vector2(0, 9.536743e-07)

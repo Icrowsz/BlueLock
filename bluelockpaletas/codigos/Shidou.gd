@@ -24,9 +24,9 @@ class_name Shidou
 ##   normalmente.
 
 @export_group("Dragon Drive")
-@export var forca_dragon_drive: float = 220.0
+@export var forca_dragon_drive: float = 140.0
 @export var duracao_dragon_drive: float = 1.0  ## usado só como referência de tempo (sem curva, não afeta trajetória)
-@export var cooldown_dragon_drive: int = 6
+@export var cooldown_dragon_drive: int = 7
 
 @export_group("Demon Rush")
 @export var duracao_demon_rush: float = 0.4  ## avanço "médio" — nem tão rápido quanto o Genius Control, nem lento

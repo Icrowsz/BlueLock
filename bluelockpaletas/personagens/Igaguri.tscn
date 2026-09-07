@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b5rnodtlsrf7a"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_y6rgs"]
+[ext_resource type="Texture2D" uid="uid://dnx0lfoynhjcm" path="res://imagens/CVigaguri.png" id="2_2qvho"]
+
+[node name="Igaguri" unique_id=755908930 instance=ExtResource("1_y6rgs")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("2_2qvho")

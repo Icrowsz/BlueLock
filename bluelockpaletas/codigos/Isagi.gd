@@ -16,8 +16,8 @@ class_name Isagi
 ##   Metavisão do Niko, nos aliados). Aqui só ativamos a flag própria.
 
 @export_group("Chute Direto")
-@export var forca_chute_direto: float = 150.0
-@export var cooldown_chute_direto: int = 5
+@export var forca_chute_direto: float = 100.0
+@export var cooldown_chute_direto: int = 6
 
 @export_group("Metavisão")
 @export var cooldown_metavisao: int = 5

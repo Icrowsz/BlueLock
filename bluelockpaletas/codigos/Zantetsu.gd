@@ -32,8 +32,8 @@ class_name Zantetsu
 @export var cooldown_bullet_train: int = 6
 
 @export_group("Left Footed Shot")
-@export var forca_left_footed_shot: float = 450.0
-@export var multiplicador_bonus_bullet_train: float = 1.5  ## aplicado à força se a última ação tiver sido o Bullet Train
+@export var forca_left_footed_shot: float = 110.0
+@export var multiplicador_bonus_bullet_train: float = 1.2  ## aplicado à força se a última ação tiver sido o Bullet Train
 @export var cooldown_left_footed_shot: int = 6
 
 const NOME_BULLET_TRAIN := "Bullet Train"
@@ -139,8 +139,3 @@ func _executar_left_footed_shot() -> void:
 	bola.receber_chute_teleguiado(direcao, forca)
 
 	_ultima_acao_foi_bullet_train = false  # a "última ação" agora é este próprio chute
-
-	if veio_do_bullet_train:
-		Eventos.mensagem_solicitada.emit("Left Footed Shot! Embalado pelo Bullet Train — chute com força extra (%.0f)." % forca)
-	else:
-		Eventos.mensagem_solicitada.emit("Left Footed Shot! Chute de força %.0f." % forca)
