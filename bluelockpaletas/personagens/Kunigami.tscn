@@ -6,7 +6,7 @@
 
 [node name="Kunigami" unique_id=755908930 instance=ExtResource("1_1bs8x")]
 script = ExtResource("2_a10fm")
-forca_lefty_shot = 140.0
+forca_lefty_shot = 260.0
 bonus_forca_com_inimigo_perto = 30.0
 forca_empurrao_lefty_shot = 250.0
 cooldown_lefty_shot = 7

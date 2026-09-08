@@ -16,7 +16,7 @@ class_name Kunigami
 ## existir no Botao.gd base (ver instruções no chat).
 
 @export_group("Lefty Shot")
-@export var forca_lefty_shot: float = 140.0
+@export var forca_lefty_shot: float = 260.0
 @export var bonus_forca_com_inimigo_perto: float = 30.0
 @export var forca_empurrao_lefty_shot: float = 250.0
 @export var cooldown_lefty_shot: int = 7

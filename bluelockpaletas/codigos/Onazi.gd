@@ -20,7 +20,7 @@ class_name Onazi
 ##   de 8 turnos.
 
 @export_group("Ego Unlock")
-@export var forca_ego_unlock: float = 110.0
+@export var forca_ego_unlock: float = 230.0
 @export var ego_unlock_duracao_sem_colisao: float = 0.5  ## segundos (não turnos — é só o tempo do voo da bola), não a duração de um buff
 @export var cooldown_ego_unlock: int = 6
 

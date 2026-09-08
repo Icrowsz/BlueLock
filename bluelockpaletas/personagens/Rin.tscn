@@ -6,7 +6,7 @@
 
 [node name="Rin" unique_id=755908930 instance=ExtResource("1_6cypd")]
 script = ExtResource("2_to547")
-forca_curve_shot = 120.0
+forca_curve_shot = 250.0
 cooldown_curve_shot = 6
 intensidade_curva = 90.0
 duracao_curva = 1.1

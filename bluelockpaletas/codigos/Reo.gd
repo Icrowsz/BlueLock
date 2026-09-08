@@ -52,7 +52,7 @@ class_name Reo
 @export var cooldown_rabona_copiado: int = 7
 
 @export_group("Copy - Dragon Drive (Shidou)")
-@export var forca_dragon_drive: float = 130.0
+@export var forca_dragon_drive: float = 250.0
 @export var duracao_dragon_drive: float = 1.0
 @export var cooldown_dragon_drive_copiado: int = 7
 

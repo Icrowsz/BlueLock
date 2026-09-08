@@ -8,7 +8,7 @@
 script = ExtResource("2_8n338")
 turnos_para_stealth = 2
 opacidade_em_stealth = 0.3
-forca_ninja_shot = 90.0
+forca_ninja_shot = 210.0
 bonus_forca_stealth = 30.0
 cooldown_ninja_shot = 6
 alcance_shadow_step = 300.0

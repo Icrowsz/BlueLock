@@ -24,7 +24,7 @@ class_name Otoya
 @export var opacidade_em_stealth: float = 0.3  ## 0.3 = reduzida em 70%
 
 @export_group("Ninja Shot")
-@export var forca_ninja_shot: float = 90.0
+@export var forca_ninja_shot: float = 210.0
 @export var bonus_forca_stealth: float = 30.0  ## força extra recebida se o chute sair EM Stealth
 @export var cooldown_ninja_shot: int = 6
 

@@ -6,7 +6,7 @@
 
 [node name="Bachira" unique_id=755908930 instance=ExtResource("1_av02w")]
 script = ExtResource("2_km1gk")
-forca_bee_shot = 80.0
+forca_bee_shot = 200.0
 cooldown_bee_shot = 6
 bee_shot_duracao_intangivel = 0.5
 monster_trance_multiplicador_distancia = 0.5

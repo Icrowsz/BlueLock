@@ -28,7 +28,7 @@ class_name Nagi
 @export var cooldown_genius_control: int = 6
 
 @export_group("Death Volley (Follow Up)")
-@export var forca_death_volley: float = 130.0
+@export var forca_death_volley: float = 250.0
 
 @export_group("Awaken")
 @export var cooldown_awaken: int = 7

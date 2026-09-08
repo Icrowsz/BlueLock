@@ -8,7 +8,7 @@
 script = ExtResource("2_uu5be")
 duracao_star_talent = 0.6
 cooldown_star_talent = 7
-forca_sabrina_shot = 100.0
+forca_sabrina_shot = 210.0
 cooldown_sabrina_shot = 5
 cor_mira_padrao = Color(1, 0.6, 0.5882353, 0.78431374)
 

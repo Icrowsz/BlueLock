@@ -32,7 +32,7 @@ class_name Zantetsu
 @export var cooldown_bullet_train: int = 6
 
 @export_group("Left Footed Shot")
-@export var forca_left_footed_shot: float = 110.0
+@export var forca_left_footed_shot: float = 230.0
 @export var multiplicador_bonus_bullet_train: float = 1.2  ## aplicado à força se a última ação tiver sido o Bullet Train
 @export var cooldown_left_footed_shot: int = 6
 

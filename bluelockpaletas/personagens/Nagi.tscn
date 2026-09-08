@@ -9,7 +9,7 @@ script = ExtResource("2_itoty")
 duracao_genius_control = 0.6
 distancia_parada_da_bola = 30.0
 cooldown_genius_control = 6
-forca_death_volley = 130.0
+forca_death_volley = 250.0
 cooldown_awaken = 7
 cor_mira_padrao = Color(0.7363401, 0.7515787, 0.7729404, 0.78431374)
 

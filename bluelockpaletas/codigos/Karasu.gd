@@ -36,7 +36,7 @@ class_name Karasu
 @export var cooldown_raven_relay: int = 7
 
 @export_group("New Goal Method (concedida)")
-@export var forca_new_goal_method: float = 120.0  ## "chute médio", valor fixo
+@export var forca_new_goal_method: float = 240.0  ## "chute médio", valor fixo
 @export var duracao_new_goal_method: float = 1.0
 @export var turnos_para_expirar_new_goal_method: int = 3  ## se quem recebeu não usar a tempo, a concessão expira sozinha
 @export var new_goal_method_consome_acao: bool = true

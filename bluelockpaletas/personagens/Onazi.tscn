@@ -6,7 +6,7 @@
 
 [node name="Onazi" unique_id=755908930 instance=ExtResource("1_8t4ai")]
 script = ExtResource("2_8fhyr")
-forca_ego_unlock = 110.0
+forca_ego_unlock = 230.0
 ego_unlock_duracao_sem_colisao = 0.5
 cooldown_ego_unlock = 6
 since_im_here_multiplicador_forca = 0.65

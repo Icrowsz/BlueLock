@@ -25,7 +25,7 @@ class_name Bachira
 ## jogador disso na hora de jogar.
 
 @export_group("Bee Shot")
-@export var forca_bee_shot: float = 80.0  ## metade da força-base padrão (150)
+@export var forca_bee_shot: float = 200.0  ## metade da força-base padrão (150)
 @export var cooldown_bee_shot: int = 6
 @export var bee_shot_duracao_intangivel: float = 0.5  ## segundos que a bola ignora colisão com botões
 

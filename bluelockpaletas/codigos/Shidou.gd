@@ -24,7 +24,7 @@ class_name Shidou
 ##   normalmente.
 
 @export_group("Dragon Drive")
-@export var forca_dragon_drive: float = 140.0
+@export var forca_dragon_drive: float = 260.0
 @export var duracao_dragon_drive: float = 1.0  ## usado só como referência de tempo (sem curva, não afeta trajetória)
 @export var cooldown_dragon_drive: int = 7
 
@@ -34,7 +34,7 @@ class_name Shidou
 @export var cooldown_demon_rush: int = 6
 
 @export_group("KaKaBoom (Follow Up)")
-@export var forca_kakaboom: float = 150.0
+@export var forca_kakaboom: float = 270.0
 
 const NOME_DRAGON_DRIVE := "Dragon Drive"
 const NOME_DEMON_RUSH := "Demon Rush"
