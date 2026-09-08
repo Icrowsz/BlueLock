@@ -2,8 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_y6rgs"]
 [ext_resource type="Texture2D" uid="uid://dnx0lfoynhjcm" path="res://imagens/CVigaguri.png" id="2_2qvho"]
+[ext_resource type="Script" uid="uid://cyq3nv4ij2y38" path="res://codigos/Igaguri.gd" id="2_usdcr"]
 
 [node name="Igaguri" unique_id=755908930 instance=ExtResource("1_y6rgs")]
+script = ExtResource("2_usdcr")
+alcance_malicia = 150.0
+duracao_bloqueio_malicia = 3
+cooldown_malicia = 6
+alcance_dharma_chains = 150.0
+duracao_bloqueio_dharma_chains = 3
+cooldown_dharma_chains = 6
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

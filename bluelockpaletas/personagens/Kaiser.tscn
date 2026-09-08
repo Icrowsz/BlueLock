@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://3my21isfjrtk"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_mn41s"]
+[ext_resource type="Script" uid="uid://cxjjux3o23f4d" path="res://codigos/Kaiser.gd" id="2_v8yj8"]
+[ext_resource type="Texture2D" uid="uid://cn3pwanbxxha5" path="res://imagens/CVkaiser.png" id="2_vg7jc"]
+
+[node name="Kaiser" unique_id=755908930 instance=ExtResource("1_mn41s")]
+script = ExtResource("2_v8yj8")
+forca_kaiser_impact = 260.0
+duracao_intangivel_kaiser_impact = 0.3
+cooldown_kaiser_impact = 6
+forca_beinschuss = 225.0
+duracao_beinschuss = 1.0
+cooldown_beinschuss = 7
+alcance_emperor_route = 500.0
+fracao_apex_emperor_route = 0.5
+largura_v_emperor_route = 90.0
+duracao_trecho_emperor_route = 0.22
+cooldown_emperor_route = 7
+forca_knie_dich_hin = 120.0
+turnos_para_expirar_knie_dich_hin = 3
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("2_vg7jc")

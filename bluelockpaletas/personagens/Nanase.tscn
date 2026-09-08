@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dn3ec0l2e6coc"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_wl2io"]
+[ext_resource type="Texture2D" uid="uid://6yh5jhooude0" path="res://imagens/CVnanase.png" id="2_4wbk8"]
+[ext_resource type="Script" uid="uid://cbeu500spv51s" path="res://codigos/Nanase.gd" id="2_n1pdf"]
+
+[node name="Nanase" unique_id=755908930 instance=ExtResource("1_wl2io")]
+script = ExtResource("2_n1pdf")
+forca_ambidexterity = 200.0
+duracao_ignorar_proprio_ambidexterity = 0.6
+cooldown_ambidexterity = 6
+forca_lynchpin = 90.0
+cooldown_lynchpin = 6
+cor_mira_padrao = Color(0.6431373, 0.78431374, 0.92156863, 0.78431374)
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.093, 0.093)
+texture = ExtResource("2_4wbk8")

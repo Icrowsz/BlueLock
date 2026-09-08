@@ -7,7 +7,7 @@ extends RigidBody2D
 ## "extends Botao" (ex: Isagi.gd), e sobrescreve nome_habilidade(),
 ## pode_usar_habilidade() e usar_habilidade().
 
-@export var forca_maxima: float = 500.0
+@export var forca_maxima: float = 800.0
 @export var distancia_maxima_arrasto: float = 150.0
 @export var multiplicador_forca: float = 6.0
 @export var raio_clique: float = 40.0
@@ -40,7 +40,10 @@ var cooldowns: Dictionary = {}
 ## "disponivel" (bool)}. "disponivel" começa false e vira true na
 ## próxima troca de turno — é isso que garante que a habilidade
 ## concedida só pode ser usada "no próximo turno", nunca no mesmo turno
-## em que foi concedida.
+## em que foi concedida. Exceção: conceder_habilidade() aceita
+## "disponivel_imediatamente" pra pular essa espera quando a concessão
+## faz parte de uma jogada em cadeia que precisa continuar NO MESMO
+## turno (ex: Knie Dich Hin do Kaiser).
 var habilidades_concedidas: Array = []
 
 ## Ações de movimento BÔNUS, pessoais deste botão específico — diferente
@@ -560,10 +563,17 @@ func usar_habilidade(nome: String) -> void:
 	executar_habilidade_propria(nome)
 
 
-func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false, turnos_para_expirar: int = -1) -> void:
+func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false, turnos_para_expirar: int = -1, disponivel_imediatamente: bool = false) -> void:
 	# empresta uma habilidade TEMPORÁRIA (uso único) a este botão, vinda
-	# de outro personagem. Só fica disponível a partir da PRÓXIMA troca
-	# de turno (nunca no mesmo turno em que foi concedida).
+	# de outro personagem. Por padrão, só fica disponível a partir da
+	# PRÓXIMA troca de turno (nunca no mesmo turno em que foi concedida)
+	# — isso evita combos "instantâneos" indesejados na maioria dos casos.
+	#
+	# "disponivel_imediatamente": true pula essa espera e libera a
+	# habilidade JÁ NESTE turno. Use só quando a concessão é parte de
+	# uma jogada em cadeia que PRECISA continuar no mesmo turno pra
+	# fazer sentido (ex: Knie Dich Hin do Kaiser — o aliado ganha a ação
+	# bônus e a habilidade juntos, e a ideia é usar os dois na hora).
 	#
 	# Só pode existir UMA concessão pendente do mesmo nome por vez neste
 	# botão — se já tiver uma, a nova é ignorada (não acumula).
@@ -578,7 +588,7 @@ func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = fa
 		"nome": nome,
 		"executar": executar,
 		"custa_acao": custa_acao,
-		"disponivel": false,
+		"disponivel": disponivel_imediatamente,
 		"turnos_para_expirar": turnos_para_expirar,
 	})
 
@@ -648,7 +658,8 @@ func _on_turno_mudou(_time: String) -> void:
 
 	# qualquer habilidade concedida ainda pendente passa a ficar
 	# disponível a partir daqui — ela só não podia ser usada no MESMO
-	# turno em que foi concedida. As com prazo de expiração são
+	# turno em que foi concedida (a menos que tenha sido criada com
+	# disponivel_imediatamente = true). As com prazo de expiração são
 	# removidas sozinhas se ninguém usar a tempo.
 	for i in range(habilidades_concedidas.size() - 1, -1, -1):
 		var c = habilidades_concedidas[i]

@@ -17,6 +17,7 @@ const PERSONAGENS: Dictionary = {
 	"Charles": preload("res://personagens/Charles.tscn"),
 	"Chigiri": preload("res://personagens/Chigiri.tscn"),
 	"Hiori": preload("res://personagens/Hiori.tscn"),
+	"Igaguri": preload("res://personagens/Igaguri.tscn"),
 	"Isagi": preload("res://personagens/Isagi.tscn"),
 	"Karasu": preload("res://personagens/Karasu.tscn"),
 	"Kiyora": preload("res://personagens/Kiyora.tscn"),
@@ -24,6 +25,7 @@ const PERSONAGENS: Dictionary = {
 	"Kurona": preload("res://personagens/Kurona.tscn"),
 	"Kuso": preload("res://personagens/Kuso.tscn"),
 	"Nagi": preload("res://personagens/Nagi.tscn"),
+	"Nanase": preload("res://personagens/Nanase.tscn"),
 	"Ness": preload("res://personagens/Ness.tscn"),
 	"Niko": preload("res://personagens/Niko.tscn"),
 	"Onazi": preload("res://personagens/Onazi.tscn"),
@@ -35,6 +37,7 @@ const PERSONAGENS: Dictionary = {
 	"Shidou": preload("res://personagens/Shidou.tscn"),
 	"Yukimiya": preload("res://personagens/Yukimiya.tscn"),
 	"Zantetsu": preload("res://personagens/Zantetsu.tscn"),
+	"Kaiser💫": preload("res://personagens/Kaiser.tscn"),
 }
 
 
