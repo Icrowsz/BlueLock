@@ -7,11 +7,11 @@
 [node name="Hiori" unique_id=755908930 instance=ExtResource("1_sitau")]
 script = ExtResource("2_finct")
 cooldown_millimeter_precision = 7
-alcance_millimeter_precision = 390.0
+alcance_millimeter_precision = 350.0
 raio_exclusao_gol = 150.0
 cooldown_fine_tuning = 6
 fracao_alcance_drible = 0.3
-forca_passe_classico = 110.0
+forca_passe_classico = 150.0
 cor_mira_padrao = Color(0.68235296, 0.90588236, 0.9490196, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

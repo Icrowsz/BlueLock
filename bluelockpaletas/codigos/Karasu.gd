@@ -31,7 +31,7 @@ class_name Karasu
 ##   turnos.
 
 @export_group("Raven Relay")
-@export var forca_raven_relay: float = 110.0  ## "passe longo" precisa de bastante força
+@export var forca_raven_relay: float = 160.0  ## "passe longo" precisa de bastante força
 @export var tempo_limite_chegada_raven_relay: float = 2.5  ## se não chegar no alvo dentro desse tempo, consideramos que foi interceptado
 @export var cooldown_raven_relay: int = 7
 

@@ -25,7 +25,7 @@ class_name Aiku
 @export var alcance_serpent_sway: float = 270.0  ## distância MÁXIMA até a bola pra poder ativar
 @export var duracao_movimento_serpent_sway: float = 0.5
 @export var distancia_parada_da_bola: float = 40.0  ## não termina EM CIMA da bola, para a uma distância curta dela
-@export var forca_passe_serpent_sway: float = 90.0
+@export var forca_passe_serpent_sway: float = 140.0
 @export var cooldown_serpent_sway: int = 6
 
 @export_group("Snake Hunt")

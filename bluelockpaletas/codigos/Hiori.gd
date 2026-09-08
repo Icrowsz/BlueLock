@@ -36,7 +36,7 @@ class_name Hiori
 ## garantido (sem interceptação), então não pode alcançar o campo
 ## inteiro — se o jogador clicar mais longe que isso, o ponto é
 ## "puxado" de volta pra essa distância, na mesma direção do clique.
-@export var alcance_millimeter_precision: float = 390.0
+@export var alcance_millimeter_precision: float = 350.0
 ## Raio de segurança ao redor de QUALQUER gol (o próprio e o inimigo).
 ## Se o ponto calculado cair mais perto de um gol do que isso, ele é
 ## empurrado pra fora dessa zona — é isso que fecha a brecha do "gol
@@ -49,7 +49,7 @@ class_name Hiori
 ## (0.3 = 30% do alcance normal). Só vale enquanto o toque está rolando.
 @export_range(0.05, 0.9) var fracao_alcance_drible: float = 0.3
 ## Força do chute em direção ao aliado escolhido, ao final do Fine-Tuning.
-@export var forca_passe_classico: float = 110.0
+@export var forca_passe_classico: float = 150.0
 
 const NOME_MILLIMETER := "Millimeter Precision"
 const NOME_FINE_TUNING := "Fine-Tuning"

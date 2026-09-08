@@ -10,7 +10,7 @@ forca_lefty_shot = 260.0
 bonus_forca_com_inimigo_perto = 30.0
 forca_empurrao_lefty_shot = 250.0
 cooldown_lefty_shot = 7
-forca_joker_shove = 250.0
+forca_joker_shove = 200.0
 cooldown_joker_shove = 5
 cor_mira_padrao = Color(0.8666667, 0.42352942, 0.10980392, 0.78431374)
 

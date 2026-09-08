@@ -22,7 +22,7 @@ class_name Kunigami
 @export var cooldown_lefty_shot: int = 7
 
 @export_group("Joker Shove")
-@export var forca_joker_shove: float = 250.0
+@export var forca_joker_shove: float = 200.0
 @export var cooldown_joker_shove: int = 6
 
 const NOME_LEFTY_SHOT := "Lefty Shot"

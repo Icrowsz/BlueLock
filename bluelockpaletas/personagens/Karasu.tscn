@@ -6,7 +6,7 @@
 
 [node name="Karasu" unique_id=755908930 instance=ExtResource("1_il75b")]
 script = ExtResource("2_gt5w0")
-forca_raven_relay = 110.0
+forca_raven_relay = 160.0
 tempo_limite_chegada_raven_relay = 2.5
 cooldown_raven_relay = 7
 forca_new_goal_method = 240.0
