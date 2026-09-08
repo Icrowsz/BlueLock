@@ -19,10 +19,6 @@ radius = 80.0
 rotation = -0.0047919527
 gravity_scale = 0.0
 script = ExtResource("1_wabi8")
-forca_maxima = null
-distancia_maxima_arrasto = null
-multiplicador_forca = null
-raio_clique = null
 raio_aura = 40.0
 largura_aura = 2.0
 

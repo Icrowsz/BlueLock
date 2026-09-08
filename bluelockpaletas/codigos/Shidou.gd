@@ -34,7 +34,7 @@ class_name Shidou
 @export var cooldown_demon_rush: int = 6
 
 @export_group("KaKaBoom (Follow Up)")
-@export var forca_kakaboom: float = 220.0
+@export var forca_kakaboom: float = 150.0
 
 const NOME_DRAGON_DRIVE := "Dragon Drive"
 const NOME_DEMON_RUSH := "Demon Rush"

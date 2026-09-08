@@ -16,11 +16,7 @@ bet_duracao_turnos = 4
 bet_multiplicador_forca_inimigo = 0.5
 cooldown_bet = 8
 bet_textura = null
-bet_cor = Color(1, 0.2, 0.2, 0.35)
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
+bet_cor = Color(1, 0.749, 0.2, 0.349)
 cor_mira_padrao = Color(0.89411765, 0.7764706, 0.05490196, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

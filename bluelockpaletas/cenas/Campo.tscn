@@ -251,7 +251,7 @@ offset_right = 1904.0
 offset_bottom = 496.0
 
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(1009, 408)
+position = Vector2(960, 405)
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")

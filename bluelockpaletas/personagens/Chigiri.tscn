@@ -6,17 +6,15 @@
 
 [node name="Chigiri" unique_id=755908930 instance=ExtResource("1_tlpvi")]
 script = ExtResource("2_nkr7f")
-accelerate_duracao = 4
+accelerate_duracao = 5
 accelerate_multiplicador_distancia = 1.6
 accelerate_multiplicador_forca = 1.6
-cooldown_accelerate = 7
-forca_base_panther_shot = 80.0
+cooldown_accelerate = 9
+forca_base_panther_shot = 90.0
 bonus_forca_por_turno_accelerate = 20.0
 cooldown_panther_shot = 6
-forca_maxima = 900.0
+forca_maxima = 600.0
 distancia_maxima_arrasto = 250.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
 cor_mira_padrao = Color(1, 0.003921569, 0.48235294, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

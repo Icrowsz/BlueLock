@@ -7,7 +7,7 @@ extends RigidBody2D
 ## "extends Botao" (ex: Isagi.gd), e sobrescreve nome_habilidade(),
 ## pode_usar_habilidade() e usar_habilidade().
 
-@export var forca_maxima: float = 800.0
+@export var forca_maxima: float = 500.0
 @export var distancia_maxima_arrasto: float = 150.0
 @export var multiplicador_forca: float = 6.0
 @export var raio_clique: float = 40.0

@@ -6,15 +6,11 @@
 
 [node name="Bachira" unique_id=755908930 instance=ExtResource("1_av02w")]
 script = ExtResource("2_km1gk")
-forca_bee_shot = 75.0
+forca_bee_shot = 80.0
 cooldown_bee_shot = 6
 bee_shot_duracao_intangivel = 0.5
 monster_trance_multiplicador_distancia = 0.5
 cooldown_monster_trance = 6
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
 cor_mira_padrao = Color(0.99607843, 0.94509804, 0, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

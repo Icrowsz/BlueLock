@@ -35,7 +35,7 @@ class_name Barou
 @export var raio_contagem_lion_kingdom: float = 150.0
 
 @export_group("Nero (Follow Up do King Path)")
-@export var forca_nero: float = 500.0
+@export var forca_nero: float = 150.0
 
 const NOME_DEVOUR := "Devour"
 const NOME_KING_PATH := "King Path"

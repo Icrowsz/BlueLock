@@ -6,14 +6,10 @@
 
 [node name="Kiyora" unique_id=755908930 instance=ExtResource("1_nf54o")]
 script = ExtResource("2_mgobg")
-cooldown_injustice = 7
+cooldown_injustice = 8
 duracao_passe_injustice = 0.5
 multiplicador_forca_break_dance = 0.35
 cooldown_break_dance = 4
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
 cor_mira_padrao = Color(0, 0.39607844, 0.4862745, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

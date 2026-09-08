@@ -16,8 +16,8 @@ class_name Yukimiya
 ##   sobrar alguma sem usar. Cooldown de 5 turnos.
 
 @export_group("Gyro Shot")
-@export var forca_gyro_shot: float = 65.0
-@export var intensidade_curva_gyro_shot: float = 20.0  ## bem menor que o Curve Shot do Rin (padrão 90)
+@export var forca_gyro_shot: float = 80.0
+@export var intensidade_curva_gyro_shot: float = 30.0  ## bem menor que o Curve Shot do Rin (padrão 90)
 @export var duracao_curva_gyro_shot: float = 1.0
 @export var cooldown_gyro_shot: int = 7
 

@@ -9,13 +9,9 @@ radius = 80.0
 
 [node name="Isagi" unique_id=755908930 instance=ExtResource("1_w6436")]
 script = ExtResource("2_u0tgr")
-forca_chute_direto = 120.0
+forca_chute_direto = 100.0
 cooldown_chute_direto = 6
 cooldown_metavisao = 5
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
 cor_mira_padrao = Color(0.13333334, 0.44705883, 0.7882353, 0.78431374)
 alcance_metavisao = 500.0
 cor_trajetoria_chute = Color(0.13333334, 0.44705883, 0.7882353, 0.78431374)

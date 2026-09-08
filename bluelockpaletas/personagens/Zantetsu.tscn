@@ -6,16 +6,13 @@
 
 [node name="Zantetsu" unique_id=755908930 instance=ExtResource("1_exxtd")]
 script = ExtResource("2_44l48")
-bullet_train_distancia = 130.0
+bullet_train_distancia = 125.0
 bullet_train_duracao_movimento = 0.15
 cooldown_bullet_train = 6
-forca_left_footed_shot = 450.0
-multiplicador_bonus_bullet_train = 1.5
+forca_left_footed_shot = 110.0
+multiplicador_bonus_bullet_train = 1.2
 cooldown_left_footed_shot = 6
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
+forca_maxima = 600.0
 cor_mira_padrao = Color(0.3882353, 0.38431373, 0.40784314, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

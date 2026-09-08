@@ -10,14 +10,10 @@ duracao_movimento_transition_pass = 0.5
 distancia_parada_da_bola = 30.0
 alcance_alvo_bloqueio = 250.0
 duracao_bloqueio_alvo = 2
-forca_passe_transition = 300.0
+forca_passe_transition = 120.0
 cooldown_transition_pass = 6
 duracao_metavisao_aliados = 4
 cooldown_metavisao = 6
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
 cor_mira_padrao = Color(0.5011344, 0.6310967, 0.58804196, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

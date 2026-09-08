@@ -27,7 +27,7 @@ class_name Zantetsu
 ##   turnos.
 
 @export_group("Bullet Train")
-@export var bullet_train_distancia: float = 130.0
+@export var bullet_train_distancia: float = 125.0
 @export var bullet_train_duracao_movimento: float = 0.15  ## bem rápido — "quase um teleporte", sem inércia
 @export var cooldown_bullet_train: int = 6
 

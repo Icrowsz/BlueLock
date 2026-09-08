@@ -6,17 +6,13 @@
 
 [node name="Shidou" unique_id=755908930 instance=ExtResource("1_lsvt6")]
 script = ExtResource("2_jgs36")
-forca_dragon_drive = 220.0
+forca_dragon_drive = 140.0
 duracao_dragon_drive = 1.0
 cooldown_dragon_drive = 7
 duracao_demon_rush = 0.4
 distancia_parada_da_bola = 30.0
 cooldown_demon_rush = 6
-forca_kakaboom = 220.0
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
+forca_kakaboom = 150.0
 cor_mira_padrao = Color(1, 0.2509804, 0.7490196, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]

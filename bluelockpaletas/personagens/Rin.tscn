@@ -6,16 +6,12 @@
 
 [node name="Rin" unique_id=755908930 instance=ExtResource("1_6cypd")]
 script = ExtResource("2_to547")
-forca_curve_shot = 150.0
+forca_curve_shot = 120.0
 cooldown_curve_shot = 6
-intensidade_curva = 260.0
+intensidade_curva = 90.0
 duracao_curva = 1.1
-opposite_direction_distancia = 90.0
-cooldown_opposite_direction = 5
-forca_maxima = 800.0
-distancia_maxima_arrasto = 150.0
-multiplicador_forca = 6.0
-raio_clique = 40.0
+opposite_direction_distancia = 100.0
+cooldown_opposite_direction = 6
 cor_mira_padrao = Color(0, 0.8901961, 0.8392157, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
