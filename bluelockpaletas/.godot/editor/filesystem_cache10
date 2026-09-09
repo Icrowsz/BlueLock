@@ -1,19 +1,19 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1788981793
+::res://::1788985193
 export_presets.cfg::TextFile::-1::1788880837::0::1::::<><><>0<>0<><>::
-::res://cenas/::1788981284
+::res://cenas/::1788985106
 Bola.tscn::PackedScene::6039891498004367036::1788880834::0::1::::<><><>0<>0<><>::uid://bvux87o767ig5::::res://codigos/Bola.gd<>uid://cua5miiwl4ic3::::res://imagens/menosa a.webp
-Campo.tscn::PackedScene::1047768055123941136::1788981284::0::1::::<><><>0<>0<><>::uid://cltl0sh01h2sn::::res://codigos/Gol.gd<>uid://cod6420ilvhac::::res://codigos/MontagemDeTime.gd<>uid://qmrhi16py0t8::::res://imagens/rede.webp<>uid://csb1eo5p4qwum::::res://cenas/Bola.tscn<>uid://djqrvh10d0u3c::::res://imagens/campio.png<>uid://bd08y5h40xpml::::res://codigos/Placar.gd<>uid://d3ccb6f1n0mn7::::res://imagens/Daydream DEMO.otf<>uid://dav64dqrkbgnd::::res://codigos/UIHabilidade.gd<>uid://4ydlbe37pwns::::res://cenas/UiMenuEscolha.tscn<>uid://b3dhnhqui1wpv::::res://codigos/UIMensagem.gd<>uid://dntj5x3p225d8::::res://codigos/UITurno.gd<>uid://elcgaxufjlek::::res://personagens/Sae.tscn<>uid://c6diob41p1sf::::res://personagens/Isagi.tscn
+Campo.tscn::PackedScene::1047768055123941136::1788985106::0::1::::<><><>0<>0<><>::uid://cltl0sh01h2sn::::res://codigos/Gol.gd<>uid://cod6420ilvhac::::res://codigos/MontagemDeTime.gd<>uid://qmrhi16py0t8::::res://imagens/rede.webp<>uid://csb1eo5p4qwum::::res://cenas/Bola.tscn<>uid://djqrvh10d0u3c::::res://imagens/campio.png<>uid://bd08y5h40xpml::::res://codigos/Placar.gd<>uid://d3ccb6f1n0mn7::::res://imagens/Daydream DEMO.otf<>uid://dav64dqrkbgnd::::res://codigos/UIHabilidade.gd<>uid://4ydlbe37pwns::::res://cenas/UiMenuEscolha.tscn<>uid://b3dhnhqui1wpv::::res://codigos/UIMensagem.gd<>uid://dntj5x3p225d8::::res://codigos/UITurno.gd<>uid://elcgaxufjlek::::res://personagens/Sae.tscn<>uid://p84lt71miinv::::res://personagens/Lorenzo.tscn<>uid://3my21isfjrtk::::res://personagens/Kaiser.tscn<>uid://doiks43qgvjel::::res://personagens/Loki.tscn
 Escalacao.tscn::PackedScene::18217256408036667::1788880834::0::1::::<><><>0<>0<><>::uid://bwpt6ibwge6ah::::res://codigos/Escalacao.gd<>uid://df2lqet7tad87::::res://imagens/Escalacai.png
 TelaInicio.tscn::PackedScene::3612258600195969036::1788880834::0::1::::<><><>0<>0<><>::uid://dinubyxpdxmqi::::res://codigos/TelaInicio.gd<>uid://c2x55gc2fyma7::::res://imagens/JOGO DOS BLUE LOCK (1).png
 UiMenuEscolha.tscn::PackedScene::2085223386329764892::1788880834::0::1::::<><><>0<>0<><>::uid://1007j3psbqq5::::res://codigos/UIMenuEscolha.gd
-::res://codigos/::1788980666
+::res://codigos/::1788984883
 Aiku.gd::GDScript::4583377799763068874::1788880834::0::1::::Aiku<>Botao<><>0<>0<><>::
 Aryu.gd::GDScript::5336115751164357077::1788880834::0::1::::Aryu<>Botao<><>0<>0<><>::
 Bachira.gd::GDScript::8435626251408751687::1788880834::0::1::::Bachira<>Botao<><>0<>0<><>::
 Barou.gd::GDScript::2904190348433334059::1788967352::0::1::::Barou<>Botao<><>0<>0<><>::
 Bola.gd::GDScript::3903131081076560506::1788880834::0::1::::<>RigidBody2D<><>0<>0<><>::
-Botao.gd::GDScript::1129693843463733880::1788967352::0::1::::Botao<>RigidBody2D<><>0<>0<><>::
+Botao.gd::GDScript::1129693843463733880::1788982722::0::1::::Botao<>RigidBody2D<><>0<>0<><>::
 Charles.gd::GDScript::8354393666343007649::1788880834::0::1::::Charles<>Botao<><>0<>0<><>::
 Chigiri.gd::GDScript::3944268600356151882::1788880834::0::1::::Chigiri<>Botao<><>0<>0<><>::
 Circulo_sprite.gdshader::Shader::6845556513246325264::1788432322::0::1::::<><><>0<>0<><>::
@@ -30,10 +30,12 @@ Kiyora.gd::GDScript::48372956982816590::1788967352::0::1::::Kiyora<>Botao<><>0<>
 Kunigami.gd::GDScript::5090014227134272316::1788967352::0::1::::Kunigami<>Botao<><>0<>0<><>::
 Kurona.gd::GDScript::9107243327727356690::1788967352::0::1::::Kurona<>Botao<><>0<>0<><>::
 Kuso.gd::GDScript::4416123743947201847::1788967352::0::1::::Kuso<>Botao<><>0<>0<><>::
+Loki.gd::GDScript::2569526878105823802::1788984883::0::1::::Loki<>Botao<><>0<>0<><>::
+Lorenzo.gd::GDScript::3821257719839768354::1788984226::0::1::::Lorenzo<>Botao<><>0<>0<><>::
 MenuEscolha.gd::GDScript::6019057519552458984::1788880834::0::1::::<>Node<><>0<>0<><>::
 MontagemDeTime.gd::GDScript::5763613783509418038::1788521265::0::1::::<>Node2D<><>0<>0<><>::
 MovimentoSuave.gd::GDScript::3152992666888828966::1788880834::0::1::::MovimentoSuave<>RefCounted<><>0<>0<><>::
-Nagi.gd::GDScript::6188118147500086168::1788967352::0::1::::Nagi<>Botao<><>0<>0<><>::
+Nagi.gd::GDScript::6188118147500086168::1788982728::0::1::::Nagi<>Botao<><>0<>0<><>::
 Nanase.gd::GDScript::4852556988255557398::1788880834::0::1::::Nanase<>Botao<><>0<>0<><>::
 Ness.gd::GDScript::1403632741117818224::1788967352::0::1::::AlexisNess<>Botao<><>0<>0<><>::
 Niko.gd::GDScript::3450515918486699430::1788967352::0::1::::Niko<>Botao<><>0<>0<><>::
@@ -45,7 +47,7 @@ PreditorTrajetoria.gd::GDScript::4717356406179938654::1788434356::0::1::::Predit
 Raichi.gd::GDScript::5746102152493494485::1788967352::0::1::::Raichi<>Botao<><>0<>0<><>::
 Reo.gd::GDScript::7487635202072758558::1788880834::0::1::::Reo<>Botao<><>0<>0<><>::
 Rin.gd::GDScript::7571680788141301606::1788967352::0::1::::Rin<>Botao<><>0<>0<><>::
-Sae.gd::GDScript::2558307587545526190::1788980666::0::1::::Sae<>Botao<><>0<>0<><>::
+Sae.gd::GDScript::2558307587545526190::1788982984::0::1::::Sae<>Botao<><>0<>0<><>::
 SelecaoAlvo.gd::GDScript::5364550410044489759::1788880834::0::1::::<>Node<><>0<>0<><>::
 Sendou.gd::GDScript::3813438009416027825::1788967352::0::1::::Sendou<>Botao<><>0<>0<><>::
 Shidou.gd::GDScript::7459173228021000503::1788967352::0::1::::Shidou<>Botao<><>0<>0<><>::
@@ -59,7 +61,7 @@ UITurno.gd::GDScript::8111541474463190375::1788432322::0::1::::<>CanvasLayer<><>
 Yukimiya.gd::GDScript::6201255486148755746::1788967352::0::1::::Yukimiya<>Botao<><>0<>0<><>::
 Zantetsu.gd::GDScript::4231107734839606190::1788967352::0::1::::Zantetsu<>Botao<><>0<>0<><>::
 ::res://executavel/::1788880837
-::res://imagens/::1788967469
+::res://imagens/::1788984753
 bachiraaa.jpg::CompressedTexture2D::8777389090862793301::1788525217::1788525328::1::::<><><>0<>0<>fa3460833b87af91388e05bc3ea50e26<>res://.godot/imported/bachiraaa.jpg-d725a96fba27a95e7e02a7da9370d238.ctex::
 bachiraalien.jpg::CompressedTexture2D::8608256455644334097::1788521265::1788521354::1::::<><><>0<>0<>659b8717fb63ba1a6231ebf3108e0303<>res://.godot/imported/bachiraalien.jpg-7d6cce0577663726ff6fb3b657ec9ddc.ctex::
 bluelockman.jpg::CompressedTexture2D::441793460788930757::1788432322::1788432439::1::::<><><>0<>0<>f05684495e1790dd097ed6648ce25d05<>res://.godot/imported/bluelockman.jpg-a2504a49c3c0f102a761eeb476834832.ctex::
@@ -89,6 +91,8 @@ CVkunigami.png::CompressedTexture2D::6203089663634853327::1788880838::1788967469
 CVkunigamiii.png::CompressedTexture2D::4304126685344608107::1788880838::1788967469::1::::<><><>0<>0<>91d2629d5da71b7d43b381e268b8a430<>res://.godot/imported/CVkunigamiii.png-5d457ed8efad498eb2cb0d4455a191d7.ctex::
 CVkurona.jpg::CompressedTexture2D::2373350221626095998::1788533159::1788533161::1::::<><><>0<>0<>9d62276ca34d5ac9c2b0588344c47315<>res://.godot/imported/CVkurona.jpg-efcb2ec33a79769a658f9c136b3563b5.ctex::
 CVkusoo.png::CompressedTexture2D::6698169664295697707::1788880838::1788967469::1::::<><><>0<>0<>52c8c95eeb2d24b8871e4f06cf5d5854<>res://.godot/imported/CVkusoo.png-2920ff2c51aaf432a24fea45c69ba079.ctex::
+CVloki.png::CompressedTexture2D::5491734665520764195::1788984692::1788984753::1::::<><><>0<>0<>ef2e6385715c1c3f3e8de573c097a79f<>res://.godot/imported/CVloki.png-3dd5d1b42142c1881a7c1efc3cc4b736.ctex::
+CVlorenzo.png::CompressedTexture2D::3732149533968285095::1788983877::1788983970::1::::<><><>0<>0<>d326f1656239f2df0253ffcbf6bf0ee5<>res://.godot/imported/CVlorenzo.png-7ec6d99ee98720299d57fbc8783867ec.ctex::
 CVnagii.jpg::CompressedTexture2D::9058869719429940870::1788880838::1788967465::1::::<><><>0<>0<>7d85a35d02563370779c1b72184bac40<>res://.godot/imported/CVnagii.jpg-1cce1aebe9655c87efca4c558874e672.ctex::
 CVnanase.png::CompressedTexture2D::2225878295822327213::1788880838::1788967464::1::::<><><>0<>0<>df6514b7ff09696b27883bb628543662<>res://.godot/imported/CVnanase.png-8938529eb0fc94c21ec67e99de4b421e.ctex::
 CVness.png::CompressedTexture2D::1297738529726394182::1788880838::1788967464::1::::<><><>0<>0<>4b5607a9550b752dd92ec15c8173af3d<>res://.godot/imported/CVness.png-101bff6eef463dbc194e698eaa105d77.ctex::
@@ -123,7 +127,7 @@ rede.webp::CompressedTexture2D::1148839182472831643::1788432322::1788432439::1::
 sendoualien.jpg::CompressedTexture2D::5269858406564528524::1788521266::1788521355::1::::<><><>0<>0<>4c8e83201a6273f160bcda54f1f1aa46<>res://.godot/imported/sendoualien.jpg-6b5cacd0458f21487cd26fabe506315e.ctex::
 sendouuu.jpg::CompressedTexture2D::8246480005503904563::1788525260::1788525329::1::::<><><>0<>0<>e6479606c9758d6a7fdcae04aec1cf5f<>res://.godot/imported/sendouuu.jpg-8613c4013dd8f7f2569bb083a409220f.ctex::
 Site-Bola-de-Pebolim.png::CompressedTexture2D::1731556246464143863::1788432322::1788432439::1::::<><><>0<>0<>6a9fbd9489358d1b3fb93c922c5436d0<>res://.godot/imported/Site-Bola-de-Pebolim.png-14e57b2b2b034267191386473443c214.ctex::
-::res://personagens/::1788981023
+::res://personagens/::1788984883
 Aiku.tscn::PackedScene::2175255423835124489::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://b6khterh7xpfm::::res://codigos/Aiku.gd<>uid://pthotpn4s1ca::::res://imagens/CVaikuu.jpg
 Aryu.tscn::PackedScene::860322617948316590::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://cia4budv0uh2t::::res://codigos/Aryu.gd<>uid://dgjb4vew4ix0q::::res://imagens/CVaryu.png
 Bachira.tscn::PackedScene::1039422219090302105::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://dsgjsc42q4mxb::::res://codigos/Bachira.gd<>uid://utvtxl5meo28::::res://imagens/CVbachira.jpg
@@ -140,6 +144,8 @@ Kiyora.tscn::PackedScene::2884890481369320939::1788880842::0::1::::<><><>0<>0<><
 Kunigami.tscn::PackedScene::3394581884334088720::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://cerv15aed1vg3::::res://codigos/Kunigami.gd<>uid://b2k7lqlwmmoel::::res://imagens/CVkunigamiii.png
 Kurona.tscn::PackedScene::4310368210616152023::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://d20u7444lpaak::::res://codigos/Kurona.gd<>uid://82wy4q6kydqs::::res://imagens/CVkurona.jpg
 Kuso.tscn::PackedScene::4602619535367508147::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://b36g6bjaoj77p::::res://codigos/Kuso.gd<>uid://c2ov41myonrmh::::res://imagens/CVkusoo.png
+Loki.tscn::PackedScene::8159061765429686079::1788984883::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://ckiickerfanpb::::res://imagens/CVloki.png<>uid://bcuxy5resdudm::::res://codigos/Loki.gd
+Lorenzo.tscn::PackedScene::1122738605552714927::1788984080::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://btf47s6tk51tj::::res://imagens/CVlorenzo.png<>uid://bupbs6e5tn24e::::res://codigos/Lorenzo.gd
 Nagi.tscn::PackedScene::94187579230108924::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://cuftnwqdyq07u::::res://codigos/Nagi.gd<>uid://d2cgi4o8dakh7::::res://imagens/CVnagii.jpg
 Nanase.tscn::PackedScene::8129767366356198718::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://6yh5jhooude0::::res://imagens/CVnanase.png<>uid://cbeu500spv51s::::res://codigos/Nanase.gd
 Ness.tscn::PackedScene::4656232069656738819::1788880842::0::1::::<><><>0<>0<><>::uid://njpx7anwwcn::::res://personagens/Botao.tscn<>uid://t86vj4dnh4n1::::res://codigos/Ness.gd<>uid://sqvtf71jsqbe::::res://imagens/CVness.png

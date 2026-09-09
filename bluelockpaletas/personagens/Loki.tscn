@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://doiks43qgvjel"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_xmv00"]
+[ext_resource type="Texture2D" uid="uid://ckiickerfanpb" path="res://imagens/CVloki.png" id="2_u153k"]
+[ext_resource type="Script" uid="uid://bcuxy5resdudm" path="res://codigos/Loki.gd" id="2_wwgpw"]
+
+[node name="Loki" unique_id=755908930 instance=ExtResource("1_xmv00")]
+script = ExtResource("2_wwgpw")
+multiplicador_forca_too_slow = 2.0
+raio_foco_bola_too_slow = 50.0
+duracao_dash_ate_bola = 0.4
+cooldown_too_slow = 9
+distancia_aproximacao_godspeed = 70.0
+duracao_dash_godspeed = 0.4
+duracao_bloqueio_godspeed = 2
+cooldown_godspeed = 7
+forca_base_tank = 300.0
+cooldown_tank = 7
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("2_u153k")

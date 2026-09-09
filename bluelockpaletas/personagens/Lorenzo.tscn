@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://p84lt71miinv"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_fpp6k"]
+[ext_resource type="Texture2D" uid="uid://btf47s6tk51tj" path="res://imagens/CVlorenzo.png" id="2_5wmju"]
+[ext_resource type="Script" uid="uid://bupbs6e5tn24e" path="res://codigos/Lorenzo.gd" id="2_pjwpq"]
+
+[node name="Lorenzo" unique_id=755908930 instance=ExtResource("1_fpp6k")]
+script = ExtResource("2_pjwpq")
+distancia_aproximacao_rest_in_money = 80.0
+alcance_rest_in_money = 400.0
+duracao_bloqueio_rest_in_money = 5
+cooldown_rest_in_money = 7
+forca_undead_pass = 230.0
+duracao_bloqueio_undead_pass = 3
+cooldown_undead_pass = 6
+distancia_cerco_mafia = 60.0
+cooldown_mafia = 7
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("2_5wmju")
