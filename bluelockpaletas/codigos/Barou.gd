@@ -21,8 +21,8 @@ class_name Barou
 ## disponível pra sempre).
 
 @export_group("Devour")
-@export var alcance_dash_devour: float = 70.0
-@export var multiplicador_hitbox_devour: float = 1.8
+@export var alcance_dash_devour: float = 80.0
+@export var multiplicador_hitbox_devour: float = 2
 @export var cooldown_devour: int = 7
 
 @export_group("King Path")

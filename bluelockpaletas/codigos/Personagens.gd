@@ -37,6 +37,7 @@ const PERSONAGENS: Dictionary = {
 	"Shidou": preload("res://personagens/Shidou.tscn"),
 	"Yukimiya": preload("res://personagens/Yukimiya.tscn"),
 	"Zantetsu": preload("res://personagens/Zantetsu.tscn"),
+	"Sae💫": preload("res://personagens/Sae.tscn"),
 	"Kaiser💫": preload("res://personagens/Kaiser.tscn"),
 }
 

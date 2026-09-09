@@ -3,21 +3,15 @@ class_name Karasu
 
 ## Karasu
 ##
-## - Raven Relay: passe SEMI-AUTOMÁTICO longo — Karasu escolhe o
-##   aliado alvo (mira calculada automaticamente pra direção dele),
-##   mas a viagem é um chute de verdade (receber_chute_teleguiado),
-##   então PODE ser interceptado no caminho (por isso "semi", não
-##   totalmente automático/garantido como o Millimeter Precision).
-##
-##   Se o passe REALMENTE chegar no alvo escolhido (a bola entrar no
-##   alcance dele até _tempo_limite_chegada_raven_relay segundos depois
-##   — usamos um temporizador pra não ficar esperando pra sempre se ele
-##   for interceptado no meio do caminho), esse alvo GANHA a habilidade
-##   New Goal Method: um chute médio de força fixa (200) que ignora
-##   colisão com os PRÓPRIOS aliados (reaproveita receber_chute_curvo
-##   com intensidade de curva 0 — vira uma linha reta, mas mantém o
-##   "ignora aliados" que só esse método tem), mirando automaticamente
-##   no gol inimigo. Cooldown de 7 turnos.
+## - Raven Relay: passe AUTOMÁTICO e garantido pro aliado escolhido,
+##   DENTRO DO ALCANCE MÁXIMO — mesma técnica do Shark Assault do Kurona
+##   (MovimentoSuave, sem física real, sem chance de interceptação: ele
+##   SEMPRE chega no alvo). Ao chegar, o alvo GANHA a habilidade New
+##   Goal Method: um chute médio de força fixa (200) que ignora colisão
+##   com os PRÓPRIOS aliados (reaproveita receber_chute_curvo com
+##   intensidade de curva 0 — vira uma linha reta, mas mantém o "ignora
+##   aliados" que só esse método tem), mirando automaticamente no gol
+##   inimigo. Cooldown de 7 turnos.
 ##
 ## - Wing Arm Block: escolhe DOIS inimigos dentro do alcance (uma
 ##   distância simples, não o AreaAlcance — que é só pra bola) e os
@@ -31,8 +25,8 @@ class_name Karasu
 ##   turnos.
 
 @export_group("Raven Relay")
-@export var forca_raven_relay: float = 160.0  ## "passe longo" precisa de bastante força
-@export var tempo_limite_chegada_raven_relay: float = 2.5  ## se não chegar no alvo dentro desse tempo, consideramos que foi interceptado
+@export var duracao_raven_relay: float = 0.6
+@export var alcance_maximo_raven_relay: float = 600.0  ## distância MÁXIMA até o aliado escolhido
 @export var cooldown_raven_relay: int = 7
 
 @export_group("New Goal Method (concedida)")
@@ -62,11 +56,23 @@ func habilidades_proprias() -> Array[String]:
 
 
 func _requisito_extra_propria(nome: String) -> String:
-	if nome == NOME_RAVEN_RELAY and bola_no_alcance == null:
-		return "A bola precisa estar por perto para usar %s!" % NOME_RAVEN_RELAY
+	if nome == NOME_RAVEN_RELAY:
+		if bola_no_alcance == null:
+			return "A bola precisa estar por perto para usar %s!" % NOME_RAVEN_RELAY
+		if _aliados_no_alcance_raven_relay().is_empty():
+			return "Nenhum aliado dentro do alcance do Raven Relay!"
 	if nome == NOME_WING_ARM_BLOCK and _inimigos_no_alcance().size() < 2:
 		return "Precisa de pelo menos 2 inimigos no alcance para usar %s!" % NOME_WING_ARM_BLOCK
 	return ""
+
+
+func _habilidade_propria_consome_acao(nome: String) -> bool:
+	if nome == NOME_RAVEN_RELAY:
+		# consumida manualmente em _tentar_passe_raven_relay(), só quando
+		# o passe de fato sai — escolher um alvo inválido ou fora de
+		# alcance não desperdiça a ação nem o cooldown
+		return false
+	return true
 
 
 func executar_habilidade_propria(nome: String) -> void:
@@ -81,6 +87,15 @@ func executar_habilidade_propria(nome: String) -> void:
 
 ## --- Raven Relay ---
 
+func _aliados_no_alcance_raven_relay() -> Array[Botao]:
+	var lista: Array[Botao] = []
+	for nodo in get_tree().get_nodes_in_group("botoes"):
+		var botao := nodo as Botao
+		if botao and botao != self and botao.time == time and global_position.distance_to(botao.global_position) <= alcance_maximo_raven_relay:
+			lista.append(botao)
+	return lista
+
+
 func _executar_raven_relay() -> void:
 	SelecaoAlvo.pedir_alvo(self, func(alvo: Botao) -> void:
 		_tentar_passe_raven_relay(alvo)
@@ -92,43 +107,27 @@ func _tentar_passe_raven_relay(alvo: Botao) -> void:
 		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
 		return
 
+	if global_position.distance_to(alvo.global_position) > alcance_maximo_raven_relay:
+		Eventos.mensagem_solicitada.emit("Esse aliado está fora do alcance do Raven Relay!")
+		return
+
 	var bola := bola_no_alcance
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Raven Relay cancelado.")
 		return
 
-	var direcao := alvo.global_position - bola.global_position
-	direcao = direcao.normalized() if direcao.length() > 1.0 else Vector2.RIGHT
-	bola.receber_chute_teleguiado(direcao, forca_raven_relay)
+	consumir_acao_habilidade()
+	iniciar_cooldown(NOME_RAVEN_RELAY, cooldown_raven_relay)
 
-	Eventos.mensagem_solicitada.emit("Raven Relay! Passe longo enviado pra %s — pode ser interceptado." % alvo.name)
-
-	_aguardar_chegada_raven_relay(alvo)
-
-
-func _aguardar_chegada_raven_relay(alvo: Botao) -> void:
-	if not alvo.area_alcance:
-		return
-
-	# CONNECT_ONE_SHOT garante que essa conexão se desliga sozinha assim
-	# que disparar UMA vez (sucesso). O temporizador abaixo cuida do
-	# caso contrário (interceptado, nunca chega) — sem ele, a conexão
-	# ficaria pendurada pra sempre esperando um sinal que nunca vem, e
-	# se dispararia (errado) numa chegada de bola futura sem relação
-	# nenhuma com esse passe.
-	var conexao: Callable
-	conexao = func(body: Node) -> void:
-		if not body.is_in_group("bola"):
-			return
+	# passe AUTOMÁTICO e garantido (mesma técnica do Shark Assault do
+	# Kurona) — sem física real, então SEMPRE chega; por isso podemos
+	# conceder o New Goal Method direto no "ao_terminar" do movimento,
+	# sem precisar de temporizador/espera por interceptação como antes
+	MovimentoSuave.mover(bola, alvo.global_position, duracao_raven_relay, func() -> void:
 		_conceder_new_goal_method(alvo)
-
-	alvo.area_alcance.body_entered.connect(conexao, CONNECT_ONE_SHOT)
-
-	var temporizador := get_tree().create_timer(tempo_limite_chegada_raven_relay)
-	temporizador.timeout.connect(func() -> void:
-		if is_instance_valid(alvo) and alvo.area_alcance.body_entered.is_connected(conexao):
-			alvo.area_alcance.body_entered.disconnect(conexao)
 	)
+
+	Eventos.mensagem_solicitada.emit("Raven Relay! Passe automático enviado pra %s." % alvo.name)
 
 
 func _conceder_new_goal_method(alvo: Botao) -> void:

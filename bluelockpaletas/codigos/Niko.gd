@@ -23,7 +23,7 @@ class_name Niko
 @export var distancia_parada_da_bola: float = 30.0
 @export var alcance_alvo_bloqueio: float = 250.0  ## distância máxima pra oferecer o bloqueio de movimento num inimigo
 @export var duracao_bloqueio_alvo: int = 2
-@export var forca_passe_transition: float = 150.0
+@export var forca_passe_transition: float = 170.0
 @export var cooldown_transition_pass: int = 6
 
 @export_group("Metavisão (concedida)")

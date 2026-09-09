@@ -3,11 +3,10 @@ class_name Kuso
 
 ## Kuso
 ##
-## - Best Move: passe simples e garantido (chega parado, sem física
-##   real) pro aliado que o jogador escolher — mesma ideia do Lob Pass
-##   do Reo, reaproveitando SelecaoAlvo.pedir_alvo(). Consumida
-##   manualmente só quando o alvo é confirmado, pro cancelamento não
-##   gastar a ação à toa. Cooldown de 6 turnos.
+## - Best Move: passe REAL (chute teleguiado de verdade, pode ser
+##   interceptado por um oponente no caminho) pro aliado que o jogador
+##   escolher. Consumida manualmente só quando o alvo é confirmado, pro
+##   cancelamento não gastar a ação à toa. Cooldown de 6 turnos.
 ##
 ## - Godwin Dribble: concede mais uma ação de DESLOCAMENTO (com alcance
 ##   de arrasto reduzido) E mais uma ação de HABILIDADE (essa sim
@@ -20,7 +19,7 @@ class_name Kuso
 ##   concedidas). Cooldown de 7 turnos.
 
 @export_group("Best Move")
-@export var duracao_best_move: float = 3.0
+@export var forca_best_move: float = 150.0
 @export var cooldown_best_move: int = 8
 
 @export_group("Godwin Dribble")
@@ -82,11 +81,12 @@ func _on_alvo_best_move_escolhido(alvo: Botao) -> void:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Best Move cancelado.")
 		return
 
-	bola.mover_para_com_trajetoria(alvo.global_position, duracao_best_move)
+	var direcao := (alvo.global_position - bola.global_position).normalized()
+	bola.receber_chute_teleguiado(direcao, forca_best_move)
 
 	consumir_acao_habilidade()
 	iniciar_cooldown(NOME_BEST_MOVE, cooldown_best_move)
-	Eventos.mensagem_solicitada.emit("Best Move! A bola foi passada até o aliado escolhido.")
+	Eventos.mensagem_solicitada.emit("Best Move! Passe enviado pro aliado escolhido — pode ser interceptado.")
 
 
 ## --- Godwin Dribble ---

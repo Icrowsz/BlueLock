@@ -27,8 +27,8 @@ class_name Zantetsu
 ##   turnos.
 
 @export_group("Bullet Train")
-@export var bullet_train_distancia: float = 125.0
-@export var bullet_train_duracao_movimento: float = 0.15  ## bem rápido — "quase um teleporte", sem inércia
+@export var bullet_train_distancia: float = 450.0
+@export var bullet_train_duracao_movimento: float = 0.35  ## bem rápido — "quase um teleporte", sem inércia
 @export var cooldown_bullet_train: int = 6
 
 @export_group("Left Footed Shot")
@@ -72,7 +72,8 @@ func _executar_deslocamento(vetor_arrasto: Vector2) -> void:
 		_ultima_acao_foi_bullet_train = false  # deslocamento normal — quebra a sequência
 		super._executar_deslocamento(vetor_arrasto)
 		return
-
+	
+	conceder_acao_habilidade_extra(1)
 	_bullet_train_ativo = false  # uso único por ativação
 
 	var direcao_travada := _travar_direcao_cardinal(vetor_arrasto.normalized())
@@ -83,8 +84,6 @@ func _executar_deslocamento(vetor_arrasto: Vector2) -> void:
 
 
 func _travar_direcao_cardinal(direcao: Vector2) -> Vector2:
-	# mesma lógica do Opposite Direction do Rin: arredonda pra uma das
-	# 4 direções fixas, com base em qual eixo o jogador puxou mais forte
 	if absf(direcao.x) > absf(direcao.y):
 		return Vector2.RIGHT if direcao.x > 0 else Vector2.LEFT
 	return Vector2.DOWN if direcao.y > 0 else Vector2.UP

@@ -12,6 +12,7 @@ cooldown_malicia = 6
 alcance_dharma_chains = 150.0
 duracao_bloqueio_dharma_chains = 3
 cooldown_dharma_chains = 6
+cor_mira_padrao = Color(0.6156863, 0.20784314, 0.07058824, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

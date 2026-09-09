@@ -12,10 +12,10 @@ class_name Shidou
 ##   próprio Shidou e os aliados, então dá pra chutar "de costas" pro
 ##   gol sem se atrapalhar. Cooldown de 6 turnos.
 ##
-## - Demon Rush: avanço médio até a bola. Se alcançar (ela ficar dentro
-##   do AreaAlcance ao terminar o movimento), ganha uma ação de
-##   habilidade extra e libera o Follow Up — KaKaBoom — só NESTE turno.
-##   Cooldown de 6 turnos.
+## - Demon Rush: avanço médio até a bola, DESDE QUE ela esteja dentro do
+##   alcance máximo. Se alcançar (ela ficar dentro do AreaAlcance ao
+##   terminar o movimento), ganha uma ação de habilidade extra e libera
+##   o Follow Up — KaKaBoom — só NESTE turno. Cooldown de 6 turnos.
 ##
 ## - KaKaBoom (Follow Up): só aparece na lista de habilidades depois que
 ##   o Demon Rush conecta com a bola no mesmo turno — não tem cooldown
@@ -31,6 +31,7 @@ class_name Shidou
 @export_group("Demon Rush")
 @export var duracao_demon_rush: float = 0.4  ## avanço "médio" — nem tão rápido quanto o Genius Control, nem lento
 @export var distancia_parada_da_bola: float = 30.0
+@export var alcance_maximo_demon_rush: float = 270.0  ## distância MÁXIMA até a bola pra poder ativar
 @export var cooldown_demon_rush: int = 6
 
 @export_group("KaKaBoom (Follow Up)")
@@ -53,6 +54,12 @@ func habilidades_proprias() -> Array[String]:
 func _requisito_extra_propria(nome: String) -> String:
 	if (nome == NOME_DRAGON_DRIVE or nome == NOME_KAKABOOM) and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
+
+	if nome == NOME_DEMON_RUSH:
+		var bola := encontrar_bola()
+		if not bola or global_position.distance_to(bola.global_position) > alcance_maximo_demon_rush:
+			return "A bola está fora do alcance do Demon Rush!"
+
 	return ""
 
 

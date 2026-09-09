@@ -17,9 +17,10 @@ class_name Kurona
 ##   movimento EXTRA pessoal nesse turno.
 ##
 ## - Shark Assault: com a bola no alcance, toca automaticamente pra um
-##   aliado ALEATÓRIO em campo. É um passe "garantido" (sem chute de
-##   verdade physics-based, sem chance de interceptação) que chega sem
-##   força nenhuma — como se o aliado tivesse dominado a bola parada.
+##   aliado ALEATÓRIO DENTRO DO ALCANCE MÁXIMO. É um passe "garantido"
+##   (sem chute de verdade physics-based, sem chance de interceptação)
+##   que chega sem força nenhuma — como se o aliado tivesse dominado a
+##   bola parada.
 ##
 ## Custo de ação e cooldown do One Two só acontecem quando o passe de
 ## fato SAI (depois de escolher o alvo) — não no clique do botão de
@@ -27,11 +28,12 @@ class_name Kurona
 ## desperdiça nada.
 
 @export_group("One Two")
-@export var forca_one_two: float = 160.0
-@export var cooldown_one_two: int = 6
+@export var forca_one_two: float = 230.0
+@export var cooldown_one_two: int = 7
 @export var acoes_extra_ao_receber_de_volta: int = 1
 
 @export_group("Shark Assault")
+@export var alcance_maximo_shark_assault: float = 400.0  ## distância MÁXIMA pra um aliado poder ser sorteado
 @export var cooldown_shark_assault: int = 7
 
 const NOME_ONE_TWO := "One Two"
@@ -53,6 +55,8 @@ func _habilidade_propria_consome_acao(nome: String) -> bool:
 func _requisito_extra_propria(nome: String) -> String:
 	if bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
+	if nome == NOME_SHARK_ASSAULT and _aliados_disponiveis().is_empty():
+		return "Nenhum aliado dentro do alcance do Shark Assault!"
 	return ""
 
 
@@ -149,6 +153,6 @@ func _aliados_disponiveis() -> Array[Botao]:
 	var lista: Array[Botao] = []
 	for nodo in get_tree().get_nodes_in_group("botoes"):
 		var botao := nodo as Botao
-		if botao and botao != self and botao.time == time:
+		if botao and botao != self and botao.time == time and global_position.distance_to(botao.global_position) <= alcance_maximo_shark_assault:
 			lista.append(botao)
 	return lista

@@ -21,7 +21,7 @@ class_name Rin
 @export var duracao_curva: float = 1.1
 
 @export_group("Opposite Direction")
-@export var opposite_direction_distancia: float = 100.0
+@export var opposite_direction_distancia: float = 250.0
 @export var cooldown_opposite_direction: int = 6
 
 const NOME_CURVE_SHOT := "Curve Shot"
@@ -49,7 +49,7 @@ func executar_habilidade_propria(nome: String) -> void:
 			_opposite_direction_ativo = true
 			iniciar_cooldown(nome, cooldown_opposite_direction)
 			Eventos.mensagem_solicitada.emit("Opposite Direction ativado! Arraste em uma direção pra teleportar.")
-
+			conceder_acao_habilidade_extra(1)
 
 ## --- Curve Shot ---
 
@@ -85,7 +85,8 @@ func _executar_deslocamento(vetor_arrasto: Vector2) -> void:
 	if not _opposite_direction_ativo:
 		super._executar_deslocamento(vetor_arrasto)
 		return
-
+		
+	conceder_acao_movimento_extra(1)
 	_opposite_direction_ativo = false  # uso único por ativação
 
 	var direcao_travada := _travar_direcao_cardinal(vetor_arrasto.normalized())

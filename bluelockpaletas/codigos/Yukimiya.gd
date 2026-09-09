@@ -74,6 +74,7 @@ func _executar_gyro_shot() -> void:
 func _executar_scissors_dribble() -> void:
 	_scissors_dribble_ativo = true
 	conceder_acao_movimento_extra(quantidade_acoes_scissors_dribble)
+	conceder_acao_habilidade_extra(1)
 	Eventos.mensagem_solicitada.emit("Scissors Dribble! Yukimiya ganhou %d deslocamentos curtos e fracos neste turno." % quantidade_acoes_scissors_dribble)
 
 

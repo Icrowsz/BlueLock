@@ -8,9 +8,11 @@ class_name Kunigami
 ##   detectar a bola), esse inimigo é empurrado pra longe E o chute sai
 ##   ainda mais forte (bônus de força). Cooldown de 7 turnos.
 ##
-## - Joker Shove: empurra pra longe os DOIS inimigos mais próximos em
-##   campo (não precisa da bola por perto — é controle de área, não um
-##   chute). Cooldown de 6 turnos.
+## - Joker Shove: empurra pra longe os DOIS inimigos mais próximos,
+##   desde que estejam dentro do alcance máximo (não precisa da bola
+##   por perto — é controle de área, não um chute). Se nenhum inimigo
+##   estiver dentro do alcance, a habilidade recusa e NÃO gasta a ação
+##   nem entra em cooldown. Cooldown de 6 turnos.
 ##
 ## Depende de Botao.receber_empurrao(direcao, forca), que precisa
 ## existir no Botao.gd base (ver instruções no chat).
@@ -22,7 +24,8 @@ class_name Kunigami
 @export var cooldown_lefty_shot: int = 7
 
 @export_group("Joker Shove")
-@export var forca_joker_shove: float = 200.0
+@export var forca_joker_shove: float = 300.0
+@export var alcance_maximo_joker_shove: float = 150.0  ## distância MÁXIMA pra um inimigo contar como "próximo"
 @export var cooldown_joker_shove: int = 6
 
 const NOME_LEFTY_SHOT := "Lefty Shot"
@@ -36,7 +39,17 @@ func habilidades_proprias() -> Array[String]:
 func _requisito_extra_propria(nome: String) -> String:
 	if nome == NOME_LEFTY_SHOT and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
+	if nome == NOME_JOKER_SHOVE and _encontrar_inimigos_no_alcance_maximo().is_empty():
+		return "Nenhum inimigo dentro do alcance do Joker Shove!"
 	return ""
+
+
+func _habilidade_propria_consome_acao(nome: String) -> bool:
+	if nome == NOME_JOKER_SHOVE:
+		# consumida manualmente em _executar_joker_shove(), só quando
+		# realmente empurra alguém — sem inimigo no alcance, não gasta
+		return false
+	return true
 
 
 func executar_habilidade_propria(nome: String) -> void:
@@ -45,8 +58,7 @@ func executar_habilidade_propria(nome: String) -> void:
 			_executar_lefty_shot()
 			iniciar_cooldown(nome, cooldown_lefty_shot)
 		NOME_JOKER_SHOVE:
-			_executar_joker_shove()
-			iniciar_cooldown(nome, cooldown_joker_shove)
+			_executar_joker_shove()  # consome ação e cooldown por dentro, só se der certo
 
 
 ## --- Lefty Shot ---
@@ -86,7 +98,7 @@ func _encontrar_inimigo_no_alcance() -> Botao:
 ## --- Joker Shove ---
 
 func _executar_joker_shove() -> void:
-	var inimigos := _encontrar_inimigos_mais_proximos(2)
+	var inimigos := _encontrar_inimigos_no_alcance_maximo(2)
 	if inimigos.is_empty():
 		Eventos.mensagem_solicitada.emit("Não há inimigos por perto para o Joker Shove!")
 		return
@@ -97,12 +109,15 @@ func _executar_joker_shove() -> void:
 			direcao = Vector2.RIGHT
 		inimigo.receber_empurrao(direcao, forca_joker_shove)
 
+	consumir_acao_habilidade()
+	iniciar_cooldown(NOME_JOKER_SHOVE, cooldown_joker_shove)
 
-func _encontrar_inimigos_mais_proximos(quantidade: int) -> Array[Botao]:
+
+func _encontrar_inimigos_no_alcance_maximo(quantidade: int = 2) -> Array[Botao]:
 	var inimigos: Array[Botao] = []
 	for nodo in get_tree().get_nodes_in_group("botoes"):
 		var botao := nodo as Botao
-		if botao and botao.time != time:
+		if botao and botao.time != time and global_position.distance_to(botao.global_position) <= alcance_maximo_joker_shove:
 			inimigos.append(botao)
 
 	inimigos.sort_custom(func(a: Botao, b: Botao) -> bool:

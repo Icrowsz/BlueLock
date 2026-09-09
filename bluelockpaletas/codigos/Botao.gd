@@ -268,6 +268,17 @@ func _input(event: InputEvent) -> void:
 		# event.position, que é coordenada de TELA e não do MUNDO do jogo.
 		_atualizar_mira(get_global_mouse_position())
 
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and arrastando:
+		# clique direito NO MEIO de um arrasto cancela ele — não aplica
+		# nenhum impulso, não gasta ação, não entra em cooldown
+		_cancelar_arrasto()
+
+
+func _cancelar_arrasto() -> void:
+	arrastando = false
+	if linha_mira:
+		linha_mira.visible = false
+
 
 func _mouse_no_corpo(pos_mouse_global: Vector2) -> bool:
 	return global_position.distance_to(pos_mouse_global) < raio_clique

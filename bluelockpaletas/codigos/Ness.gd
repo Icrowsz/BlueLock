@@ -3,10 +3,10 @@ class_name AlexisNess
 
 ## Alexis Ness
 ##
-## - Alohomora: escolhe um aliado; a bola viaja até ele em zigue-zague,
-##   igual ao Shark Assault do Kurona (passe "garantido", sem chute
-##   físico, sem chance de interceptação — só que aqui o ALVO é
-##   escolhido, não aleatório). Cooldown de 5 turnos.
+## - Alohomora: escolhe um aliado DENTRO DO ALCANCE MÁXIMO; a bola viaja
+##   até ele em zigue-zague, igual ao Shark Assault do Kurona (passe
+##   "garantido", sem chute físico, sem chance de interceptação — só
+##   que aqui o ALVO é escolhido, não aleatório). Cooldown de 5 turnos.
 ##
 ## - Expelliarmus: escolhe um inimigo DENTRO DO ALCANCE, desliza até
 ##   perto dele, e desativa as habilidades dele por 4 turnos
@@ -18,6 +18,7 @@ class_name AlexisNess
 @export var duracao_alohomora: float = 0.8
 @export var zigues_alohomora: int = 3
 @export var amplitude_zigzag_alohomora: float = 40.0
+@export var alcance_maximo_alohomora: float = 650.0  ## distância MÁXIMA até o aliado escolhido
 @export var cooldown_alohomora: int = 8
 
 @export_group("Expelliarmus")
@@ -68,6 +69,10 @@ func executar_habilidade_propria(nome: String) -> void:
 func _completar_alohomora(alvo: Botao) -> void:
 	if alvo == self or alvo.time != time:
 		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
+		return
+
+	if global_position.distance_to(alvo.global_position) > alcance_maximo_alohomora:
+		Eventos.mensagem_solicitada.emit("Esse aliado está fora do alcance do Alohomora!")
 		return
 
 	var bola := bola_no_alcance

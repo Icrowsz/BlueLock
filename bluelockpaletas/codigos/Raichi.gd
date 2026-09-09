@@ -3,13 +3,13 @@ class_name Raichi
 
 ## Jingo Raichi
 ##
-## - Stalker: escolhe um inimigo como alvo; Raichi se desloca até perto
-##   dele imediatamente. Pelos próximos "stalker_duracao" turnos, a
-##   força e o alcance dos chutes dele ficam reduzidos (fica lento), mas
-##   ele "acompanha" o alvo — toda vez que o alvo completa um chute de
-##   verdade, o Raichi se reposiciona perto dele de novo. O cooldown (3
-##   turnos, por padrão) só começa a contar quando a habilidade
-##   TERMINA, não quando é ativada.
+## - Stalker: escolhe um inimigo DENTRO DO ALCANCE MÁXIMO como alvo;
+##   Raichi se desloca até perto dele imediatamente. Pelos próximos
+##   "stalker_duracao" turnos, a força e o alcance dos chutes dele ficam
+##   reduzidos (fica lento), mas ele "acompanha" o alvo — toda vez que o
+##   alvo completa um chute de verdade, o Raichi se reposiciona perto
+##   dele de novo. O cooldown (3 turnos, por padrão) só começa a contar
+##   quando a habilidade TERMINA, não quando é ativada.
 ##
 ## - Bet: cria uma área em forma de meio-círculo (180°) apontando pro
 ##   inimigo mais próximo. Qualquer inimigo que ENTRAR nela fica
@@ -22,6 +22,7 @@ class_name Raichi
 @export var stalker_multiplicador_forca: float = 0.5
 @export var stalker_multiplicador_distancia: float = 0.5
 @export var stalker_distancia_perseguicao: float = 70.0
+@export var stalker_alcance_maximo: float = 350.0  ## distância MÁXIMA até o inimigo pra poder escolher ele como alvo
 @export var cooldown_stalker: int = 7
 
 @export_group("Bet")
@@ -77,6 +78,10 @@ func _on_alvo_stalker_escolhido(alvo: Botao) -> void:
 		Eventos.mensagem_solicitada.emit("Escolha um oponente como alvo do Stalker!")
 		return
 
+	if global_position.distance_to(alvo.global_position) > stalker_alcance_maximo:
+		Eventos.mensagem_solicitada.emit("Esse inimigo está fora do alcance do Stalker!")
+		return
+
 	Turnos.usar_acao("habilidade")
 
 	stalker_alvo = alvo
@@ -86,7 +91,6 @@ func _on_alvo_stalker_escolhido(alvo: Botao) -> void:
 		Eventos.botao_chutado.connect(_on_algum_botao_chutado)
 
 	_perseguir_alvo()
-	Eventos.mensagem_solicitada.emit("Stalker ativado! Raichi está grudado no alvo.")
 
 
 func _perseguir_alvo() -> void:
@@ -123,7 +127,7 @@ func _encerrar_stalker() -> void:
 	if Eventos.botao_chutado.is_connected(_on_algum_botao_chutado):
 		Eventos.botao_chutado.disconnect(_on_algum_botao_chutado)
 	iniciar_cooldown(NOME_STALKER, cooldown_stalker)
-	Eventos.mensagem_solicitada.emit("Stalker do Raichi terminou.")
+
 
 
 ## --- Bet ---

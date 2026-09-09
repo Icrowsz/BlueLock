@@ -54,7 +54,7 @@ class_name Kaiser
 @export var cooldown_emperor_route: int = 7
 
 @export_group("Knie Dich Hin (concedida)")
-@export var forca_knie_dich_hin: float = 120.0  ## "passe padrão" — nem curto nem longo
+@export var forca_knie_dich_hin: float = 150.0  ## "passe padrão" — nem curto nem longo
 @export var turnos_para_expirar_knie_dich_hin: int = 3
 
 const NOME_KAISER_IMPACT := "Kaiser Impact"

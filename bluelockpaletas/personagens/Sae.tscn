@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://elcgaxufjlek"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_ugivd"]
+[ext_resource type="Texture2D" uid="uid://bqwgqmontk2xn" path="res://imagens/CVsae.png" id="2_ehd7x"]
+[ext_resource type="Script" uid="uid://bcpi7m0anrtva" path="res://codigos/Sae.gd" id="2_tuo28"]
+
+[node name="Sae" unique_id=755908930 instance=ExtResource("1_ugivd")]
+script = ExtResource("2_tuo28")
+camada_botoes = 2
+cooldown_royal_heelflick = 8
+duracao_genius = 0.3
+distancia_parada_da_bola_genius = 30.0
+forca_genius = 250.0
+cooldown_genius = 6
+cor_mira_padrao = Color(0.7137255, 0, 0.16078432, 0.78431374)
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("2_ehd7x")

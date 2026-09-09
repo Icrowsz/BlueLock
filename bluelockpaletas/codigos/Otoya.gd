@@ -14,10 +14,10 @@ class_name Otoya
 ##   do chute, recebe um bônus de força (o "ataque surpresa"). Cooldown
 ##   de 5 turnos.
 ##
-## - Shadow Step: escolhe um aliado e desliza até perto dele. Tem um
-##   alcance bem maior que o normal, mas NÃO cobre o campo inteiro — se
-##   o aliado escolhido estiver longe demais, a habilidade recusa.
-##   Cooldown de 5 turnos.
+## - Shadow Step: escolhe QUALQUER botão (aliado OU inimigo) e desliza
+##   até perto dele. Tem um alcance bem maior que o normal, mas NÃO
+##   cobre o campo inteiro — se o alvo escolhido estiver longe demais, a
+##   habilidade recusa. Cooldown de 5 turnos.
 
 @export_group("Passiva: Stealth")
 @export var turnos_para_stealth: int = 2
@@ -29,7 +29,7 @@ class_name Otoya
 @export var cooldown_ninja_shot: int = 6
 
 @export_group("Shadow Step")
-@export var alcance_shadow_step: float = 300.0  ## grande, mas não cobre o campo inteiro
+@export var alcance_shadow_step: float = 500.0  ## grande, mas não cobre o campo inteiro
 @export var distancia_parada_do_aliado: float = 50.0
 @export var duracao_shadow_step: float = 0.5
 @export var cooldown_shadow_step: int = 5
@@ -119,17 +119,17 @@ func _executar_ninja_shot() -> void:
 ## --- Shadow Step ---
 
 func _iniciar_shadow_step() -> void:
-	SelecaoAlvo.pedir_alvo(self, _on_alvo_shadow_step, "Escolha um aliado para o Shadow Step (alcance limitado)")
+	SelecaoAlvo.pedir_alvo(self, _on_alvo_shadow_step, "Escolha um alvo para o Shadow Step (alcance limitado)")
 
 
 func _on_alvo_shadow_step(alvo: Botao) -> void:
-	if alvo == self or alvo.time != time:
-		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
+	if alvo == self:
+		Eventos.mensagem_solicitada.emit("Escolha outro jogador como alvo!")
 		return
 
 	var distancia := global_position.distance_to(alvo.global_position)
 	if distancia > alcance_shadow_step:
-		Eventos.mensagem_solicitada.emit("Esse aliado está fora do alcance do Shadow Step!")
+		Eventos.mensagem_solicitada.emit("Esse alvo está fora do alcance do Shadow Step!")
 		return
 
 	var direcao := (global_position - alvo.global_position)

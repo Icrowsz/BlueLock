@@ -3,11 +3,12 @@ class_name Nagi
 
 ## Seishiro Nagi
 ##
-## - Genius Control: desloca o Nagi rapidamente até a bola. NÃO gasta a
-##   ação de habilidade (só entra em cooldown). Se ele alcançar a bola
-##   (ela ficar dentro do AreaAlcance ao terminar o movimento), libera o
-##   Follow Up — Death Volley — só NESTE turno. Fluxo pretendido: usar
-##   Genius Control e, em seguida, Death Volley. Cooldown de 6 turnos.
+## - Genius Control: desloca o Nagi rapidamente até a bola, DESDE QUE
+##   ela esteja dentro do alcance máximo. NÃO gasta a ação de habilidade
+##   (só entra em cooldown). Se ele alcançar a bola (ela ficar dentro do
+##   AreaAlcance ao terminar o movimento), libera o Follow Up — Death
+##   Volley — só NESTE turno. Fluxo pretendido: usar Genius Control e,
+##   em seguida, Death Volley. Cooldown de 6 turnos.
 ##
 ## - Death Volley (Follow Up): só aparece na lista de habilidades DEPOIS
 ##   que o Genius Control conecta com a bola no mesmo turno — não tem
@@ -25,6 +26,7 @@ class_name Nagi
 @export_group("Genius Control")
 @export var duracao_genius_control: float = 0.6  ## rápido — "desloca rapidamente"
 @export var distancia_parada_da_bola: float = 30.0
+@export var alcance_maximo_genius_control: float = 280.0  ## distância MÁXIMA até a bola pra poder ativar
 @export var cooldown_genius_control: int = 6
 
 @export_group("Death Volley (Follow Up)")
@@ -58,6 +60,11 @@ func _habilidade_propria_consome_acao(nome: String) -> bool:
 
 
 func _requisito_extra_propria(nome: String) -> String:
+	if nome == NOME_GENIUS_CONTROL:
+		var bola := encontrar_bola()
+		if not bola or global_position.distance_to(bola.global_position) > alcance_maximo_genius_control:
+			return "A bola está fora do alcance do Genius Control!"
+
 	if nome == NOME_DEATH_VOLLEY and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
 

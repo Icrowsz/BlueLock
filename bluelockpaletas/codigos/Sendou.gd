@@ -5,20 +5,22 @@ class_name Sendou
 ##
 ## - Star Talent: desloca o Sendou direto pro gol mais próximo em
 ##   campo — seja o do próprio time ou o inimigo, não importa, é só o
-##   mais perto mesmo. Ao chegar, concede uma ação de habilidade extra
-##   (só pra ele), permitindo usar o Sabrina Shot (ou outra habilidade)
-##   no mesmo turno.
+##   mais perto mesmo — DESDE QUE esteja dentro do alcance máximo. Ao
+##   chegar, concede uma ação de habilidade extra (só pra ele),
+##   permitindo usar o Sabrina Shot (ou outra habilidade) no mesmo
+##   turno.
 ##
 ## - Sabrina Shot: chute reto e teleguiado no gol inimigo, igual ao
 ##   Chute Direto do Isagi, só que mais fraco.
 
 @export_group("Star Talent")
 @export var duracao_star_talent: float = 0.6
-@export var cooldown_star_talent: int = 7  ## não especificado — ajuste como preferir
+@export var alcance_maximo_star_talent: float = 450.0  ## distância MÁXIMA até o gol mais próximo pra poder ativar
+@export var cooldown_star_talent: int = 7 
 
 @export_group("Sabrina Shot")
-@export var forca_sabrina_shot: float = 210.0  ## mais fraco que o Chute Direto (1400)
-@export var cooldown_sabrina_shot: int = 5  ## não especificado — ajuste como preferir
+@export var forca_sabrina_shot: float = 210.0  
+@export var cooldown_sabrina_shot: int = 5
 
 const NOME_STAR_TALENT := "Star Talent"
 const NOME_SABRINA_SHOT := "Sabrina Shot"
@@ -29,8 +31,14 @@ func habilidades_proprias() -> Array[String]:
 
 
 func _requisito_extra_propria(nome: String) -> String:
+	if nome == NOME_STAR_TALENT:
+		var gol := encontrar_gol_mais_proximo()
+		if not gol or global_position.distance_to(gol.ponto_para_mira()) > alcance_maximo_star_talent:
+			return "Nenhum gol dentro do alcance do Star Talent!"
+
 	if nome == NOME_SABRINA_SHOT and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
+
 	return ""
 
 
@@ -52,8 +60,8 @@ func _executar_star_talent() -> void:
 		return
 
 	MovimentoSuave.mover(self, gol.ponto_para_mira(), duracao_star_talent, func() -> void:
-		conceder_acao_habilidade_extra(1)
-		Eventos.mensagem_solicitada.emit("Star Talent! Sendou ganhou mais uma ação de habilidade.")
+		conceder_acao_movimento_extra(1)
+		Eventos.mensagem_solicitada.emit("Star Talent! Sendou ganhou mais uma ação de movimento.")
 	)
 
 

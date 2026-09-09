@@ -5,10 +5,11 @@ class_name Kiyora
 ##
 ## - Injustice: diferente de um passe automático de alvo único (ex:
 ##   Shark Assault do Kurona, que sorteia sozinho), aqui a Kiyora
-##   escolhe DOIS alvos manualmente (um de cada vez, clicando); depois
-##   dos dois escolhidos, a bola vai automaticamente — passe garantido,
-##   sem força, sem chance de interceptação (mesma técnica do Shark
-##   Assault) — pra UM dos dois, sorteado na hora (50/50).
+##   escolhe DOIS alvos manualmente (um de cada vez, clicando, ambos
+##   DENTRO DO ALCANCE MÁXIMO); depois dos dois escolhidos, a bola vai
+##   automaticamente — passe garantido, sem força, sem chance de
+##   interceptação (mesma técnica do Shark Assault) — pra UM dos dois,
+##   sorteado na hora (50/50).
 ##
 ## - Break Dance: um "drible comum": em vez do deslocamento normal por
 ##   arrasto, aplica um impulso bem mais fraco (finta curta), e concede
@@ -20,6 +21,7 @@ class_name Kiyora
 @export_group("Injustice")
 @export var cooldown_injustice: int = 8
 @export var duracao_passe_injustice: float = 0.5
+@export var alcance_maximo_injustice: float = 550.0  ## distância MÁXIMA pra CADA um dos dois alvos
 
 @export_group("Break Dance")
 @export var multiplicador_forca_break_dance: float = 0.35
@@ -46,8 +48,11 @@ func _habilidade_propria_consome_acao(nome: String) -> bool:
 
 
 func _requisito_extra_propria(nome: String) -> String:
-	if nome == NOME_INJUSTICE and bola_no_alcance == null:
-		return "A bola precisa estar por perto para usar %s!" % nome
+	if nome == NOME_INJUSTICE:
+		if bola_no_alcance == null:
+			return "A bola precisa estar por perto para usar %s!" % nome
+		if _aliados_no_alcance_injustice().is_empty():
+			return "Nenhum aliado dentro do alcance do Injustice!"
 	return ""
 
 
@@ -64,12 +69,24 @@ func executar_habilidade_propria(nome: String) -> void:
 
 ## --- Injustice ---
 
+func _aliados_no_alcance_injustice() -> Array[Botao]:
+	var lista: Array[Botao] = []
+	for nodo in get_tree().get_nodes_in_group("botoes"):
+		var botao := nodo as Botao
+		if botao and botao != self and botao.time == time and global_position.distance_to(botao.global_position) <= alcance_maximo_injustice:
+			lista.append(botao)
+	return lista
+
+
 func _on_primeiro_alvo_injustice(alvo: Botao) -> void:
 	if alvo == self:
 		Eventos.mensagem_solicitada.emit("Escolha outro jogador como primeiro alvo!")
 		return
 	if alvo.time != time:
 		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
+		return
+	if global_position.distance_to(alvo.global_position) > alcance_maximo_injustice:
+		Eventos.mensagem_solicitada.emit("Esse alvo está fora do alcance do Injustice!")
 		return
 
 	_injustice_primeiro_alvo = alvo
@@ -85,6 +102,9 @@ func _on_segundo_alvo_injustice(alvo: Botao) -> void:
 		return
 	if alvo.time != time:
 		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
+		return
+	if global_position.distance_to(alvo.global_position) > alcance_maximo_injustice:
+		Eventos.mensagem_solicitada.emit("Esse alvo está fora do alcance do Injustice!")
 		return
 
 	var bola := bola_no_alcance
