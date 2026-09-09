@@ -120,15 +120,25 @@ func aplicar_reducao_forca(fracao: float, turnos: int) -> void:
 
 
 ## Sistema PADRONIZADO de "grudar a bola em mim" (Devil Contract do
-## Charles, Awaken do Nagi, e qualquer personagem futuro do tipo).
-## A bola vira FILHA deste botão e tem a física congelada — assim ela
-## segue a transformação dele automaticamente (sem nenhum código
-## rodando por frame) e ninguém consegue roubar/empurrar enquanto isso.
-## Cada personagem decide POR SI SÓ quando chamar soltar_bola_grudada()
-## (ex: depois de X turnos, ou depois do próximo deslocamento) — a
-## classe base só cuida do "grudar"/"soltar" em si.
+## Charles, Awaken do Nagi, Royal Heelflick do Sae, e qualquer
+## personagem futuro do tipo). A bola vira FILHA deste botão e tem a
+## física congelada — assim ela segue a transformação dele
+## automaticamente (sem nenhum código rodando por frame) e ninguém
+## consegue roubar/empurrar enquanto isso.
 var _bola_grudada_em_mim: RigidBody2D = null
 var _pai_original_da_bola_grudada: Node = null
+
+## Duração da bola grudada, em turnos DO PRÓPRIO TIME deste botão — ver
+## manter_bola_grudada_por(). PADRONIZA a expiração entre todos os
+## personagens que grudam a bola: antes, cada um reimplementava sua
+## própria contagem/liberação (Devil Contract contava só os turnos do
+## Charles; Awaken contava o próximo turno de QUALQUER time; e o Royal
+## Heelflick não tinha prazo nenhum — se o deslocamento bônus que
+## deveria soltar a bola nunca acontecesse, ela ficava grudada PRA
+## SEMPRE). Agora a expiração é SEMPRE garantida por turno, então
+## nenhum personagem pode deixar a bola presa indefinidamente, não
+## importa o que aconteça (ou deixe de acontecer) depois de grudar.
+var _turnos_restantes_bola_grudada: int = 0
 
 
 func grudar_bola(bola: RigidBody2D) -> void:
@@ -148,7 +158,21 @@ func grudar_bola(bola: RigidBody2D) -> void:
 	bola.reset_physics_interpolation()  # evita a bola "não acompanhar" visualmente logo ao grudar
 
 
+func manter_bola_grudada_por(turnos_do_proprio_time: int) -> void:
+	# chame logo depois de grudar_bola(). turnos_do_proprio_time conta
+	# só as trocas de turno em que for a vez DESTE time (não do
+	# adversário) — 1 = solta já no início do próximo turno deste
+	# botão; 2 = esse turno + o próximo dele; etc. Isso é só uma REDE DE
+	# SEGURANÇA: se o personagem tiver seu próprio jeito de soltar mais
+	# cedo (ex: quando um deslocamento termina), ele pode continuar
+	# soltando na hora normalmente — essa contagem garante que, mesmo
+	# que isso nunca aconteça, a bola é liberada de qualquer jeito.
+	_turnos_restantes_bola_grudada = turnos_do_proprio_time
+
+
 func soltar_bola_grudada() -> void:
+	_turnos_restantes_bola_grudada = 0  # já foi solta — a rede de segurança não precisa mais agir
+
 	if not _bola_grudada_em_mim or not is_instance_valid(_bola_grudada_em_mim):
 		_bola_grudada_em_mim = null
 		return
@@ -163,6 +187,29 @@ func soltar_bola_grudada() -> void:
 
 func bola_esta_grudada_em_mim() -> bool:
 	return _bola_grudada_em_mim != null
+
+
+func _soltar_bola_grudada_com_seguranca() -> void:
+	# espera o deslize atual assentar antes de soltar de vez. Sem isso:
+	# se a expiração cair bem no meio de um deslocamento (ex: a própria
+	# troca de turno é disparada pela ÚLTIMA ação do turno, e
+	# turno_iniciado() dispara ANTES da física sequer ter movido este
+	# botão um pixel), a bola ficaria pra trás, largada no ponto de
+	# partida, em vez de acompanhar o deslize até o fim.
+	const VELOCIDADE_MINIMA_PARADA_GRUDE := 5.0
+	await get_tree().physics_frame
+	while is_inside_tree() and linear_velocity.length() > VELOCIDADE_MINIMA_PARADA_GRUDE:
+		await get_tree().physics_frame
+	if is_inside_tree():
+		soltar_bola_grudada()
+
+
+func _on_gol_marcado_soltar_bola_grudada(_lado: String) -> void:
+	# segurança PADRONIZADA: nenhuma bola grudada pode sobreviver a um
+	# gol — senão o Placar tentaria resetar posição/física de uma bola
+	# ainda congelada e "filha" de outro nó, o que quebra o reset.
+	if bola_esta_grudada_em_mim():
+		soltar_bola_grudada()
 
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
@@ -228,6 +275,7 @@ func _ready() -> void:
 		area_alcance.body_exited.connect(_on_bola_saiu_alcance)
 
 	Turnos.turno_iniciado.connect(_on_turno_mudou)
+	Eventos.gol_marcado.connect(_on_gol_marcado_soltar_bola_grudada)
 
 	queue_redraw()  # garante que a aura do time seja desenhada logo de cara
 
@@ -648,7 +696,7 @@ func iniciar_cooldown(habilidade: String, turnos: int) -> void:
 	cooldowns[habilidade] = turnos
 
 
-func _on_turno_mudou(_time: String) -> void:
+func _on_turno_mudou(time_iniciado: String) -> void:
 	for chave in cooldowns.keys():
 		if cooldowns[chave] > 0:
 			cooldowns[chave] -= 1
@@ -666,6 +714,15 @@ func _on_turno_mudou(_time: String) -> void:
 
 	if visao_estendida_turnos_restantes > 0:
 		visao_estendida_turnos_restantes -= 1
+
+	# expiração PADRONIZADA da bola grudada (ver manter_bola_grudada_por
+	# e o comentário na declaração de _turnos_restantes_bola_grudada) —
+	# só conta turnos EM QUE FOR A VEZ DESTE time, igual ao Devil
+	# Contract do Charles já fazia originalmente.
+	if _turnos_restantes_bola_grudada > 0 and time_iniciado == time:
+		_turnos_restantes_bola_grudada -= 1
+		if _turnos_restantes_bola_grudada <= 0:
+			_soltar_bola_grudada_com_seguranca()
 
 	# qualquer habilidade concedida ainda pendente passa a ficar
 	# disponível a partir daqui — ela só não podia ser usada no MESMO

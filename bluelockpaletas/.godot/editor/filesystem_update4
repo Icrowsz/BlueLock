@@ -1,6 +1,4 @@
-res://personagens/Sae.tscn
-res://codigos/Sae.gd
 res://cenas/Campo.tscn
-res://codigos/Personagens.gd
-res://personagens/Kaiser.tscn
-res://personagens/Igaguri.tscn
+res://codigos/Botao.gd
+res://codigos/Nagi.gd
+res://codigos/Sae.gd

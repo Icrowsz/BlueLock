@@ -6,6 +6,8 @@
 
 [node name="Sae" unique_id=755908930 instance=ExtResource("1_ugivd")]
 script = ExtResource("2_tuo28")
+duracao_perfect_pass = 0.6
+cooldown_perfect_pass = 7
 camada_botoes = 2
 cooldown_royal_heelflick = 8
 duracao_genius = 0.3

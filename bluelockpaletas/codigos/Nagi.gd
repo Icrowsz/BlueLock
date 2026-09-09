@@ -15,13 +15,12 @@ class_name Nagi
 ##   cooldown próprio (é o Genius Control que tem os 6 turnos). Chute
 ##   teleguiado no gol inimigo com 200 de força.
 ##
-## - Awaken: gruda a bola no Nagi, mesmo mecanismo do Devil Contract do
-##   Charles (bola vira filha dele + física congelada, ver Botao.gd:
-##   grudar_bola()/soltar_bola_grudada()). Solta sozinha no PRÓXIMO
-##   turno_iniciado — de QUALQUER time, nem precisa ser o turno do
-##   Nagi ou do time dele — pra equilibrar com o Devil Contract (que
-##   dura mais, mas só solta no turno do próprio Charles). Cooldown de
-##   7 turnos.
+## - Awaken: gruda a bola no Nagi (grudar_bola(), sistema PADRONIZADO em
+##   Botao.gd — usado também pelo Devil Contract do Charles e pelo Royal
+##   Heelflick do Sae). Dura 1 "turno do próprio Nagi" — mais curto que
+##   o Devil Contract do Charles, de propósito, pra equilibrar — com
+##   liberação e proteção contra gol automáticas (ver
+##   manter_bola_grudada_por() em Botao.gd). Cooldown de 7 turnos.
 
 @export_group("Genius Control")
 @export var duracao_genius_control: float = 0.6  ## rápido — "desloca rapidamente"
@@ -33,6 +32,7 @@ class_name Nagi
 @export var forca_death_volley: float = 250.0
 
 @export_group("Awaken")
+@export var turnos_awaken: int = 1  ## mais curto que os 2 do Devil Contract do Charles, de propósito
 @export var cooldown_awaken: int = 7
 
 const NOME_GENIUS_CONTROL := "Genius Control"
@@ -40,12 +40,6 @@ const NOME_DEATH_VOLLEY := "Death Volley"
 const NOME_AWAKEN := "Awaken"
 
 var _death_volley_disponivel: bool = false
-var _awaken_ativo: bool = false
-
-
-func _ready() -> void:
-	super._ready()
-	Eventos.gol_marcado.connect(_on_gol_marcado)
 
 
 func habilidades_proprias() -> Array[String]:
@@ -126,42 +120,5 @@ func _executar_awaken() -> void:
 	if not bola:
 		return
 	grudar_bola(bola)
-	_awaken_ativo = true
-	Eventos.mensagem_solicitada.emit("Awaken! A bola grudou no Nagi até o próximo turno (de qualquer time).")
-
-
-func _on_gol_marcado(_lado: String) -> void:
-	if _awaken_ativo:
-		_awaken_ativo = false
-		soltar_bola_grudada()  # segurança: nunca deixa a bola "presa" durante o reset pós-gol
-
-
-func _on_turno_mudou(time_iniciado: String) -> void:
-	super._on_turno_mudou(time_iniciado)
-	if _awaken_ativo:
-		# diferente do Devil Contract do Charles (que só conta turnos DO
-		# TIME dele): aqui é o PRÓXIMO turno_iniciado que aparecer,
-		# mesmo que seja do time adversário — de propósito, pra ser mais
-		# curto e balancear com a duração maior do Devil Contract
-		_awaken_ativo = false
-		_soltar_awaken_apos_assentar()
-		Eventos.mensagem_solicitada.emit("Awaken acabou — a bola não gruda mais no Nagi.")
-
-
-func _soltar_awaken_apos_assentar() -> void:
-	# ARMADILHA: quando a ÚLTIMA ação do turno é usada (ex: o próprio
-	# arrasto que move o Nagi), Turnos.usar_acao() já troca de turno NA
-	# HORA, na mesma chamada — ou seja, turno_iniciado() pode disparar
-	# ANTES da física sequer ter movido o Nagi um pixel. Se soltássemos
-	# a bola direto em _on_turno_mudou(), ela ficaria pra trás, ainda no
-	# ponto de onde ele partiu. Por isso esperamos a velocidade do Nagi
-	# cair perto de zero (ele realmente ter parado de deslizar) antes de
-	# soltar de verdade.
-	const VELOCIDADE_MINIMA_PARADO := 5.0
-
-	await get_tree().physics_frame
-	while is_inside_tree() and linear_velocity.length() > VELOCIDADE_MINIMA_PARADO:
-		await get_tree().physics_frame
-
-	if is_inside_tree():
-		soltar_bola_grudada()
+	manter_bola_grudada_por(turnos_awaken)
+	Eventos.mensagem_solicitada.emit("Awaken! A bola grudou no Nagi até o início do próximo turno dele.")
