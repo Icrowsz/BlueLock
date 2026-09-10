@@ -23,6 +23,8 @@ SelecaoAlvo="*res://codigos/SelecaoAlvo.gd"
 Personagens="*res://codigos/Personagens.gd"
 ConfiguracaoPartida="*res://codigos/ConfiguracaoPartida.gd"
 MenuEscolha="*res://codigos/MenuEscolha.gd"
+ReacoesQuimicas="*res://codigos/ReacoesQuimicas.gd"
+EfeitoHabilidade="*uid://c2aigo5uk6o7k"
 
 [display]
 

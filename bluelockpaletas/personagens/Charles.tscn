@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dra6v4odvpnyv" path="res://codigos/Charles.gd" id="2_0fqjx"]
 [ext_resource type="Texture2D" uid="uid://ojrgpankn7e1" path="res://imagens/CVcharlesss.png" id="2_6yl2x"]
 
+
 [node name="Charles" unique_id=755908930 instance=ExtResource("1_ovqh8")]
 script = ExtResource("2_0fqjx")
 linear_damp_charles = 1.2

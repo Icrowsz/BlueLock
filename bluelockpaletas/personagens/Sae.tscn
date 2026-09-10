@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bqwgqmontk2xn" path="res://imagens/CVsae.png" id="2_ehd7x"]
 [ext_resource type="Script" uid="uid://bcpi7m0anrtva" path="res://codigos/Sae.gd" id="2_tuo28"]
 
+
 [node name="Sae" unique_id=755908930 instance=ExtResource("1_ugivd")]
 script = ExtResource("2_tuo28")
 duracao_perfect_pass = 0.6

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cxjjux3o23f4d" path="res://codigos/Kaiser.gd" id="2_v8yj8"]
 [ext_resource type="Texture2D" uid="uid://cn3pwanbxxha5" path="res://imagens/CVkaiser.png" id="2_vg7jc"]
 
+
 [node name="Kaiser" unique_id=755908930 instance=ExtResource("1_mn41s")]
 script = ExtResource("2_v8yj8")
 forca_kaiser_impact = 260.0

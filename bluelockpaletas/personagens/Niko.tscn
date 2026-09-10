@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bpfpq074r0n1g" path="res://codigos/Niko.gd" id="2_cdgmc"]
 [ext_resource type="Texture2D" uid="uid://yhdekjdkts8r" path="res://imagens/CVnikoo.png" id="3_fkht4"]
 
+
 [node name="Niko" unique_id=755908930 instance=ExtResource("1_5enjq")]
 script = ExtResource("2_cdgmc")
 duracao_movimento_transition_pass = 0.5

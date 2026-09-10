@@ -489,6 +489,11 @@ func _on_bola_entrou_alcance(body: Node) -> void:
 		return
 	bola_no_alcance = body
 
+	# gancho genérico pro ReacoesQuimicas.gd saber que a bola chegou perto
+	# DESTE botão — é a "condição" que fecha reações como a Desire, quando
+	# combinada com um gatilho pendente (ex: Bee Shot do Bachira).
+	Eventos.bola_entrou_alcance.emit(self)
+
 
 func _on_bola_saiu_alcance(body: Node) -> void:
 	if not body.is_in_group("bola") or bola_no_alcance != body:
@@ -618,8 +623,14 @@ func usar_habilidade(nome: String) -> void:
 	if not c.is_empty():
 		_remover_concedida(nome)
 		c["executar"].call()
-		return
-	executar_habilidade_propria(nome)
+	else:
+		executar_habilidade_propria(nome)
+
+	# emitido depois de QUALQUER habilidade (própria ou concedida) — é o
+	# gatilho genérico que o ReacoesQuimicas.gd escuta pra armar reações
+	# como a Desire do Bachira+Isagi, sem nenhum dos dois personagens
+	# precisar saber que a reação existe.
+	Eventos.habilidade_executada.emit(self, nome)
 
 
 func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false, turnos_para_expirar: int = -1, disponivel_imediatamente: bool = false) -> void:

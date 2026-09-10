@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://daosfm6m83d1v"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_iojhg"]
+[ext_resource type="Script" uid="uid://cwwf36qt0snfq" path="res://codigos/Bunny.gd" id="2_v3met"]
+[ext_resource type="Texture2D" uid="uid://crqyyct7w5xyw" path="res://imagens/CVbunny.png" id="3_wj2a4"]
+
+[node name="Bunny" unique_id=755908930 instance=ExtResource("1_iojhg")]
+script = ExtResource("2_v3met")
+forca_bad_bunny = 230.0
+intensidade_curva_bad_bunny = 40.0
+duracao_bad_bunny = 1.0
+cooldown_bad_bunny = 6
+mas_fotos_alcance = 500.0
+cooldown_mas_fotos = 8
+fake_smile_duracao_turnos_inimigo = 2
+cooldown_fake_smile = 7
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("3_wj2a4")

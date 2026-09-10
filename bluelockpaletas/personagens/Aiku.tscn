@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b6khterh7xpfm" path="res://codigos/Aiku.gd" id="2_d4n78"]
 [ext_resource type="Texture2D" uid="uid://pthotpn4s1ca" path="res://imagens/CVaikuu.jpg" id="2_oagau"]
 
+
 [node name="Aiku" unique_id=755908930 instance=ExtResource("1_3qttp")]
 script = ExtResource("2_d4n78")
 alcance_serpent_sway = 270.0

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://u3q4h8hbharh" path="res://imagens/CVhiori.jpg" id="2_86sjo"]
 [ext_resource type="Script" uid="uid://cbsfdoygino8u" path="res://codigos/Hiori.gd" id="2_finct"]
 
+
 [node name="Hiori" unique_id=755908930 instance=ExtResource("1_sitau")]
 script = ExtResource("2_finct")
 cooldown_millimeter_precision = 7

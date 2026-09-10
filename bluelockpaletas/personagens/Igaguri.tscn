@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dnx0lfoynhjcm" path="res://imagens/CVigaguri.png" id="2_2qvho"]
 [ext_resource type="Script" uid="uid://cyq3nv4ij2y38" path="res://codigos/Igaguri.gd" id="2_usdcr"]
 
+
 [node name="Igaguri" unique_id=755908930 instance=ExtResource("1_y6rgs")]
 script = ExtResource("2_usdcr")
 alcance_malicia = 150.0

@@ -11,10 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://4ydlbe37pwns" path="res://cenas/UiMenuEscolha.tscn" id="7_v3s62"]
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
-[ext_resource type="PackedScene" uid="uid://elcgaxufjlek" path="res://personagens/Sae.tscn" id="12_lntrm"]
-[ext_resource type="PackedScene" uid="uid://p84lt71miinv" path="res://personagens/Lorenzo.tscn" id="12_v0bld"]
-[ext_resource type="PackedScene" uid="uid://3my21isfjrtk" path="res://personagens/Kaiser.tscn" id="13_ndd8t"]
-[ext_resource type="PackedScene" uid="uid://doiks43qgvjel" path="res://personagens/Loki.tscn" id="13_v0bld"]
+[ext_resource type="PackedScene" uid="uid://c6diob41p1sf" path="res://personagens/Isagi.tscn" id="12_v0bld"]
+[ext_resource type="PackedScene" uid="uid://o2reqxsrxtd6" path="res://personagens/Bachira.tscn" id="13_ndd8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
 size = Vector2(1920, 72)
@@ -255,7 +253,7 @@ offset_right = 1904.0
 offset_bottom = 496.0
 
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(1272, 408)
+position = Vector2(1032, 656)
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
@@ -354,18 +352,8 @@ theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Kaiser" parent="." unique_id=1518799841 instance=ExtResource("13_ndd8t")]
-position = Vector2(583.99994, 360)
-time = "B"
+[node name="Isagi" parent="." unique_id=755908930 instance=ExtResource("12_v0bld")]
+position = Vector2(1647.9999, 392)
 
-[node name="Loki" parent="." unique_id=755908930 instance=ExtResource("13_v0bld")]
-position = Vector2(744, 296)
-forca_maxima = 1000.0
-
-[node name="Lorenzo" parent="." unique_id=931317784 instance=ExtResource("12_v0bld")]
-position = Vector2(913, 295.99997)
-
-[node name="Sae" parent="." unique_id=265811222 instance=ExtResource("12_lntrm")]
-position = Vector2(1056, 368)
-alcance_maximo_perfect_pass = 350.0
-turnos_bola_grudada_heelflick = 1
+[node name="Bachira" parent="." unique_id=1299557394 instance=ExtResource("13_ndd8t")]
+position = Vector2(970.9999, 679.99994)

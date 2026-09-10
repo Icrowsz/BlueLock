@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cerv15aed1vg3" path="res://codigos/Kunigami.gd" id="2_a10fm"]
 [ext_resource type="Texture2D" uid="uid://b2k7lqlwmmoel" path="res://imagens/CVkunigamiii.png" id="3_a10fm"]
 
+
 [node name="Kunigami" unique_id=755908930 instance=ExtResource("1_1bs8x")]
 script = ExtResource("2_a10fm")
 forca_lefty_shot = 260.0

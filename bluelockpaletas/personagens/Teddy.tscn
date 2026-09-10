@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cd8lbrlw0ljav"]
+
+[ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_50fcw"]
+[ext_resource type="Script" uid="uid://di5cjcinmt67r" path="res://codigos/Teddy.gd" id="2_2heec"]
+[ext_resource type="Texture2D" uid="uid://bia4bqrcev1he" path="res://imagens/teddy.png" id="3_tcf0t"]
+
+[node name="Teddy" unique_id=755908930 instance=ExtResource("1_50fcw")]
+script = ExtResource("2_2heec")
+forca_rainbow_knight = 220.0
+intensidade_curva_rainbow_knight = 55.0
+duracao_curva_rainbow_knight = 1.0
+cooldown_rainbow_knight = 6
+quantidade_acoes_puppet = 4
+multiplicador_distancia_puppet = 0.5
+cooldown_puppet = 7
+england_cavalry_distancia_parada = 40.0
+england_cavalry_duracao_movimento = 0.4
+cooldown_england_cavalry = 8
+
+[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("3_tcf0t")

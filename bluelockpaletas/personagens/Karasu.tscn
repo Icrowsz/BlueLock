@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cnvvobq6s483b" path="res://codigos/Karasu.gd" id="2_gt5w0"]
 [ext_resource type="Texture2D" uid="uid://cqobs8sbx6wsk" path="res://imagens/CVkarasuu.jpg" id="2_u1nf5"]
 
+
 [node name="Karasu" unique_id=755908930 instance=ExtResource("1_il75b")]
 script = ExtResource("2_gt5w0")
 forca_raven_relay = 160.0

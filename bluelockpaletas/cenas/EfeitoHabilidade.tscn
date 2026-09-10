@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c2aigo5uk6o7k"]
+
+[ext_resource type="Script" uid="uid://kr8niseimrah" path="res://codigos/EfeitoHabilidade.gd" id="1_jfikp"]
+[ext_resource type="Texture2D" uid="uid://bl81f7e4ildm8" path="res://imagens/chemicals/Desire.png" id="2_jfikp"]
+
+[node name="EfeitoHabilidade" type="CanvasLayer" unique_id=135832420]
+layer = 100
+script = ExtResource("1_jfikp")
+
+[node name="ImagemDesire" type="TextureRect" parent="." unique_id=1404387408]
+offset_left = 728.00006
+offset_right = 1808.0
+offset_bottom = 1920.0
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("2_jfikp")
+stretch_mode = 5
