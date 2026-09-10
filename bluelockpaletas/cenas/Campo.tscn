@@ -11,8 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://4ydlbe37pwns" path="res://cenas/UiMenuEscolha.tscn" id="7_v3s62"]
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
-[ext_resource type="PackedScene" uid="uid://c6diob41p1sf" path="res://personagens/Isagi.tscn" id="12_v0bld"]
-[ext_resource type="PackedScene" uid="uid://o2reqxsrxtd6" path="res://personagens/Bachira.tscn" id="13_ndd8t"]
+[ext_resource type="Theme" uid="uid://br34r4l2obcxa" path="res://Panel.tres" id="9_v0bld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
 size = Vector2(1920, 72)
@@ -55,6 +54,14 @@ font_size = 200
 
 [node name="Campo" type="Node2D" unique_id=13280438]
 script = ExtResource("1_57jda")
+
+[node name="Preto2" type="ColorRect" parent="." unique_id=1327589343]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 10703.11
+offset_bottom = 816.0
+scale = Vector2(0.18, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="PosicoesTimeA" type="Node2D" parent="." unique_id=10764558]
 
@@ -253,7 +260,7 @@ offset_right = 1904.0
 offset_bottom = 496.0
 
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(1032, 656)
+position = Vector2(960, 404)
 
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
@@ -299,15 +306,15 @@ vertical_alignment = 1
 script = ExtResource("7_i77rs")
 
 [node name="PanelContainer" type="PanelContainer" parent="UIHabilidade" unique_id=340160831]
-offset_left = 808.0
-offset_top = 824.0
-offset_right = 1112.0
-offset_bottom = 872.0
+offset_left = 736.0
+offset_top = 832.0
+offset_right = 1040.0
+offset_bottom = 880.0
 
 [node name="ContainerHabilidades" type="HBoxContainer" parent="UIHabilidade/PanelContainer" unique_id=1872510875]
 unique_name_in_owner = true
 layout_mode = 2
-alignment = 1
+theme = ExtResource("9_v0bld")
 
 [node name="UiMenuEscolha" parent="." unique_id=1211051750 instance=ExtResource("7_v3s62")]
 
@@ -343,17 +350,10 @@ script = ExtResource("8_5pgv7")
 
 [node name="LabelMensagem" type="Label" parent="UIMensagem" unique_id=974411143]
 unique_name_in_owner = true
-offset_left = 640.0
-offset_top = 880.0
-offset_right = 1280.0
-offset_bottom = 936.0
+offset_left = 416.0
+offset_top = 896.0
+offset_right = 1504.0
+offset_bottom = 952.0
 theme_override_fonts/font = ExtResource("6_cvsoc")
 theme_override_font_sizes/font_size = 13
-horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Isagi" parent="." unique_id=755908930 instance=ExtResource("12_v0bld")]
-position = Vector2(1647.9999, 392)
-
-[node name="Bachira" parent="." unique_id=1299557394 instance=ExtResource("13_ndd8t")]
-position = Vector2(970.9999, 679.99994)

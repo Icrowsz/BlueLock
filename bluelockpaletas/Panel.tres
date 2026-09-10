@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://br34r4l2obcxa"]
+
+[ext_resource type="FontFile" uid="uid://d3ccb6f1n0mn7" path="res://imagens/Daydream DEMO.otf" id="1_galnp"]
+
+[resource]
+default_font = ExtResource("1_galnp")
+default_font_size = 12

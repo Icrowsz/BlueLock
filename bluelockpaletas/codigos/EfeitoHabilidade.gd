@@ -30,6 +30,7 @@ extends CanvasLayer
 @onready var imagem: TextureRect = $ImagemDesire
 
 
+
 func _ready() -> void:
 	visible = false
 

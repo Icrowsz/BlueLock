@@ -1,7 +1,7 @@
 extends Botao
 class_name Hugo
 
-## Hugo Aiuchi (?)
+## Hugo
 ##
 ## - Mechanic: passe AUTOMÁTICO (sem clicar em ninguém — escolhe sozinho
 ##   o aliado mais próximo dentro de um alcance bem maior que o normal)

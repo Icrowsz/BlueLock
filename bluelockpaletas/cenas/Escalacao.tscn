@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bwpt6ibwge6ah" path="res://codigos/Escalacao.gd" id="1_ok3pp"]
 [ext_resource type="Texture2D" uid="uid://df2lqet7tad87" path="res://imagens/Escalacai.png" id="2_57l4s"]
+[ext_resource type="Theme" uid="uid://br34r4l2obcxa" path="res://Panel.tres" id="3_ghwlv"]
 
 [node name="Escalacao" type="Control" unique_id=188143248]
 layout_mode = 3
@@ -23,6 +24,7 @@ offset_left = 424.0
 offset_top = 168.0
 offset_right = 760.0
 offset_bottom = 640.0
+theme = ExtResource("3_ghwlv")
 alignment = 1
 
 [node name="ContainerTimeB" type="VBoxContainer" parent="." unique_id=555936228]
@@ -32,6 +34,7 @@ offset_left = 1200.0
 offset_top = 168.0
 offset_right = 1536.0
 offset_bottom = 640.0
+theme = ExtResource("3_ghwlv")
 alignment = 1
 
 [node name="BotaoConfirmar" type="Button" parent="." unique_id=729832173]

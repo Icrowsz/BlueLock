@@ -1,2 +1,7 @@
 res://cenas/Campo.tscn
-res://cenas/EfeitoHabilidade.tscn
+res://codigos/EfeitoHabilidade.gd
+res://codigos/Hugo.gd
+res://cenas/UiMenuEscolha.tscn
+res://cenas/Escalacao.tscn
+res://codigos/Personagens.gd
+res://codigos/Sae.gd

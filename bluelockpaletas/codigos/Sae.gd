@@ -41,7 +41,7 @@ class_name Sae
 
 @export_group("Perfect Pass")
 @export var duracao_perfect_pass: float = 0.6
-@export var alcance_maximo_perfect_pass: float = 350.0  ## distância MÁXIMA a partir da bola — cliques mais longe são "puxados" de volta pra essa distância
+@export var alcance_maximo_perfect_pass: float = 600.0  ## distância MÁXIMA a partir da bola — cliques mais longe são "puxados" de volta pra essa distância
 @export var cooldown_perfect_pass: int = 7
 
 @export_group("Royal Heelflick")
