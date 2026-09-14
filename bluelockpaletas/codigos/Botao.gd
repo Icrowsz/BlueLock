@@ -227,6 +227,19 @@ func _on_gol_marcado_soltar_bola_grudada(_lado: String) -> void:
 @onready var linha_mira: Line2D = $LinhaMira
 @onready var area_alcance: Area2D = $AreaAlcance
 
+## Indicador visual de alcance (alcance.png): aparece enquanto o jogador
+## está segurando/arrastando este botão pra puxar a seta, e fica girando
+## no próprio eixo o tempo todo (só estética, não afeta nada de física
+## nem de alcance de verdade — quem define o alcance real continua sendo
+## distancia_maxima_arrasto / area_alcance).
+## Adicione um Sprite2D chamado exatamente "SpriteAlcance" como filho da
+## cena Botao.tscn e arraste o alcance.png pra a textura dele no Inspector
+## — como ele é um filho da cena BASE, todo personagem herda automaticamente.
+@onready var sprite_alcance: Sprite2D = $SpriteAlcance if has_node("SpriteAlcance") else null
+
+@export_group("Indicador de Alcance")
+@export var velocidade_rotacao_sprite_alcance: float = 2.0  # radianos por segundo
+
 ## --- Visão estendida (mira com ricochete, tipo Metavisão do Isagi) ---
 ## Generalizado aqui pra qualquer botão poder mostrar isso, não só quem
 ## tem a habilidade própria — necessário pro Niko conceder essa visão
@@ -283,6 +296,14 @@ func _ready() -> void:
 		linha_trajetoria_bola.visible = false
 		linha_trajetoria_bola.default_color = cor_trajetoria_bola
 
+	if sprite_alcance:
+		sprite_alcance.visible = false
+		# mesmo motivo do linha_mira: sem isso, o sprite giraria "errado"
+		# somado à rotação física do botão (ex: depois de bater em outro
+		# botão) — aqui ele deve girar SÓ pela animação, sempre no mesmo
+		# ritmo, então precisa ignorar rotação/escala herdadas do botão.
+		sprite_alcance.top_level = true
+
 	if area_alcance:
 		area_alcance.body_entered.connect(_on_bola_entrou_alcance)
 		area_alcance.body_exited.connect(_on_bola_saiu_alcance)
@@ -291,6 +312,15 @@ func _ready() -> void:
 	Eventos.gol_marcado.connect(_on_gol_marcado_soltar_bola_grudada)
 
 	queue_redraw()  # garante que a aura do time seja desenhada logo de cara
+
+
+func _process(delta: float) -> void:
+	if sprite_alcance and sprite_alcance.visible:
+		# top_level = true faz esse sprite não herdar transform do botão
+		# automaticamente, então a posição precisa ser copiada manualmente
+		# — a rotação, porém, é só nossa mesmo (gira no próprio eixo).
+		sprite_alcance.global_position = global_position
+		sprite_alcance.rotation += velocidade_rotacao_sprite_alcance * delta
 
 
 func _draw() -> void:
@@ -321,6 +351,9 @@ func _input(event: InputEvent) -> void:
 				ponto_inicial = pos_mouse
 				if linha_mira:
 					linha_mira.visible = true
+				if sprite_alcance:
+					sprite_alcance.global_position = global_position
+					sprite_alcance.visible = true
 		elif not event.pressed and arrastando:
 			_soltar_e_chutar(pos_mouse)
 
@@ -339,6 +372,8 @@ func _cancelar_arrasto() -> void:
 	arrastando = false
 	if linha_mira:
 		linha_mira.visible = false
+	if sprite_alcance:
+		sprite_alcance.visible = false
 
 
 func _mouse_no_corpo(pos_mouse_global: Vector2) -> bool:
@@ -435,6 +470,8 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 	arrastando = false
 	if linha_mira:
 		linha_mira.visible = false
+	if sprite_alcance:
+		sprite_alcance.visible = false
 
 	var alcance := distancia_maxima_arrasto * multiplicador_distancia_arrasto()
 	var vetor_arrasto := (ponto_inicial - pos_solta_global).limit_length(alcance)

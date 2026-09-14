@@ -1,10 +1,5 @@
-res://cenas/EfeitoHabilidade.tscn
 res://cenas/Campo.tscn
-res://codigos/Nagi.gd
-res://codigos/Reo.gd
-res://personagens/Nagi.tscn
-res://cenas/chemicalscenas/Desire.tscn
-res://cenas/chemicalscenas/Miracle.tscn
-res://codigos/Kaiser.gd
-res://codigos/ReacoesQuimicas.gd
-res://cenas/chemicalscenas/Impossible.tscn
+res://personagens/Botao.tscn
+res://codigos/Botao.gd
+res://codigos/ConfiguracaoPartida.gd
+res://codigos/MontagemDeTime.gd

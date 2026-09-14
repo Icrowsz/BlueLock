@@ -68,20 +68,22 @@ color = Color(0, 0, 0, 1)
 
 [node name="PosicoesTimeA" type="Node2D" parent="." unique_id=10764558]
 
-[node name="Atacante" type="Marker2D" parent="PosicoesTimeA" unique_id=428671303]
+[node name="1121" type="Node2D" parent="PosicoesTimeA" unique_id=698229957]
+
+[node name="Atacante" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=428671303]
 position = Vector2(840, 405)
 
-[node name="Meio" type="Marker2D" parent="PosicoesTimeA" unique_id=383581781]
+[node name="Meio" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=383581781]
 position = Vector2(552, 408)
 
-[node name="Zagueiro" type="Marker2D" parent="PosicoesTimeA" unique_id=1615570421]
-position = Vector2(256, 408)
-
-[node name="Ponta Esquerda" type="Marker2D" parent="PosicoesTimeA" unique_id=1355958008]
+[node name="Ponta Esquerda" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=1355958008]
 position = Vector2(704, 120)
 
-[node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeA" unique_id=458822360]
+[node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=458822360]
 position = Vector2(704, 696)
+
+[node name="Zagueiro" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=1615570421]
+position = Vector2(256, 408)
 
 [node name="PosicoesTimeB" type="Node2D" parent="." unique_id=1430346641]
 
@@ -140,7 +142,7 @@ offset_right = 1792.0
 offset_bottom = 808.0
 
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(960, 404)
+position = Vector2(960, 405)
 
 [node name="Limite" type="StaticBody2D" parent="." unique_id=1356180793]
 

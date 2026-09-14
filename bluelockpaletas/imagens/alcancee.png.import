@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6no0axvku4bh"
-path="res://.godot/imported/geniusmiracle.png-cad48a3c60c55c399ad15de872db9ce1.ctex"
+uid="uid://d3r8gqjte74py"
+path="res://.godot/imported/alcancee.png-b85450e2405a5a71175ff4a6c573caa6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imagens/chemicals/geniusmiracle.png"
-dest_files=["res://.godot/imported/geniusmiracle.png-cad48a3c60c55c399ad15de872db9ce1.ctex"]
+source_file="res://imagens/alcancee.png"
+dest_files=["res://.godot/imported/alcancee.png-b85450e2405a5a71175ff4a6c573caa6.ctex"]
 
 [params]
 
