@@ -95,10 +95,13 @@ func _on_ponto_escolhido_rabona(ponto: Vector2) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Rabona Cross cancelado.")
 		return
+		
+	bola.definir_cor_trail(Color.KHAKI)
 
 	bola.receber_chute_curvo(ponto, forca_rabona_cross, time, intensidade_curva_rabona, duracao_curva_rabona, true)
 
 	consumir_acao_habilidade()
+	
 	iniciar_cooldown(NOME_RABONA_CROSS, cooldown_rabona_cross)
 	Eventos.mensagem_solicitada.emit("Rabona Cross! A bola foi cruzada em curva até o ponto escolhido.")
 

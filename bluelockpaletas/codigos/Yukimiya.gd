@@ -63,6 +63,8 @@ func _executar_gyro_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.CHOCOLATE)
 
 	# parar_ao_chegar = false: é um CHUTE a gol, não um passe — precisa
 	# manter a velocidade da curva pra continuar entrando no gol

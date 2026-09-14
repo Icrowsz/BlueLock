@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_3qttp"]
 [ext_resource type="Script" uid="uid://b6khterh7xpfm" path="res://codigos/Aiku.gd" id="2_d4n78"]
 [ext_resource type="Texture2D" uid="uid://pthotpn4s1ca" path="res://imagens/CVaikuu.jpg" id="2_oagau"]
-
+[ext_resource type="Texture2D" uid="uid://bgiuba8bkj707" path="res://imagens/Aderecos/Aiku2.webp" id="3_wwkhl"]
+[ext_resource type="Script" uid="uid://bc5e0ox15tv27" path="res://Adereco.gd" id="4_wwkhl"]
 
 [node name="Aiku" unique_id=755908930 instance=ExtResource("1_3qttp")]
 script = ExtResource("2_d4n78")
@@ -17,8 +18,17 @@ duracao_movimento_snake_hunt = 0.5
 duracao_bloqueio_alvo = 4
 fracao_deslocamento_reduzido_aiku = 0.6
 cooldown_snake_hunt = 8
-cor_mira_padrao = Color(0.21960784, 0.44313726, 0.27450982, 1)
+cor_mira_padrao = Color(0.21960784, 0.44313726, 0.27450982, 0.78431374)
+cor_trajetoria_chute = Color(0.21960784, 0.44313726, 0.27450982, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Serpente" type="Sprite2D" parent="." index="0" unique_id=2080586370]
+visible = false
+modulate = Color(1, 1, 1, 0.6431373)
+position = Vector2(0.11500692, -23.999725)
+scale = Vector2(0.31512836, 0.27971718)
+texture = ExtResource("3_wwkhl")
+script = ExtResource("4_wwkhl")
+
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("2_oagau")

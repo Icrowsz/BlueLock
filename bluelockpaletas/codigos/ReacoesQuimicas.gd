@@ -62,7 +62,77 @@ var REACOES: Array[Dictionary] = [
 				"Chemical Reaction: Desire! Isagi ganhou uma ação de habilidade extra e a Strongest Guy!"
 			)
 			},
+	{
+		"nome": "Miracle: Five Stage Volley",
+		"gatilho_classe": Reo,
+		"gatilho_habilidade": Reo.NOME_CHAMELEON_DREAM,
+		"alvo_classe": Nagi,
+		"mesmo_time": true,
+		"janela_segundos": 2.5,
+		"efeito": func(alvo: Botao) -> void:
+			var nagi := alvo as Nagi
+			nagi.evoluir_para_five_stage_volley()
+			Eventos.mensagem_solicitada.emit(
+				"Chemical Reaction: Miracle! O Kill It de Nagi evoluiu para Five Stage Volley!"
+			)
+			},
+	{
+		"nome": "Impossible",
+		"gatilho_classe": AlexisNess,
+		"gatilho_habilidade": AlexisNess.NOME_ALOHOMORA,
+		"alvo_classe": Kaiser,
+		"mesmo_time": true,
+		"janela_segundos": 2.0,  ## um pouco mais que duracao_alohomora (0.8s) pra dar folga do zigue-zague terminar
+		"efeito": func(alvo: Botao) -> void:
+			var kaiser := alvo as Kaiser
+			kaiser.conceder_acao_habilidade_extra(1)
+			kaiser.conceder_habilidade(
+				"The Impossible",
+				func() -> void: kaiser.executar_the_impossible(),
+				true,   # custa_acao
+				-1,     # não expira sozinha por turno, é de uso único mesmo
+				true,   # disponivel_imediatamente: PRECISA valer já neste
+						# turno, senão a janela da jogada já passou
+			)
+			Eventos.mensagem_solicitada.emit(
+				"Chemical Reaction: Impossible! Kaiser ganhou uma ação de habilidade extra e a The Impossible!"
+			)
+			},
 ]
+
+## Passivas de TIME: diferente de REACOES acima (que precisam de um
+## GATILHO + uma CONDIÇÃO dentro de uma janela de tempo), essas são bem
+## mais simples — "se os dois personagens estiverem no MESMO time, os
+## dois ganham algo", sem gatilho nenhum e sem prazo. Verificadas a cada
+## troca de turno (idempotente: cada uma só aplica UMA vez por partida,
+## ver _passivas_ja_aplicadas) — cobre o caso comum de não existir
+## nenhum sinal de "a partida começou" disponível; a primeira troca de
+## turno, com todo mundo já em campo, já serve como esse gatilho.
+##
+## Cada entrada é um Dictionary com:
+## - "nome": nome de exibição (só pra controle interno de "já aplicada")
+## - "classe_a" / "classe_b": as classes dos dois personagens envolvidos
+## - "aplicar": Callable(botao_a: Botao, botao_b: Botao) -> void, chamado
+##   UMA VEZ quando os dois são encontrados no mesmo time
+var PASSIVAS_DE_TIME: Array[Dictionary] = [
+	{
+		"nome": "Miracle",
+		"classe_a": Reo,
+		"classe_b": Nagi,
+		"aplicar": func(reo: Botao, nagi: Botao) -> void:
+			(reo as Reo).conceder_chameleon_dream()
+			(nagi as Nagi).conceder_kill_it()
+			Eventos.mensagem_solicitada.emit(
+				"Chemical Reaction: Miracle! Reo ganhou Chameleon Dream e Nagi ganhou Kill It."
+			)
+			},
+]
+
+## Controla quais PASSIVAS_DE_TIME já foram concedidas nesta partida —
+## sem isso, _verificar_passivas_de_time() rodando a cada troca de turno
+## tentaria conceder de novo (inofensivo pros métodos conceder_*, que só
+## ligam uma flag, mas sem sentido repetir pra sempre).
+var _passivas_ja_aplicadas: Array[String] = []
 
 ## Gatilhos armados aguardando a condição (a bola chegar no alvo certo),
 ## um Dictionary por gatilho pendente: {"reacao": Dictionary, "botao_gatilho": Botao}.
@@ -89,6 +159,29 @@ func _on_turno_mudou(_time_iniciado: String) -> void:
 	for nome in _cooldowns.keys():
 		if _cooldowns[nome] > 0:
 			_cooldowns[nome] -= 1
+
+	_verificar_passivas_de_time()
+
+
+func _verificar_passivas_de_time() -> void:
+	for passiva in PASSIVAS_DE_TIME:
+		if passiva["nome"] in _passivas_ja_aplicadas:
+			continue
+
+		var a := _achar_botao_da_classe(passiva["classe_a"])
+		var b := _achar_botao_da_classe(passiva["classe_b"])
+		if not a or not b or a.time != b.time:
+			continue
+
+		passiva["aplicar"].call(a, b)
+		_passivas_ja_aplicadas.append(passiva["nome"])
+
+
+func _achar_botao_da_classe(classe) -> Botao:
+	for nodo in get_tree().get_nodes_in_group("botoes"):
+		if is_instance_of(nodo, classe):
+			return nodo
+	return null
 
 
 func _reacao_em_cooldown(reacao: Dictionary) -> bool:

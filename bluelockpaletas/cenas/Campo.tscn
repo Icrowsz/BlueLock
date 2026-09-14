@@ -49,8 +49,11 @@ size = Vector2(88, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05kuh"]
 size = Vector2(16, 288)
 
-[sub_resource type="LabelSettings" id="LabelSettings_s60hy"]
-font_size = 200
+[sub_resource type="LabelSettings" id="LabelSettings_v3s62"]
+font = ExtResource("6_cvsoc")
+font_size = 100
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Campo" type="Node2D" unique_id=13280438]
 script = ExtResource("1_57jda")
@@ -59,7 +62,7 @@ script = ExtResource("1_57jda")
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 10703.11
-offset_bottom = 816.0
+offset_bottom = 928.0
 scale = Vector2(0.18, 1)
 color = Color(0, 0, 0, 1)
 
@@ -135,6 +138,9 @@ offset_left = 128.0
 offset_top = 800.0
 offset_right = 1792.0
 offset_bottom = 808.0
+
+[node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
+position = Vector2(960, 404)
 
 [node name="Limite" type="StaticBody2D" parent="." unique_id=1356180793]
 
@@ -259,9 +265,6 @@ offset_top = 208.0
 offset_right = 1904.0
 offset_bottom = 496.0
 
-[node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(960, 404)
-
 [node name="Placar" type="CanvasLayer" parent="." unique_id=1483574033]
 script = ExtResource("5_03kpf")
 posicao_reinicio_bola = Vector2(960, 408)
@@ -298,7 +301,7 @@ offset_top = 56.0
 offset_right = 1194.0
 offset_bottom = 329.0
 text = "GOL!"
-label_settings = SubResource("LabelSettings_s60hy")
+label_settings = SubResource("LabelSettings_v3s62")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -307,9 +310,9 @@ script = ExtResource("7_i77rs")
 
 [node name="PanelContainer" type="PanelContainer" parent="UIHabilidade" unique_id=340160831]
 offset_left = 736.0
-offset_top = 832.0
+offset_top = 744.0
 offset_right = 1040.0
-offset_bottom = 880.0
+offset_bottom = 792.0
 
 [node name="ContainerHabilidades" type="HBoxContainer" parent="UIHabilidade/PanelContainer" unique_id=1872510875]
 unique_name_in_owner = true
@@ -322,10 +325,10 @@ theme = ExtResource("9_v0bld")
 script = ExtResource("8_57jda")
 
 [node name="PanelContainer" type="PanelContainer" parent="UITurno" unique_id=1091308291]
-offset_left = 1616.0
-offset_top = 824.0
-offset_right = 1792.0
-offset_bottom = 857.0
+offset_left = 1600.0
+offset_top = 760.0
+offset_right = 1776.0
+offset_bottom = 793.0
 
 [node name="LabelTurno" type="Label" parent="UITurno/PanelContainer" unique_id=1302711984]
 unique_name_in_owner = true
@@ -350,10 +353,10 @@ script = ExtResource("8_5pgv7")
 
 [node name="LabelMensagem" type="Label" parent="UIMensagem" unique_id=974411143]
 unique_name_in_owner = true
-offset_left = 416.0
-offset_top = 896.0
-offset_right = 1504.0
-offset_bottom = 952.0
+offset_left = 640.0
+offset_top = 96.0
+offset_right = 1728.0
+offset_bottom = 152.0
 theme_override_fonts/font = ExtResource("6_cvsoc")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 12
 vertical_alignment = 1

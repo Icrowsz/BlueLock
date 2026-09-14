@@ -148,6 +148,8 @@ func _executar_tank() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.GOLD)
 
 	var forca := forca_base_tank
 	if esta_em_cooldown(NOME_TOO_SLOW) or esta_em_cooldown(NOME_GODSPEED):

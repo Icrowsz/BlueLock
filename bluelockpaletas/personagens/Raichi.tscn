@@ -10,6 +10,7 @@ stalker_duracao = 4
 stalker_multiplicador_forca = 0.5
 stalker_multiplicador_distancia = 0.5
 stalker_distancia_perseguicao = 70.0
+stalker_alcance_maximo = 350.0
 cooldown_stalker = 7
 bet_alcance = 260.0
 bet_duracao_turnos = 4
@@ -18,6 +19,7 @@ cooldown_bet = 8
 bet_textura = null
 bet_cor = Color(1, 0.749, 0.2, 0.349)
 cor_mira_padrao = Color(0.89411765, 0.7764706, 0.05490196, 0.78431374)
+cor_trajetoria_chute = Color(0.89411765, 0.7764706, 0.05490196, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.056, 0.056)

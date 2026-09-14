@@ -22,6 +22,11 @@ signal acoes_atualizadas(acoes_restantes: Dictionary)
 	"habilidade": 1,
 }
 
+var controle_dos_times: Dictionary = {
+	"A": "jogador",
+	"B": "jogador",
+}
+
 var time_da_vez: String = "A"
 var acoes_restantes: Dictionary = {}
 
@@ -90,3 +95,6 @@ func _iniciar_turno(time: String) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("passar_turno"):
 		passar_turno_manual()
+		
+func eh_controlado_por_ia(time: String) -> bool:
+	return controle_dos_times.get(time, "jogador") == "ia"

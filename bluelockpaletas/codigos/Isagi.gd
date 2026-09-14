@@ -61,6 +61,8 @@ func _executar_chute_direto() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+	
+	bola.definir_cor_trail(Color.DODGER_BLUE)
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_chute_direto)
@@ -111,12 +113,10 @@ func executar_strongest_guy() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.DODGER_BLUE)
 
 	if textura_strongest_guy:
-		# o chute só acontece DEPOIS do efeito terminar (imagem aparece,
-		# vibra, some) — await pausa esta função aqui, sem travar o resto
-		# do jogo, e só continua quando EfeitoHabilidade.mostrar_habilidade()
-		# de fato concluir
 		await EfeitoHabilidade.mostrar_habilidade(textura_strongest_guy)
 
 	# a bola pode ter saído do alcance ENQUANTO a animação rodava —

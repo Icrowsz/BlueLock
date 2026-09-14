@@ -95,6 +95,8 @@ func _executar_panther_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.INDIAN_RED)
 
 	var bonus := accelerate_turnos_ativos * bonus_forca_por_turno_accelerate
 	var forca_final := forca_base_panther_shot + bonus

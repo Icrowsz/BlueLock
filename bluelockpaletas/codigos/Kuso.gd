@@ -80,6 +80,8 @@ func _on_alvo_best_move_escolhido(alvo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Best Move cancelado.")
 		return
+		
+	bola.definir_cor_trail(Color.PALE_GREEN)
 
 	var direcao := (alvo.global_position - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_best_move)

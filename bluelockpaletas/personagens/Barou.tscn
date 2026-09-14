@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_7t2bf"]
 [ext_resource type="Script" uid="uid://bhm2uc5dlq0bv" path="res://codigos/Barou.gd" id="2_4uvaw"]
 [ext_resource type="Texture2D" uid="uid://dlhdqdi7sqjil" path="res://imagens/CVbarou.jpg" id="2_te1lo"]
+[ext_resource type="Texture2D" uid="uid://dcwd6hpa4injs" path="res://imagens/Aderecos/Barou2.webp" id="3_8my2u"]
+[ext_resource type="Script" uid="uid://bc5e0ox15tv27" path="res://Adereco.gd" id="4_x52n2"]
+[ext_resource type="Texture2D" uid="uid://c4nognnwr8xfp" path="res://imagens/Aderecos/Barou1.webp" id="6_x52n2"]
 
 [node name="Barou" unique_id=755908930 instance=ExtResource("1_7t2bf")]
 script = ExtResource("2_4uvaw")
@@ -16,7 +19,22 @@ bonus_forca_por_botao_proximo = 30.0
 raio_contagem_lion_kingdom = 150.0
 forca_nero = 270.0
 cor_mira_padrao = Color(0.9254902, 0.11372549, 0.14509805, 0.78431374)
+cor_trajetoria_chute = Color(0.9254902, 0.11372549, 0.14509805, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Kokusen" type="Sprite2D" parent="." index="0" unique_id=1407067236]
+visible = false
+position = Vector2(0.114990234, -23.999725)
+scale = Vector2(0.37547275, 0.33187476)
+texture = ExtResource("3_8my2u")
+script = ExtResource("4_x52n2")
+
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.066, 0.066)
 texture = ExtResource("2_te1lo")
+
+[node name="Lion" type="Sprite2D" parent="." index="6" unique_id=600021086]
+visible = false
+position = Vector2(7.9999084, 0.038335476)
+scale = Vector2(0.13356519, 0.12887028)
+texture = ExtResource("6_x52n2")
+script = ExtResource("4_x52n2")

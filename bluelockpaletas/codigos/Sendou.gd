@@ -75,6 +75,8 @@ func _executar_sabrina_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.PINK)
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_sabrina_shot)

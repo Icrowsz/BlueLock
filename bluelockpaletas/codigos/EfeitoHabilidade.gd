@@ -28,7 +28,7 @@ extends CanvasLayer
 ##    CENA, não só o script) com o nome "EfeitoHabilidade".
 
 @onready var imagem: TextureRect = $ImagemDesire
-
+	
 
 
 func _ready() -> void:

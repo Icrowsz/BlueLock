@@ -17,7 +17,7 @@ class_name Rin
 @export_group("Curve Shot")
 @export var forca_curve_shot: float = 250.0
 @export var cooldown_curve_shot: int = 6
-@export var intensidade_curva: float = 100.0  ## desvio lateral MÁXIMO em pixels (só atinge isso num chute 100% lateral; de frente, escala pra perto de zero)
+@export var intensidade_curva: float = 50.0  ## desvio lateral MÁXIMO em pixels (só atinge isso num chute 100% lateral; de frente, escala pra perto de zero)
 @export var duracao_curva: float = 1.1
 
 @export_group("Opposite Direction")
@@ -61,22 +61,10 @@ func _executar_curve_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.AQUAMARINE)
 
-	var alvo := gol.ponto_para_mira()
-	var intensidade_efetiva := _calcular_intensidade_curva(bola.global_position, alvo)
-	bola.receber_chute_curvo(alvo, forca_curve_shot, time, intensidade_efetiva, duracao_curva)
-
-
-func _calcular_intensidade_curva(origem: Vector2, alvo: Vector2) -> float:
-	# quanto mais alinhado com o eixo de ataque (de frente pro gol),
-	# menos curva — é o caminho mais fácil, sai reto. Quanto mais
-	# lateral (perpendicular ao eixo de ataque), mais curva, pra
-	# contornar até fechar no gol.
-	var eixo_ataque := Vector2.RIGHT if gol_inimigo_lado() == "direita" else Vector2.LEFT
-	var direcao_reta := (alvo - origem).normalized()
-	var alinhamento := absf(direcao_reta.dot(eixo_ataque))  # 1.0 = de frente, 0.0 = 90° lateral
-	var fator_lateral := 1.0 - alinhamento
-	return intensidade_curva * fator_lateral
+	bola.receber_chute_curvo(gol.ponto_para_mira(), forca_curve_shot, time, intensidade_curva, duracao_curva, false)
 
 
 ## --- Opposite Direction ---

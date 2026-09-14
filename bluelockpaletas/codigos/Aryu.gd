@@ -48,6 +48,7 @@ var glam_reach_turnos_restantes: int = 0
 ## Ajuste "CollisionShape2D" abaixo se sua cena usar outro nome pro nó
 ## de colisão.
 @onready var _colisao: Node2D = $CollisionShape2D if has_node("CollisionShape2D") else null
+@onready var brilhos: Adereco = $Brilhos if has_node("Brilhos") else null
 
 
 func _ready() -> void:
@@ -132,8 +133,10 @@ func _on_alvo_glam_block_escolhido(alvo: Botao) -> void:
 		Eventos.mensagem_solicitada.emit("Glam Block! O inimigo foi encantado — sem habilidades no próximo turno dele.")
 	)
 
+	if brilhos:
+		brilhos.mostrar()
 
-## --- Turnos: decrementa o Glam Reach junto com o resto ---
+## -- Turnos: decrementa o Glam Reach junto com o resto ---
 
 func _on_turno_mudou(time_da_vez: String) -> void:
 	super._on_turno_mudou(time_da_vez)

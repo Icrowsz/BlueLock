@@ -16,6 +16,8 @@ duracao_bloqueio_godspeed = 2
 cooldown_godspeed = 7
 forca_base_tank = 300.0
 cooldown_tank = 7
+cor_mira_padrao = Color(0.21960784, 0.2, 0.27058825, 0.78431374)
+cor_trajetoria_chute = Color(0.21960784, 0.2, 0.27058825, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

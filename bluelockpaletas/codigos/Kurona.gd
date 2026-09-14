@@ -33,7 +33,7 @@ class_name Kurona
 @export var acoes_extra_ao_receber_de_volta: int = 1
 
 @export_group("Shark Assault")
-@export var alcance_maximo_shark_assault: float = 400.0  ## distância MÁXIMA pra um aliado poder ser sorteado
+@export var alcance_maximo_shark_assault: float = 450.0  ## distância MÁXIMA pra um aliado poder ser sorteado
 @export var cooldown_shark_assault: int = 7
 
 const NOME_ONE_TWO := "One Two"
@@ -90,6 +90,8 @@ func _executar_passe(ator: Botao, alvo: Botao, quem_originou: Kurona, eh_lance_o
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto!")
 		return
+		
+	bola.definir_cor_trail(Color.PLUM)
 
 	var direcao := (alvo.global_position - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_one_two)
@@ -139,6 +141,8 @@ func _executar_shark_assault() -> void:
 	var bola := bola_no_alcance
 	if not bola:
 		return
+		
+	bola.definir_cor_trail(Color.PLUM)
 
 	var aliados := _aliados_disponiveis()
 	if aliados.is_empty():

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cwo2orjw5mpnw"]
+
+[ext_resource type="Texture2D" uid="uid://6no0axvku4bh" path="res://imagens/chemicals/GeniusMiracle.png" id="1_dc0mm"]
+[ext_resource type="Script" uid="uid://kr8niseimrah" path="res://codigos/EfeitoHabilidade.gd" id="1_x8v7k"]
+
+[node name="Miracle" type="CanvasLayer" unique_id=1834695616]
+script = ExtResource("1_x8v7k")
+
+[node name="ImagemMiracle" type="TextureRect" parent="." unique_id=1380558606]
+offset_left = -24.0
+offset_top = -8.0
+offset_right = 1640.0
+offset_bottom = 832.0
+texture = ExtResource("1_dc0mm")

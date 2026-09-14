@@ -8,9 +8,11 @@
 script = ExtResource("2_mgobg")
 cooldown_injustice = 8
 duracao_passe_injustice = 0.5
+alcance_maximo_injustice = 550.0
 multiplicador_forca_break_dance = 0.35
 cooldown_break_dance = 4
 cor_mira_padrao = Color(0, 0.39607844, 0.4862745, 0.78431374)
+cor_trajetoria_chute = Color(0, 0.39607844, 0.4862745, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.134, 0.134)

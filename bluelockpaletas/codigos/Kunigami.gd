@@ -71,6 +71,8 @@ func _executar_lefty_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+	
+	bola.definir_cor_trail(Color.DARK_ORANGE)
 
 	var forca := forca_lefty_shot
 	var inimigo := _encontrar_inimigo_no_alcance()

@@ -46,6 +46,8 @@ var _devour_ativo: bool = false
 var _king_path_ativo: bool = false
 var _follow_up_disponivel: String = ""  # "" = nenhum liberado agora
 
+@onready var kokusen: Adereco = $Kokusen if has_node("Kokusen") else null
+@onready var lion: Adereco = $Lion if has_node("Lion") else null
 
 func habilidades_proprias() -> Array[String]:
 	var lista: Array[String] = [NOME_DEVOUR, NOME_KING_PATH]
@@ -96,12 +98,16 @@ func _executar_deslocamento(vetor_arrasto: Vector2) -> void:
 		_devour_ativo = false
 		_dash_curto(vetor_arrasto, alcance_dash_devour)
 		_verificar_follow_up_apos_dash(NOME_LION_KINGDOM, true)
+		if kokusen:
+			kokusen.mostrar()
 		return
 
 	if _king_path_ativo:
 		_king_path_ativo = false
 		_dash_curto(vetor_arrasto, alcance_dash_king_path)
 		_verificar_follow_up_apos_dash(NOME_NERO, false)
+		if kokusen:
+			kokusen.mostrar()
 		return
 
 	super._executar_deslocamento(vetor_arrasto)
@@ -145,6 +151,11 @@ func _executar_lion_kingdom() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	if lion:
+		lion.mostrar()
+	
+	bola.definir_cor_trail(Color.FIREBRICK)
 
 	var quantidade := _contar_botoes_proximos(raio_contagem_lion_kingdom)
 	var forca := forca_base_lion_kingdom + quantidade * bonus_forca_por_botao_proximo
@@ -172,6 +183,11 @@ func _executar_nero() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+	
+	if lion:
+		lion.mostrar()
+	
+	bola.definir_cor_trail(Color.FIREBRICK)
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_nero)

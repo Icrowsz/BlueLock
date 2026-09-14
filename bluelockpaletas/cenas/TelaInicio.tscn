@@ -31,3 +31,10 @@ offset_top = 552.0
 offset_right = 1320.0
 offset_bottom = 744.0
 flat = true
+
+[node name="Barra" type="ColorRect" parent="." unique_id=962738744]
+layout_mode = 0
+offset_top = 810.0
+offset_right = 1920.0
+offset_bottom = 920.0
+color = Color(0, 0, 0, 1)

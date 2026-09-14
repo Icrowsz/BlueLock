@@ -15,6 +15,7 @@ multiplicador_distancia_scissors_dribble = 0.5
 multiplicador_forca_scissors_dribble = 0.6
 cooldown_scissors_dribble = 6
 cor_mira_padrao = Color(0.9137255, 0.3019608, 0.047058824, 0.78431374)
+cor_trajetoria_chute = Color(0.9137255, 0.3019608, 0.047058824, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)

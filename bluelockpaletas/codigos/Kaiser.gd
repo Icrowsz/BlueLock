@@ -57,6 +57,11 @@ class_name Kaiser
 @export var forca_knie_dich_hin: float = 150.0  ## "passe padrão" — nem curto nem longo
 @export var turnos_para_expirar_knie_dich_hin: int = 3
 
+@export_group("The Impossible (Chemical Reaction: Impossible)")
+@export var forca_the_impossible: float = 400.0  ## "chute bem forte" — acima do próprio Kaiser Impact (260); ajuste pela escala real do seu jogo
+@export var duracao_intangivel_the_impossible: float = 0.3
+@export var textura_the_impossible: Texture2D  ## imagem mostrada em tela cheia ao usar (ver EfeitoHabilidade.gd)
+
 const NOME_KAISER_IMPACT := "Kaiser Impact"
 const NOME_BEINSCHUSS := "Beinschuss"
 const NOME_EMPEROR_ROUTE := "Emperor Route"
@@ -96,6 +101,8 @@ func _executar_kaiser_impact() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.DEEP_SKY_BLUE)
 
 	bola.ativar_intangivel_para_botoes(duracao_intangivel_kaiser_impact)
 
@@ -116,6 +123,8 @@ func _executar_beinschuss() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.DEEP_SKY_BLUE)
 
 	# intensidade_curva = 0.0 -> sai reto, mas MANTÉM o "ignora colisão
 	# com todo o time do chutador" do receber_chute_curvo — Kaiser
@@ -205,3 +214,43 @@ func _executar_knie_dich_hin(aliado: Botao) -> void:
 	bola.receber_chute_teleguiado(direcao, forca_knie_dich_hin)
 
 	Eventos.mensagem_solicitada.emit("Knie Dich Hin! %s faz o passe padrão em direção a Kaiser." % aliado.name)
+
+
+## --- The Impossible (Chemical Reaction "Impossible", ver ReacoesQuimicas.gd) ---
+##
+## NÃO faz parte de habilidades_proprias() — Kaiser não nasce com ela.
+## Chega como concessão de USO ÚNICO via conceder_habilidade() (mesmo
+## mecanismo do Strongest Guy do Isagi), disparada automaticamente
+## quando o Alohomora do Ness encontra o alcance de Kaiser no mesmo
+## time. Por isso não tem cooldown próprio aqui: o "cooldown" dela É a
+## própria sinergia acontecer de novo.
+
+func executar_the_impossible() -> void:
+	var bola := bola_no_alcance
+	if not bola:
+		# pode acontecer se a bola sair do alcance entre a Chemical Reaction
+		# conceder a habilidade e Kaiser clicar pra usá-la
+		Eventos.mensagem_solicitada.emit("A bola saiu do alcance antes do The Impossible!")
+		return
+
+	var gol := encontrar_gol_inimigo()
+	if not gol:
+		return
+
+	if textura_the_impossible:
+		await EfeitoHabilidade.mostrar_habilidade(textura_the_impossible)
+
+	# a bola pode ter saído do alcance ENQUANTO a animação rodava —
+	# confere de novo antes de chutar (mesmo cuidado do Strongest Guy)
+	if not is_instance_valid(bola) or bola_no_alcance != bola:
+		Eventos.mensagem_solicitada.emit("A bola saiu do alcance durante a animação do The Impossible!")
+		return
+
+	bola.definir_cor_trail(Color.DEEP_SKY_BLUE)
+	bola.ativar_intangivel_para_botoes(duracao_intangivel_the_impossible)
+
+	var direcao := gol.ponto_para_mira() - bola.global_position
+	direcao = direcao.normalized() if direcao.length() > 1.0 else Vector2.RIGHT
+	bola.receber_chute_teleguiado(direcao, forca_the_impossible)
+
+	Eventos.mensagem_solicitada.emit("The Impossible! Um chute avassalador, sem colisão nenhuma no início.")

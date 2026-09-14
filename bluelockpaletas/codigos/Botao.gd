@@ -86,6 +86,19 @@ var bloqueado_de_usar_habilidade_por_zona: bool = false
 ## aplicar isso em OUTRO botão via aplicar_bloqueio_movimento().
 var bloqueado_de_mover_turnos_restantes: int = 0
 
+## Adicione isso ao Botao.gd, e REFATORE _soltar_e_chutar pra chamar
+## esse método em vez de repetir a lógica
+
+func realizar_jogada_de_movimento(vetor_arrasto: Vector2) -> void:
+	# ponto de entrada ÚNICO pra "este botão se move" — usado tanto pelo
+	# arrasto do jogador quanto pela IA, sem duplicar a lógica de
+	# consumo de ação
+	_executar_deslocamento(vetor_arrasto)
+	if acoes_movimento_bonus > 0:
+		acoes_movimento_bonus -= 1
+	else:
+		Turnos.usar_acao("movimento")
+	_apos_chute(true)
 
 func aplicar_bloqueio_movimento(turnos: int) -> void:
 	# max() em vez de sobrescrever: se já houver um bloqueio mais longo

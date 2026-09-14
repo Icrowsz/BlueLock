@@ -79,6 +79,8 @@ func _completar_alohomora(alvo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto!")
 		return
+		
+	bola.definir_cor_trail(Color.DARK_MAGENTA)
 
 	bola.mover_para_com_trajetoria_zigzag(alvo.global_position, duracao_alohomora, zigues_alohomora, amplitude_zigzag_alohomora)
 

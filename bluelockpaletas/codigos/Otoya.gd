@@ -110,6 +110,8 @@ func _executar_ninja_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.YELLOW_GREEN)
 
 	var forca := forca_ninja_shot + (bonus_forca_stealth if esta_em_stealth() else 0.0)
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()

@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://cerv15aed1vg3" path="res://codigos/Kunigami.gd" id="2_a10fm"]
 [ext_resource type="Texture2D" uid="uid://b2k7lqlwmmoel" path="res://imagens/CVkunigamiii.png" id="3_a10fm"]
 
-
 [node name="Kunigami" unique_id=755908930 instance=ExtResource("1_1bs8x")]
 script = ExtResource("2_a10fm")
 forca_lefty_shot = 260.0
@@ -12,8 +11,10 @@ bonus_forca_com_inimigo_perto = 30.0
 forca_empurrao_lefty_shot = 250.0
 cooldown_lefty_shot = 7
 forca_joker_shove = 200.0
+alcance_maximo_joker_shove = 150.0
 cooldown_joker_shove = 5
 cor_mira_padrao = Color(0.8666667, 0.42352942, 0.10980392, 0.78431374)
+cor_trajetoria_chute = Color(0.8666667, 0.42352942, 0.10980392, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)

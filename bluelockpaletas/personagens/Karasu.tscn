@@ -4,11 +4,10 @@
 [ext_resource type="Script" uid="uid://cnvvobq6s483b" path="res://codigos/Karasu.gd" id="2_gt5w0"]
 [ext_resource type="Texture2D" uid="uid://cqobs8sbx6wsk" path="res://imagens/CVkarasuu.jpg" id="2_u1nf5"]
 
-
 [node name="Karasu" unique_id=755908930 instance=ExtResource("1_il75b")]
 script = ExtResource("2_gt5w0")
-forca_raven_relay = 160.0
-tempo_limite_chegada_raven_relay = 2.5
+duracao_raven_relay = 0.9
+alcance_maximo_raven_relay = 600.0
 cooldown_raven_relay = 7
 forca_new_goal_method = 240.0
 duracao_new_goal_method = 1.0
@@ -20,6 +19,7 @@ duracao_puxao_wing_arm = 0.4
 duracao_bloqueio_wing_arm = 4
 cooldown_wing_arm_block = 6
 cor_mira_padrao = Color(0.11372549, 0.14509805, 0.29803923, 0.78431374)
+cor_trajetoria_chute = Color(0.11372549, 0.14509805, 0.29803923, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.083, 0.083)

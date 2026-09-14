@@ -12,6 +12,7 @@ cooldown_ambidexterity = 6
 forca_lynchpin = 90.0
 cooldown_lynchpin = 6
 cor_mira_padrao = Color(0.6431373, 0.78431374, 0.92156863, 0.78431374)
+cor_trajetoria_chute = Color(0.6431373, 0.78431374, 0.92156863, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.093, 0.093)

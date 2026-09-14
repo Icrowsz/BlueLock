@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://cxjjux3o23f4d" path="res://codigos/Kaiser.gd" id="2_v8yj8"]
 [ext_resource type="Texture2D" uid="uid://cn3pwanbxxha5" path="res://imagens/CVkaiser.png" id="2_vg7jc"]
 
-
 [node name="Kaiser" unique_id=755908930 instance=ExtResource("1_mn41s")]
 script = ExtResource("2_v8yj8")
 forca_kaiser_impact = 260.0
@@ -21,6 +20,7 @@ cooldown_emperor_route = 7
 forca_knie_dich_hin = 150.0
 turnos_para_expirar_knie_dich_hin = 3
 cor_mira_padrao = Color(0.2784314, 0.5372549, 0.74509805, 0.78431374)
+cor_trajetoria_chute = Color(0.2784314, 0.5372549, 0.74509805, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.095, 0.095)

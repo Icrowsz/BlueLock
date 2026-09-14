@@ -2,7 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_av02w"]
 [ext_resource type="Script" uid="uid://dsgjsc42q4mxb" path="res://codigos/Bachira.gd" id="2_km1gk"]
+[ext_resource type="Texture2D" uid="uid://8q3d2sbspbqq" path="res://imagens/Aderecos/Bachira3.webp" id="3_emtw0"]
 [ext_resource type="Texture2D" uid="uid://utvtxl5meo28" path="res://imagens/CVbachira.jpg" id="3_xcn4m"]
+[ext_resource type="Script" uid="uid://bc5e0ox15tv27" path="res://Adereco.gd" id="4_omwp6"]
+[ext_resource type="Texture2D" uid="uid://2fctdp0mke3y" path="res://imagens/Aderecos/Bachira1.webp" id="5_itdsd"]
 
 [node name="Bachira" unique_id=755908930 instance=ExtResource("1_av02w")]
 script = ExtResource("2_km1gk")
@@ -12,7 +15,23 @@ bee_shot_duracao_intangivel = 0.5
 monster_trance_multiplicador_distancia = 0.5
 cooldown_monster_trance = 6
 cor_mira_padrao = Color(0.99607843, 0.94509804, 0, 0.78431374)
+cor_trajetoria_chute = Color(0.99607843, 0.94509804, 0, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="MonsterC" type="Sprite2D" parent="." index="0" unique_id=1624924122]
+visible = false
+modulate = Color(1, 1, 1, 0.8156863)
+position = Vector2(0.1533432, -31.99964)
+scale = Vector2(0.29411015, 0.30847427)
+texture = ExtResource("3_emtw0")
+script = ExtResource("4_omwp6")
+
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_xcn4m")
+
+[node name="MonsterF" type="Sprite2D" parent="." index="6" unique_id=1585351148]
+visible = false
+position = Vector2(5.481477, 0.038331985)
+scale = Vector2(0.15664276, 0.10388156)
+texture = ExtResource("5_itdsd")
+script = ExtResource("4_omwp6")

@@ -12,10 +12,24 @@ class_name Shidou
 ##   próprio Shidou e os aliados, então dá pra chutar "de costas" pro
 ##   gol sem se atrapalhar. Cooldown de 6 turnos.
 ##
+##   Adereço visual: se existir um nó filho "AsasDragonDrive" (Adereco,
+##   ver Adereco.gd), ele aparece na hora do chute e some SOZINHO
+##   depois de alguns segundos — diferente do adereço do Demon Rush
+##   (que esconde no callback de chegada do movimento), aqui não tem um
+##   "fim de ação" natural pra amarrar o esconder(), então usamos o
+##   duracao_visivel do próprio Adereco (configurável no Inspector dele,
+##   não aqui no código) em vez de chamar esconder() na mão.
+##
 ## - Demon Rush: avanço médio até a bola, DESDE QUE ela esteja dentro do
 ##   alcance máximo. Se alcançar (ela ficar dentro do AreaAlcance ao
 ##   terminar o movimento), ganha uma ação de habilidade extra e libera
 ##   o Follow Up — KaKaBoom — só NESTE turno. Cooldown de 6 turnos.
+##
+##   Adereço visual: se existir um nó filho chamado "AsasDemonRush" (um
+##   Sprite2D puro, sem colisão nenhuma — ver Adereco.gd), ele fica
+##   visível durante o avanço e some assim que Shidou termina de se
+##   mover, alcançando a bola ou não. Não é obrigatório ter esse nó: se
+##   não existir, a habilidade funciona igual, só sem o efeito visual.
 ##
 ## - KaKaBoom (Follow Up): só aparece na lista de habilidades depois que
 ##   o Demon Rush conecta com a bola no mesmo turno — não tem cooldown
@@ -31,7 +45,7 @@ class_name Shidou
 @export_group("Demon Rush")
 @export var duracao_demon_rush: float = 0.4  ## avanço "médio" — nem tão rápido quanto o Genius Control, nem lento
 @export var distancia_parada_da_bola: float = 30.0
-@export var alcance_maximo_demon_rush: float = 270.0  ## distância MÁXIMA até a bola pra poder ativar
+@export var alcance_maximo_demon_rush: float = 300.0  ## distância MÁXIMA até a bola pra poder ativar
 @export var cooldown_demon_rush: int = 6
 
 @export_group("KaKaBoom (Follow Up)")
@@ -42,6 +56,8 @@ const NOME_DEMON_RUSH := "Demon Rush"
 const NOME_KAKABOOM := "KaKaBoom"
 
 var _kakaboom_disponivel: bool = false
+
+@onready var _asas_demon_rush: Adereco = $AsasDemonRush if has_node("AsasDemonRush") else null
 
 
 func habilidades_proprias() -> Array[String]:
@@ -92,6 +108,11 @@ func _executar_dragon_drive() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.DEEP_PINK)
+
+	if _asas_demon_rush:
+		_asas_demon_rush.mostrar()  # sem esconder() aqui — ele soma sozinho depois de duracao_visivel segundos
 
 	# intensidade de curva 0 = sai reto; o motivo de usar essa função e
 	# não receber_chute_teleguiado() é o efeito colateral dela de
@@ -106,11 +127,17 @@ func _executar_demon_rush() -> void:
 	if not bola:
 		return
 
+	if _asas_demon_rush:
+		_asas_demon_rush.mostrar()
+
 	var direcao := (global_position - bola.global_position)
 	direcao = direcao.normalized() if direcao.length() > 1.0 else Vector2.RIGHT
 	var destino := bola.global_position + direcao * distancia_parada_da_bola
 
 	MovimentoSuave.mover(self, destino, duracao_demon_rush, func() -> void:
+		if _asas_demon_rush:
+			_asas_demon_rush.esconder()
+
 		if bola_no_alcance:
 			conceder_acao_habilidade_extra(1)
 			_kakaboom_disponivel = true
@@ -128,6 +155,11 @@ func _executar_kakaboom() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	if _asas_demon_rush:
+		_asas_demon_rush.mostrar()
+		
+	bola.definir_cor_trail(Color.DEEP_PINK)
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_kakaboom)

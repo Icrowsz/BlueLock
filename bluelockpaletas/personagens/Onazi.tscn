@@ -12,6 +12,7 @@ cooldown_ego_unlock = 6
 since_im_here_multiplicador_forca = 0.65
 cooldown_since_im_here = 8
 cor_mira_padrao = Color(0.05882353, 0.43529412, 0.039215688, 0.78431374)
+cor_trajetoria_chute = Color(0.05882353, 0.43529412, 0.039215688, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

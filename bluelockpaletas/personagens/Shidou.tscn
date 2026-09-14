@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_lsvt6"]
 [ext_resource type="Texture2D" uid="uid://do6gokupdpujh" path="res://imagens/CVshidou.png" id="2_5hx48"]
 [ext_resource type="Script" uid="uid://dejjq1hl81g6b" path="res://codigos/Shidou.gd" id="2_jgs36"]
+[ext_resource type="Script" uid="uid://bc5e0ox15tv27" path="res://Adereco.gd" id="4_8eg57"]
+[ext_resource type="Texture2D" uid="uid://cc8pegpk7p2px" path="res://imagens/Aderecos/Shidou1.webp" id="4_jgs36"]
 
 [node name="Shidou" unique_id=755908930 instance=ExtResource("1_lsvt6")]
 script = ExtResource("2_jgs36")
@@ -11,10 +13,18 @@ duracao_dragon_drive = 1.0
 cooldown_dragon_drive = 7
 duracao_demon_rush = 0.4
 distancia_parada_da_bola = 30.0
+alcance_maximo_demon_rush = 300.0
 cooldown_demon_rush = 6
 forca_kakaboom = 270.0
 cor_mira_padrao = Color(1, 0.2509804, 0.7490196, 0.78431374)
+cor_trajetoria_chute = Color(1, 0.2509804, 0.7490196, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="AsasDemonRush" type="Sprite2D" parent="." index="0" unique_id=1822267070]
+position = Vector2(0.038335476, -7.9999084)
+scale = Vector2(0.53757215, 0.28474024)
+texture = ExtResource("4_jgs36")
+script = ExtResource("4_8eg57")
+
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("2_5hx48")

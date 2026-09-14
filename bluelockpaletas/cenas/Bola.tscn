@@ -8,6 +8,14 @@ radius = 16.0
 
 [node name="Bola" type="RigidBody2D" unique_id=134841203]
 script = ExtResource("1_awupd")
+trail_comprimento = 25
+
+[node name="Trail" type="Line2D" parent="." unique_id=2084643376]
+z_index = 2
+width = 22.0
+texture_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=858850678]
 position = Vector2(2.3841858e-07, -2.3841858e-07)

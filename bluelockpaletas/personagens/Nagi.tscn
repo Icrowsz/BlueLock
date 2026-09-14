@@ -3,16 +3,26 @@
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_ktgxj"]
 [ext_resource type="Script" uid="uid://cuftnwqdyq07u" path="res://codigos/Nagi.gd" id="2_itoty"]
 [ext_resource type="Texture2D" uid="uid://d2cgi4o8dakh7" path="res://imagens/CVnagii.jpg" id="2_ynn7h"]
+[ext_resource type="Texture2D" uid="uid://6no0axvku4bh" path="res://imagens/chemicals/GeniusMiracle.png" id="3_6p7kg"]
 
 [node name="Nagi" unique_id=755908930 instance=ExtResource("1_ktgxj")]
 script = ExtResource("2_itoty")
 duracao_genius_control = 0.6
 distancia_parada_da_bola = 30.0
+alcance_maximo_genius_control = 280.0
 cooldown_genius_control = 6
 forca_death_volley = 250.0
+turnos_awaken = 1
 cooldown_awaken = 7
+forca_kill_it = 550.0
+cooldown_kill_it = 6
+textura_kill_it = null
+forca_five_stage_volley = 800.0
+duracao_intangivel_five_stage_volley = 0.3
+textura_five_stage_volley = ExtResource("3_6p7kg")
 cor_mira_padrao = Color(0.7363401, 0.7515787, 0.7729404, 0.78431374)
+cor_trajetoria_chute = Color(0.7372549, 0.7529412, 0.77254903, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="1" unique_id=2039803516]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("2_ynn7h")

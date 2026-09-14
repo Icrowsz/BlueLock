@@ -153,6 +153,8 @@ func _on_inimigo_undead_pass(inimigo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto!")
 		return
+		
+	bola.definir_cor_trail(Color.WEB_PURPLE)
 
 	consumir_acao_habilidade()
 	iniciar_cooldown(NOME_UNDEAD_PASS, cooldown_undead_pass)

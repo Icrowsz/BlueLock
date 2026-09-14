@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bwpt6ibwge6ah" path="res://codigos/Escalacao.gd" id="1_ok3pp"]
 [ext_resource type="Texture2D" uid="uid://df2lqet7tad87" path="res://imagens/Escalacai.png" id="2_57l4s"]
 [ext_resource type="Theme" uid="uid://br34r4l2obcxa" path="res://Panel.tres" id="3_ghwlv"]
+[ext_resource type="PackedScene" uid="uid://dq2ahgw8inesp" path="res://cenas/SeletorDePersonagem.tscn" id="4_najsq"]
 
 [node name="Escalacao" type="Control" unique_id=188143248]
 layout_mode = 3
@@ -15,6 +16,7 @@ script = ExtResource("1_ok3pp")
 
 [node name="Escalacai" type="Sprite2D" parent="." unique_id=1462508288]
 position = Vector2(960, 405)
+scale = Vector2(1, 0.9999999)
 texture = ExtResource("2_57l4s")
 
 [node name="ContainerTimeA" type="VBoxContainer" parent="." unique_id=1187377495]
@@ -45,3 +47,17 @@ offset_top = 672.0
 offset_right = 1888.0
 offset_bottom = 784.0
 flat = true
+
+[node name="Barra" type="ColorRect" parent="." unique_id=208270568]
+layout_mode = 0
+offset_top = 810.0
+offset_right = 1920.0
+offset_bottom = 920.0
+color = Color(0, 0, 0, 1)
+
+[node name="SeletorDePersonagem" parent="." unique_id=1680452381 instance=ExtResource("4_najsq")]
+unique_name_in_owner = true
+tamanho_popup = Vector2i(1280, 720)
+colunas = 9
+tamanho_carta = Vector2(120, 150)
+tamanho_retrato = Vector2(85, 85)

@@ -15,6 +15,8 @@ duracao_bloqueio_undead_pass = 3
 cooldown_undead_pass = 6
 distancia_cerco_mafia = 60.0
 cooldown_mafia = 7
+cor_mira_padrao = Color(0.3882353, 0.25882354, 0.37254903, 0.78431374)
+cor_trajetoria_chute = Color(0.3882353, 0.25882354, 0.37254903, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

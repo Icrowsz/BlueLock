@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://qdh5l13ymtj1" path="res://codigos/Botao.gd" id="1_wabi8"]
 [ext_resource type="Shader" uid="uid://c4sbky4k3uc6k" path="res://codigos/Circulo_sprite.gdshader" id="2_nhlac"]
 [ext_resource type="Texture2D" uid="uid://gkajkpteuto4" path="res://imagens/bluelockman.jpg" id="2_uukq6"]
+[ext_resource type="Texture2D" uid="uid://bmasdp3bktvtf" path="res://imagens/fundo-de-textura-preta-fundo-preto-abstrato-padrao-preto_672416-231.png" id="3_tg336"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6c8f"]
+shader = ExtResource("2_nhlac")
+shader_parameter/raio = 0.48
+shader_parameter/suavizar_borda = 0.010000000475
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_awupd"]
 shader = ExtResource("2_nhlac")
@@ -19,15 +25,20 @@ radius = 80.0
 rotation = -0.0047919527
 gravity_scale = 0.0
 script = ExtResource("1_wabi8")
-raio_aura = 40.0
+raio_aura = 37.0
 largura_aura = 2.0
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2039803516]
+[node name="Contorno" type="Sprite2D" parent="." unique_id=1534750840]
+material = SubResource("ShaderMaterial_g6c8f")
+scale = Vector2(0.097, 0.097)
+texture = ExtResource("3_tg336")
+
+[node name="Retrato" type="Sprite2D" parent="." unique_id=2039803516]
 material = SubResource("ShaderMaterial_awupd")
 scale = Vector2(0.05659095, 0.056590945)
 texture = ExtResource("2_uukq6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1063117630]
+[node name="Colisao" type="CollisionShape2D" parent="." unique_id=1063117630]
 shape = SubResource("CircleShape2D_uukq6")
 
 [node name="LinhaMira" type="Line2D" parent="." unique_id=1252350703]

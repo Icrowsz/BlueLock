@@ -89,6 +89,7 @@ func _executar_bad_bunny() -> void:
 	if not gol:
 		return
 
+	bola.definir_cor_trail(Color.THISTLE)
 	# parar_ao_chegar = false: é um CHUTE DE GOL (igual ao Dragon Drive
 	# do Shidou), então a bola deve manter velocidade ao terminar a
 	# curva, não frear em cima do ponto de mira

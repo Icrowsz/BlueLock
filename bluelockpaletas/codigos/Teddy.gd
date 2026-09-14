@@ -102,6 +102,7 @@ func _executar_rainbow_knight() -> void:
 	if not gol:
 		return
 
+	bola.definir_cor_trail(Color.ALICE_BLUE)
 	# parar_ao_chegar = false: é um chute a gol, precisa manter a
 	# velocidade da curva pra continuar entrando
 	bola.receber_chute_curvo(gol.ponto_para_mira(), forca_rainbow_knight, time, intensidade_curva_rainbow_knight, duracao_curva_rainbow_knight, false)

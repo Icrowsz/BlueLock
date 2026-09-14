@@ -98,6 +98,8 @@ func _on_ponto_perfect_pass(ponto: Vector2) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Perfect Pass cancelado.")
 		return
+	
+	bola.definir_cor_trail(Color.CRIMSON)
 
 	var origem := bola.global_position
 	var ponto_final := origem + (ponto - origem).limit_length(alcance_maximo_perfect_pass)
@@ -182,6 +184,8 @@ func _executar_genius() -> void:
 		var gol := encontrar_gol_inimigo()
 		if not gol:
 			return
+			
+		bola.definir_cor_trail(Color.CRIMSON)
 
 		var direcao_chute := (gol.ponto_para_mira() - bola_no_alcance.global_position).normalized()
 		bola_no_alcance.receber_chute_teleguiado(direcao_chute, forca_genius)

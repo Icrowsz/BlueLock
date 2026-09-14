@@ -71,6 +71,8 @@ func _executar_ego_unlock() -> void:
 	if not gol:
 		return
 
+	bola.definir_cor_trail(Color.LIME_GREEN)
+
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 
 	bola.add_collision_exception_with(self)

@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bpfpq074r0n1g" path="res://codigos/Niko.gd" id="2_cdgmc"]
 [ext_resource type="Texture2D" uid="uid://yhdekjdkts8r" path="res://imagens/CVnikoo.png" id="3_fkht4"]
 
-
 [node name="Niko" unique_id=755908930 instance=ExtResource("1_5enjq")]
 script = ExtResource("2_cdgmc")
 duracao_movimento_transition_pass = 0.5
@@ -16,6 +15,7 @@ cooldown_transition_pass = 6
 duracao_metavisao_aliados = 4
 cooldown_metavisao = 6
 cor_mira_padrao = Color(0.5011344, 0.6310967, 0.58804196, 0.78431374)
+cor_trajetoria_chute = Color(0.5019608, 0.6313726, 0.5882353, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)

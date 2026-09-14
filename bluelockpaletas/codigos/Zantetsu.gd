@@ -127,6 +127,8 @@ func _executar_left_footed_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.DARK_GRAY)
 
 	var forca := forca_left_footed_shot
 	var veio_do_bullet_train := _ultima_acao_foi_bullet_train

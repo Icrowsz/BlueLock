@@ -25,7 +25,7 @@ class_name Karasu
 ##   turnos.
 
 @export_group("Raven Relay")
-@export var duracao_raven_relay: float = 0.6
+@export var duracao_raven_relay: float = 0.9
 @export var alcance_maximo_raven_relay: float = 600.0  ## distância MÁXIMA até o aliado escolhido
 @export var cooldown_raven_relay: int = 7
 
@@ -116,6 +116,8 @@ func _tentar_passe_raven_relay(alvo: Botao) -> void:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Raven Relay cancelado.")
 		return
 
+	bola.definir_cor_trail(Color.DARK_SLATE_BLUE)
+	
 	consumir_acao_habilidade()
 	iniciar_cooldown(NOME_RAVEN_RELAY, cooldown_raven_relay)
 
@@ -150,6 +152,8 @@ func _executar_new_goal_method(quem_recebeu: Botao) -> void:
 	var gol := quem_recebeu.encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.DARK_SLATE_BLUE)
 
 	# intensidade_curva = 0.0 -> vira uma linha reta (sem custo de
 	# processamento de curva), mas MANTÉM o "ignora colisão com

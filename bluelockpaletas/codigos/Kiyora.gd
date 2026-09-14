@@ -111,6 +111,8 @@ func _on_segundo_alvo_injustice(alvo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto!")
 		return
+		
+	bola.definir_cor_trail(Color.DARK_SLATE_GRAY)
 
 	consumir_acao_habilidade()
 	iniciar_cooldown(NOME_INJUSTICE, cooldown_injustice)

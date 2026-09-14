@@ -6,11 +6,12 @@
 
 [node name="Kuso" unique_id=755908930 instance=ExtResource("1_8l6dh")]
 script = ExtResource("2_1v0f8")
-duracao_best_move = 3.0
+forca_best_move = 150.0
 cooldown_best_move = 6
 godwin_dribble_multiplicador_distancia = 0.6
 cooldown_godwin_dribble = 7
 cor_mira_padrao = Color(0.6666667, 0.59607846, 0.5372549, 0.78431374)
+cor_trajetoria_chute = Color(0.6666667, 0.59607846, 0.5372549, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

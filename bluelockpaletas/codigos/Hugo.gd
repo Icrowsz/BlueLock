@@ -108,6 +108,8 @@ func _executar_mechanic() -> void:
 	var bola := bola_no_alcance
 	if not bola:
 		return
+		
+	bola.definir_cor_trail(Color.WEB_MAROON)
 
 	var aliado := _encontrar_aliado_mais_proximo(mechanic_alcance)
 	if not aliado:
@@ -211,6 +213,8 @@ func _executar_greater_than_king() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.WEB_MAROON)
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_greater_than_king)

@@ -59,6 +59,8 @@ func _executar_ambidexterity() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.LIGHT_CYAN)
 
 	# exceção de colisão só com ELE MESMO (não com o time todo, ver
 	# comentário no topo do arquivo) — removida sozinha depois de
@@ -94,7 +96,9 @@ func _confirmar_lynchpin(alvo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Lynchpin cancelado.")
 		return
-
+		
+	bola.definir_cor_trail(Color.LIGHT_CYAN)
+	
 	var direcao := alvo.global_position - bola.global_position
 	direcao = direcao.normalized() if direcao.length() > 1.0 else Vector2.RIGHT
 	bola.receber_chute_teleguiado(direcao, forca_lynchpin)

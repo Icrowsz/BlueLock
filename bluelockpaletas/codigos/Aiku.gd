@@ -40,6 +40,7 @@ const NOME_SNAKE_HUNT := "Snake Hunt"
 
 var _snake_hunt_turnos_restantes: int = 0  # >0 enquanto O PRÓPRIO Aiku sofre o penalty de deslocamento
 
+@onready var serpente: Adereco = $Serpente if has_node("Serpente") else null
 
 func habilidades_proprias() -> Array[String]:
 	return [NOME_SERPENT_SWAY, NOME_SNAKE_HUNT]
@@ -79,7 +80,10 @@ func _executar_serpent_sway() -> void:
 	MovimentoSuave.mover(self, destino, duracao_movimento_serpent_sway, func() -> void:
 		_oferecer_passe_serpent_sway()
 	)
-
+	
+	if serpente:
+		serpente.mostrar()
+	
 
 func _oferecer_passe_serpent_sway() -> void:
 	if not bola_no_alcance:
@@ -97,7 +101,11 @@ func _on_alvo_escolhido_serpent_sway(alvo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto pra completar o passe.")
 		return
-
+		
+		
+	bola.definir_cor_trail(Color.DARK_GREEN)
+	
+	conceder_acao_habilidade_extra(1)
 	var direcao := alvo.global_position - bola.global_position
 	if direcao.length() < 0.001:
 		return
@@ -124,6 +132,8 @@ func _on_alvo_escolhido_snake_hunt(alvo: Botao) -> void:
 
 	Eventos.mensagem_solicitada.emit("Snake Hunt! %s não pode se mover pelos próximos %d turnos — mas Aiku também fica mais lento até lá." % [alvo.name, duracao_bloqueio_alvo])
 
+	if serpente:
+		serpente.mostrar()
 
 func _ponto_de_aproximacao(alvo_pos: Vector2, distancia: float = -1.0) -> Vector2:
 	# fica a uma distância curta do alvo, na direção de onde Aiku já

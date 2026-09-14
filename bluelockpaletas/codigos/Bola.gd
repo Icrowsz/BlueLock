@@ -8,6 +8,19 @@ extends RigidBody2D
 
 @onready var material_fisico := PhysicsMaterial.new()
 
+## --- Rastro (trail) ---
+## Nó OPCIONAL: crie um Line2D filho da Bola chamado "Trail" na cena
+## (Bola.tscn) pra ativar isso. Sem ele, o jogo funciona normalmente,
+## só sem o efeito visual. Ver definir_cor_trail() mais abaixo — é o
+## único método que cada habilidade precisa chamar.
+@onready var trail: Line2D = $Trail if has_node("Trail") else null
+
+@export_group("Rastro (trail)")
+@export var trail_comprimento: int = 20  ## quantos pontos recentes o rastro guarda — maior = rastro mais longo
+@export var cor_trail_padrao: Color = Color.WHITE  ## cor de um toque/chute NORMAL (sem habilidade nenhuma)
+
+var _cor_trail_atual: Color = Color.WHITE
+
 
 func _ready() -> void:
 	add_to_group("bola")     # usado pelo Gol.gd para reconhecer a bola
@@ -21,6 +34,77 @@ func _ready() -> void:
 	material_fisico.friction = 0.3
 	physics_material_override = material_fisico
 
+	# precisa disso pra body_entered disparar de verdade num RigidBody2D
+	# (diferente de Area2D, aqui vem desligado por padrão)
+	contact_monitor = true
+	max_contacts_reported = 4
+	body_entered.connect(_on_colisao_fisica)
+
+	if trail:
+		trail.top_level = true  # não gira/escala com a bola — só usamos posições absolutas (mundo)
+		# ISSO AQUI é o pulo do gato: se o Line2D foi criado no editor
+		# como filho da bola, ele guardou uma posição LOCAL relativa a
+		# ela. Com top_level = true, essa posição guardada passa a ser
+		# interpretada como posição GLOBAL — se não for exatamente
+		# (0,0), o rastro inteiro desenha longe de onde a bola está de
+		# verdade (às vezes fora da tela), mesmo com os pontos certos.
+		# Forçando pra zero aqui, por código, isso nunca depende do que
+		# aconteceu no editor.
+		trail.position = Vector2.ZERO
+		trail.rotation = 0.0
+		trail.scale = Vector2.ONE
+		_cor_trail_atual = cor_trail_padrao
+		_atualizar_gradiente_trail()
+
+
+func _on_colisao_fisica(body: Node) -> void:
+	# qualquer colisão FÍSICA de verdade com um personagem (o arrasto
+	# normal, empurrando a bola) volta o rastro pra cor padrão — só
+	# habilidades especiais (que chamam definir_cor_trail() antes de
+	# mover a bola remotamente) mudam a cor, e ela some sozinha assim
+	# que a bola levar um toque de verdade de novo
+	if body.is_in_group("botoes"):
+		definir_cor_trail(cor_trail_padrao)
+
+
+func definir_cor_trail(cor: Color) -> void:
+	# chame isso na SUA habilidade, bem antes do chute/passe de verdade
+	# (ex: logo antes de bola.receber_chute_teleguiado(...)) — é assim
+	# que cada personagem escolhe sua própria cor, sem precisar tocar
+	# neste arquivo a cada novo personagem.
+	_cor_trail_atual = cor
+	_atualizar_gradiente_trail()
+
+
+func _atualizar_gradiente_trail() -> void:
+	if not trail:
+		return
+	var gradiente := Gradient.new()
+	var cor_opaca := _cor_trail_atual
+	cor_opaca.a = 0.9
+	var cor_transparente := _cor_trail_atual
+	cor_transparente.a = 0.0
+	gradiente.set_color(0, cor_opaca)         # ponta mais NOVA do rastro (onde a bola está agora)
+	gradiente.set_color(1, cor_transparente)  # ponta mais VELHA (desbotando até sumir)
+	trail.gradient = gradiente
+
+
+func _atualizar_trail() -> void:
+	if not trail:
+		return
+	# ponto novo sempre na FRENTE (índice 0) — o gradiente acima pinta o
+	# índice 0 opaco e o último transparente, então a ordem importa
+	var pontos := trail.points
+	pontos = PackedVector2Array([global_position]) + pontos
+	if pontos.size() > trail_comprimento:
+		pontos = pontos.slice(0, trail_comprimento)
+	trail.points = pontos
+
+
+func _limpar_trail() -> void:
+	if trail:
+		trail.points = PackedVector2Array()
+
 
 func _physics_process(delta: float) -> void:
 	# evita que a bola saia "voando" rápido demais depois de vários choques seguidos
@@ -28,6 +112,7 @@ func _physics_process(delta: float) -> void:
 		linear_velocity = linear_velocity.limit_length(velocidade_maxima)
 
 	_atualizar_curva(delta)
+	_atualizar_trail()
 
 
 var pedido_reset: bool = false
@@ -42,6 +127,11 @@ func resetar(posicao_inicial: Vector2) -> void:
 	# (causa real do bug "pisca e volta pro lugar errado").
 	posicao_reset_pendente = posicao_inicial
 	pedido_reset = true
+
+	# sem isso, o reset desenharia uma linha reta gigante conectando a
+	# posição antiga (antes do gol) até o centro do campo
+	_limpar_trail()
+	definir_cor_trail(cor_trail_padrao)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

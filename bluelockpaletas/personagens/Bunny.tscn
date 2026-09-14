@@ -14,6 +14,8 @@ mas_fotos_alcance = 500.0
 cooldown_mas_fotos = 8
 fake_smile_duracao_turnos_inimigo = 2
 cooldown_fake_smile = 7
+cor_mira_padrao = Color(0.7764706, 0.6784314, 0.7921569, 0.78431374)
+cor_trajetoria_chute = Color(0.7764706, 0.6784314, 0.7921569, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

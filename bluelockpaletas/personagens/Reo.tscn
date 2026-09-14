@@ -27,6 +27,7 @@ cooldown_copy = 7
 duracao_lob_pass = 2.5
 cooldown_lob_pass = 6
 cor_mira_padrao = Color(0.4509804, 0.3529412, 0.9529412, 0.78431374)
+cor_trajetoria_chute = Color(0.4509804, 0.3529412, 0.9529412, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)

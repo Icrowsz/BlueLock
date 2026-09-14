@@ -72,8 +72,16 @@ class_name Reo
 @export var duracao_lob_pass: float = 2.5
 @export var cooldown_lob_pass: int = 6
 
+@export_group("Chameleon Dream (Chemical Reaction: Miracle)")
+@export var forca_chameleon_dream: float = 500.0
+@export var tempo_limite_chameleon_dream: float = 2.5  ## se não chegar no alvo dentro desse tempo, consideramos que foi interceptado
+@export var cooldown_chameleon_dream: int = 6
+@export var textura_chameleon_dream: Texture2D  ## imagem mostrada em tela cheia ao ativar (ver EfeitoHabilidade.gd)
+
+
 const NOME_COPY := "Copy"
 const NOME_LOB_PASS := "Lob Pass"
+const NOME_CHAMELEON_DREAM := "Chameleon Dream"
 
 ## Fonte única de verdade pro leque: nome visível -> {"executar": Callable,
 ## "custa_acao": bool}. O leque mostrado (_abrir_leque_copy) e o
@@ -92,6 +100,18 @@ var _bet_turnos_restantes: int = 0
 var _accelerate_copiado_turnos_restantes: int = 0
 var _metavisao_copiada_ativa: bool = false
 
+## true a partir do momento em que a Chemical Reaction "Miracle" dispara
+## (ver ReacoesQuimicas.gd) — diferente das habilidades COPIADAS acima
+## (empréstimo de uso único via conceder_habilidade), essa flag libera
+## Chameleon Dream como habilidade PRÓPRIA de verdade, reutilizável com
+## cooldown normal, enquanto Reo e Nagi continuarem no mesmo time — o
+## que não muda no meio de uma partida, então na prática é permanente.
+var _tem_chameleon_dream: bool = false
+
+
+func conceder_chameleon_dream() -> void:
+	_tem_chameleon_dream = true
+
 
 func _ready() -> void:
 	super._ready()
@@ -107,7 +127,10 @@ func _ready() -> void:
 ## --- Ganchos do sistema de habilidades (ver Botao.gd) ---
 
 func habilidades_proprias() -> Array[String]:
-	return [NOME_COPY, NOME_LOB_PASS]
+	var lista: Array[String] = [NOME_COPY, NOME_LOB_PASS]
+	if _tem_chameleon_dream:
+		lista.append(NOME_CHAMELEON_DREAM)
+	return lista
 
 
 func _habilidade_propria_consome_acao(nome: String) -> bool:
@@ -115,11 +138,13 @@ func _habilidade_propria_consome_acao(nome: String) -> bool:
 		return false  # abrir o leque é de graça; quem custa é a habilidade escolhida, só quando USADA (não vem daqui, vem de _achar_concedida em Botao.gd)
 	if nome == NOME_LOB_PASS:
 		return false  # consumida manualmente em _on_alvo_lob_pass_escolhido(), só quando o passe de fato sai
+	if nome == NOME_CHAMELEON_DREAM:
+		return false  # mesmo motivo do Lob Pass: consumida manualmente só quando o passe de fato sai
 	return true
 
 
 func _requisito_extra_propria(nome: String) -> String:
-	if nome == NOME_LOB_PASS and bola_no_alcance == null:
+	if nome in [NOME_LOB_PASS, NOME_CHAMELEON_DREAM] and bola_no_alcance == null:
 		return "A bola precisa estar por perto para usar %s!" % nome
 	return ""
 
@@ -130,6 +155,8 @@ func executar_habilidade_propria(nome: String) -> void:
 			_abrir_leque_copy()
 		NOME_LOB_PASS:
 			_iniciar_lob_pass()
+		NOME_CHAMELEON_DREAM:
+			_iniciar_chameleon_dream()
 
 
 ## --- Copy ---
@@ -260,6 +287,8 @@ func _on_ponto_escolhido_rabona_copiado(ponto: Vector2) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Rabona Cross cancelado.")
 		return
+		
+	bola.definir_cor_trail(Color.MEDIUM_PURPLE)
 
 	bola.receber_chute_curvo(ponto, forca_rabona_cross, time, intensidade_curva_rabona, duracao_curva_rabona, true)
 	_iniciar_cooldowns_apos_uso("Rabona Cross", cooldown_rabona_copiado)
@@ -277,6 +306,8 @@ func _executar_dragon_drive_copiado() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+		
+	bola.definir_cor_trail(Color.MEDIUM_PURPLE)
 
 	bola.receber_chute_curvo(gol.ponto_para_mira(), forca_dragon_drive, time, 0.0, duracao_dragon_drive, false)
 	_iniciar_cooldowns_apos_uso("Dragon Drive", cooldown_dragon_drive_copiado)
@@ -340,12 +371,86 @@ func _on_alvo_lob_pass_escolhido(alvo: Botao) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Lob Pass cancelado.")
 		return
+		
+	bola.definir_cor_trail(Color.MEDIUM_PURPLE)
 
 	bola.mover_para_com_trajetoria(alvo.global_position, duracao_lob_pass)
 
 	consumir_acao_habilidade()
 	iniciar_cooldown(NOME_LOB_PASS, cooldown_lob_pass)
 	Eventos.mensagem_solicitada.emit("Lob Pass! A bola foi lançada até o aliado escolhido.")
+
+
+## --- Chameleon Dream (Chemical Reaction: Miracle) --- passe
+## interceptável (chute físico de verdade, não automático) que "gruda"
+## no alvo se realmente chegar: zera a velocidade da bola assim que ela
+## entra no alcance dele, em vez de deixá-la continuar rolando/quicando.
+
+func _iniciar_chameleon_dream() -> void:
+	SelecaoAlvo.pedir_alvo(self, _on_alvo_chameleon_dream_escolhido, "Escolha o alvo do Chameleon Dream")
+
+
+func _on_alvo_chameleon_dream_escolhido(alvo: Botao) -> void:
+	if alvo == self or alvo.time != time:
+		Eventos.mensagem_solicitada.emit("Escolha um companheiro de time como alvo!")
+		return
+
+	var bola := bola_no_alcance
+	if not bola:
+		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Chameleon Dream cancelado.")
+		return
+		
+	conceder_acao_habilidade_extra(1)
+
+	# consome a ação e entra em cooldown já aqui — a partir deste ponto o
+	# jogador já "confirmou" a jogada, a animação abaixo é só visual
+	consumir_acao_habilidade()
+	iniciar_cooldown(NOME_CHAMELEON_DREAM, cooldown_chameleon_dream)
+
+	if textura_chameleon_dream:
+		await EfeitoHabilidade.mostrar_habilidade(textura_chameleon_dream)
+
+	# a bola (ou o alvo) pode ter saído do alcance ENQUANTO a animação
+	# rodava — confere de novo antes de chutar, senão o passe sairia
+	# "no vazio" (mesmo cuidado do Strongest Guy do Isagi)
+	if not is_instance_valid(bola) or bola_no_alcance != bola or not is_instance_valid(alvo):
+		Eventos.mensagem_solicitada.emit("A bola saiu do alcance durante a animação do Chameleon Dream!")
+		return
+
+	var direcao := alvo.global_position - bola.global_position
+	direcao = direcao.normalized() if direcao.length() > 1.0 else Vector2.RIGHT
+
+	bola.definir_cor_trail(Color.MEDIUM_PURPLE)
+	bola.receber_chute_teleguiado(direcao, forca_chameleon_dream)
+
+	Eventos.mensagem_solicitada.emit("Chameleon Dream! Passe enviado pra %s — pode ser interceptado." % alvo.name)
+
+	_aguardar_chegada_chameleon_dream(alvo, bola)
+
+
+func _aguardar_chegada_chameleon_dream(alvo: Botao, bola: RigidBody2D) -> void:
+	if not alvo.area_alcance:
+		return
+
+	# CONNECT_ONE_SHOT desliga sozinha no sucesso; o temporizador cuida
+	# do caso contrário (interceptado, nunca chega) — sem ele, a conexão
+	# ficaria pendurada esperando um sinal que nunca vem (mesmo cuidado
+	# do Raven Relay do Karasu).
+	var conexao: Callable
+	conexao = func(body: Node) -> void:
+		if not body.is_in_group("bola"):
+			return
+		if is_instance_valid(bola):
+			bola.linear_velocity = Vector2.ZERO
+			bola.angular_velocity = 0.0
+
+	alvo.area_alcance.body_entered.connect(conexao, CONNECT_ONE_SHOT)
+
+	var temporizador := get_tree().create_timer(tempo_limite_chameleon_dream)
+	temporizador.timeout.connect(func() -> void:
+		if is_instance_valid(alvo) and alvo.area_alcance.body_entered.is_connected(conexao):
+			alvo.area_alcance.body_entered.disconnect(conexao)
+	)
 
 
 ## --- Turnos: decrementa a zona do Bet e a duração do Accelerate

@@ -38,6 +38,9 @@ var _monster_trance_ativo: bool = false
 const NOME_BEE_SHOT := "Bee Shot"
 const NOME_MONSTER_TRANCE := "Monster Trance"
 
+@onready var monster1: Adereco = $MonsterF if has_node("MonsterF") else null
+@onready var monster2: Adereco = $MonsterC if has_node("MonsterC") else null
+
 
 func habilidades_proprias() -> Array[String]:
 	return [NOME_BEE_SHOT, NOME_MONSTER_TRANCE]
@@ -69,11 +72,15 @@ func _executar_bee_shot() -> void:
 	var gol := encontrar_gol_inimigo()
 	if not gol:
 		return
+	
+	bola.definir_cor_trail(Color.GOLDENROD)
 
 	var direcao := (gol.ponto_para_mira() - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_bee_shot)
 	bola.ativar_intangivel_para_botoes(bee_shot_duracao_intangivel)
 
+	if monster2:
+		monster2.mostrar()
 
 ## --- Monster Trance ---
 
@@ -83,6 +90,8 @@ func _executar_monster_trance() -> void:
 	conceder_acao_habilidade_extra(1)
 	Eventos.mensagem_solicitada.emit("Monster Trance! Bachira ganhou um deslocamento extra (reduzido) e mais uma ação de habilidade neste turno.")
 
+	if monster1:
+		monster1.mostrar()
 
 func multiplicador_distancia_arrasto() -> float:
 	# só reduz a distância quando o deslocamento que está prestes a

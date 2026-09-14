@@ -91,6 +91,8 @@ func _completar_passe_transition() -> void:
 	if not alvo:
 		Eventos.mensagem_solicitada.emit("Não há aliados em campo pra receber o passe!")
 		return
+		
+	bola.definir_cor_trail(Color.CADET_BLUE)
 
 	var direcao := (alvo.global_position - bola.global_position).normalized()
 	bola.receber_chute_teleguiado(direcao, forca_passe_transition)

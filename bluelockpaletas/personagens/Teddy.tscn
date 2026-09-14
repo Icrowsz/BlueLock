@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://njpx7anwwcn" path="res://personagens/Botao.tscn" id="1_50fcw"]
 [ext_resource type="Script" uid="uid://di5cjcinmt67r" path="res://codigos/Teddy.gd" id="2_2heec"]
-[ext_resource type="Texture2D" uid="uid://bia4bqrcev1he" path="res://imagens/teddy.png" id="3_tcf0t"]
+[ext_resource type="Texture2D" uid="uid://bwajppen18103" path="res://imagens/CVtedddy.png" id="3_tcf0t"]
 
 [node name="Teddy" unique_id=755908930 instance=ExtResource("1_50fcw")]
 script = ExtResource("2_2heec")
@@ -16,6 +16,8 @@ cooldown_puppet = 7
 england_cavalry_distancia_parada = 40.0
 england_cavalry_duracao_movimento = 0.4
 cooldown_england_cavalry = 8
+cor_mira_padrao = Color(0.43529412, 0.6039216, 0.78039217, 0.78431374)
+cor_trajetoria_chute = Color(0.43529412, 0.6039216, 0.78039217, 0.78431374)
 
 [node name="Sprite2D" parent="." index="0" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)

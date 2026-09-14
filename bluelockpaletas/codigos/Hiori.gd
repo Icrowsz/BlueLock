@@ -95,6 +95,8 @@ func _on_ponto_escolhido_millimeter(ponto: Vector2) -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está mais por perto — Millimeter Precision cancelado.")
 		return
+		
+		bola.definir_cor_trail(Color.SKY_BLUE)
 
 	var ponto_final := _ajustar_ponto_millimeter(ponto, bola.global_position)
 	bola.mover_para_com_trajetoria(ponto_final)
@@ -176,6 +178,8 @@ func _tentar_passe_classico() -> void:
 	if not bola:
 		Eventos.mensagem_solicitada.emit("A bola não está por perto — Fine-Tuning terminou só no toque.")
 		return
+		
+	bola.definir_cor_trail(Color.SKY_BLUE)
 
 	SelecaoAlvo.pedir_alvo(self, _on_alvo_escolhido_passe_classico, "Escolha o aliado do passe clássico (Fine-Tuning)")
 

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3p5yompi1c6w"]
+
+[ext_resource type="Script" uid="uid://kr8niseimrah" path="res://codigos/EfeitoHabilidade.gd" id="1_0i8tk"]
+[ext_resource type="Texture2D" uid="uid://ftfewcu3nqwi" path="res://imagens/chemicals/Impossible.png" id="1_eryeh"]
+
+[node name="Impossible" type="CanvasLayer" unique_id=777538069]
+script = ExtResource("1_0i8tk")
+
+[node name="ImagemMiracle" type="TextureRect" parent="." unique_id=2047212110]
+offset_left = -24.0
+offset_top = -8.0
+offset_right = 1640.0
+offset_bottom = 832.0
+texture = ExtResource("1_eryeh")
