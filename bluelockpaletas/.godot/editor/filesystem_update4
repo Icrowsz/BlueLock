@@ -1,5 +1,4 @@
-res://cenas/Campo.tscn
-res://personagens/Botao.tscn
-res://codigos/Botao.gd
-res://codigos/ConfiguracaoPartida.gd
-res://codigos/MontagemDeTime.gd
+res://personagens/Aiku.tscn
+res://personagens/Bachira.tscn
+res://personagens/Aryu.tscn
+res://personagens/Barou.tscn

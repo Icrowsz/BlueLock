@@ -19,7 +19,7 @@ cooldown_glam_block = 6
 cor_mira_padrao = Color(0.38039216, 0.32941177, 0.28235295, 0.78431374)
 cor_trajetoria_chute = Color(0.38039216, 0.32941177, 0.28235295, 0.78431374)
 
-[node name="Retrato" parent="." index="1" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.095, 0.095)
 texture = ExtResource("2_hi5rf")
 

@@ -29,6 +29,6 @@ scale = Vector2(0.31512836, 0.27971718)
 texture = ExtResource("3_wwkhl")
 script = ExtResource("4_wwkhl")
 
-[node name="Retrato" parent="." index="2" unique_id=2039803516]
+[node name="Retrato" parent="." index="3" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("2_oagau")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbq4o26hh88pw"
-path="res://.godot/imported/Igaguri.jpg-4499cae5f3769bbb642184021055dbf8.ctex"
+uid="uid://csohsc8nty1yr"
+path="res://.godot/imported/Teddy.png-aa1b2830b40c237f2874f8831be61863.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imagens/retratos/Igaguri.jpg"
-dest_files=["res://.godot/imported/Igaguri.jpg-4499cae5f3769bbb642184021055dbf8.ctex"]
+source_file="res://imagens/retratos/Teddy.png"
+dest_files=["res://.godot/imported/Teddy.png-aa1b2830b40c237f2874f8831be61863.ctex"]
 
 [params]
 
