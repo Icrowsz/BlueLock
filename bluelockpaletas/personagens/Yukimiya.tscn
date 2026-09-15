@@ -6,7 +6,7 @@
 
 [node name="Yukimiya" unique_id=755908930 instance=ExtResource("1_mubc7")]
 script = ExtResource("2_wy6ip")
-forca_gyro_shot = 200.0
+forca_gyro_shot = 150.0
 intensidade_curva_gyro_shot = 30.0
 duracao_curva_gyro_shot = 1.0
 cooldown_gyro_shot = 7
@@ -17,6 +17,6 @@ cooldown_scissors_dribble = 6
 cor_mira_padrao = Color(0.9137255, 0.3019608, 0.047058824, 0.78431374)
 cor_trajetoria_chute = Color(0.9137255, 0.3019608, 0.047058824, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("2_g7a5a")

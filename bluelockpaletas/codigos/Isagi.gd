@@ -50,6 +50,13 @@ func executar_habilidade_propria(nome: String) -> void:
 			_executar_metavisao()
 			iniciar_cooldown(nome, cooldown_metavisao)
 
+func _descricao_propria(nome: String) -> String:
+	match nome:
+		"Chute Direto":
+			return "Chute médio, reto e teleguiado direto ao gol inimigo. Consome a ação de habilidade do turno. Cooldown: %d turno(s)." % cooldown_chute_direto
+		"Metavisão":
+			return "Prévia de trajetória bem mais longa e precisa, com ricochete em paredes/botões e previsão de para onde a bola vai depois do impacto. Não consome ação. Cooldown: %d turno(s)." % cooldown_metavisao
+	return super._descricao_propria(nome)
 
 ## --- Chute Direto ---
 

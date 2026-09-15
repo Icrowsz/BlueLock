@@ -20,12 +20,12 @@ alcance_metavisao = 500.0
 cor_trajetoria_chute = Color(0.13333334, 0.44705883, 0.7882353, 0.78431374)
 cor_trajetoria_bola = Color(0.040090222, 0.22969058, 0.43251276, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 position = Vector2(0, 9.536743e-07)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_hk84y")
 
+[node name="LinhaTrajetoriaBola" type="Line2D" parent="." index="4" unique_id=364834048]
+
 [node name="CollisionShape2D" parent="AreaAlcance" parent_id_path=PackedInt32Array(1011226874) index="0" unique_id=767625532]
 shape = SubResource("CircleShape2D_i77rs")
-
-[node name="LinhaTrajetoriaBola" type="Line2D" parent="." index="4" unique_id=364834048]

@@ -21,7 +21,7 @@ extends CanvasLayer
 
 @export var posicao_reinicio_bola: Vector2 = Vector2.ZERO  # ajuste pro centro do seu campo
 @export var duracao_comemoracao: float = 1.5  # segundos que o "GOL!" fica na tela
-
+@export var gols_para_vencer: int = 3
 @onready var label_esquerda: Label = $PainelPlacar/HBoxContainer/LabelEsquerda
 @onready var label_direita: Label = $PainelPlacar/HBoxContainer/LabelDireita
 @onready var label_gol: Label = $LabelGol
@@ -29,7 +29,7 @@ extends CanvasLayer
 var placar_esquerda: int = 0
 var placar_direita: int = 0
 var processando_gol: bool = false  # evita dois gols dispararem a comemoração ao mesmo tempo
-
+var jogo_encerrado: bool = false
 
 func _ready() -> void:
 	Eventos.gol_marcado.connect(_on_gol_marcado)
@@ -39,10 +39,9 @@ func _ready() -> void:
 		label_gol.modulate.a = 0.0
 		set_process_unhandled_input(true)
 
-
 func _on_gol_marcado(lado: String) -> void:
-	if processando_gol:
-		return  # já tem uma comemoração rolando, ignora gols repetidos
+	if processando_gol or jogo_encerrado:
+		return
 	processando_gol = true
 
 	if lado == "esquerda":
@@ -51,11 +50,15 @@ func _on_gol_marcado(lado: String) -> void:
 		placar_direita += 1
 	_atualizar_labels()
 
+	EfeitosDeCamera.sacudir(14.0, 0.4)
 	await _mostrar_comemoracao()
-	_resetar_jogo()
+
+	if placar_esquerda >= gols_para_vencer or placar_direita >= gols_para_vencer:
+		_finalizar_partida(lado)
+	else:
+		_resetar_jogo()
 
 	processando_gol = false
-
 
 func _mostrar_comemoracao() -> void:
 	if not label_gol:
@@ -96,8 +99,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _reiniciar_manualmente() -> void:
-	if processando_gol:
-		return  # já tem um reset de gol rolando — não interfere
+	if processando_gol or jogo_encerrado:
+		return # já tem um reset de gol rolando — não interfere
 
 	# se o "GOL!" ainda estiver na tela por algum motivo, tira ele do caminho
 	if label_gol:
@@ -105,3 +108,11 @@ func _reiniciar_manualmente() -> void:
 		label_gol.modulate.a = 0.0
 
 	_resetar_jogo()
+	
+func _finalizar_partida(lado_vencedor: String) -> void:
+	jogo_encerrado = true
+	if label_gol:
+		label_gol.text = "TIME %s VENCEU!" % lado_vencedor.to_upper()
+		label_gol.visible = true
+		label_gol.modulate.a = 1.0
+	Eventos.partida_finalizada.emit(lado_vencedor)

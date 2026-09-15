@@ -7,6 +7,7 @@ extends RigidBody2D
 @export var velocidade_maxima: float = 900.0
 
 @onready var material_fisico := PhysicsMaterial.new()
+@onready var sprite_visual: Node2D = _achar_sprite_visual()
 
 ## --- Rastro (trail) ---
 ## Nó OPCIONAL: crie um Line2D filho da Bola chamado "Trail" na cena
@@ -56,7 +57,13 @@ func _ready() -> void:
 		_cor_trail_atual = cor_trail_padrao
 		_atualizar_gradiente_trail()
 
-
+func _achar_sprite_visual() -> Node2D:
+	if has_node("Sprite2D"):
+		return $Sprite2D
+	if has_node("AnimatedSprite2D"):
+		return $AnimatedSprite2D
+	return null
+		
 func _on_colisao_fisica(body: Node) -> void:
 	# qualquer colisão FÍSICA de verdade com um personagem (o arrasto
 	# normal, empurrando a bola) volta o rastro pra cor padrão — só
@@ -284,3 +291,14 @@ func _atualizar_curva(delta: float) -> void:
 		_curva_ativa = false
 		if _curva_parar_ao_chegar:
 			linear_velocity = Vector2.ZERO
+
+func _squash_and_stretch(intensidade: float = 0.35) -> void:
+	if not sprite_visual:
+		return
+	sprite_visual.scale = Vector2.ONE
+
+	var tween := create_tween()
+	tween.tween_property(sprite_visual, "scale", Vector2(1.0 - intensidade, 1.0 + intensidade), 0.05) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite_visual, "scale", Vector2.ONE, 0.20) \
+		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)

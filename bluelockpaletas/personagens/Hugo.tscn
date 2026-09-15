@@ -9,13 +9,13 @@ script = ExtResource("2_bxynk")
 mechanic_alcance = 500.0
 duracao_mechanic = 0.9
 cooldown_mechanic = 7
-non_rotating_gear_duracao_turnos_inimigo = 3
+non_rotating_gear_duracao_turnos_inimigo = 2
 cooldown_non_rotating_gear = 7
 cooldown_second_place = 7
 forca_greater_than_king = 240.0
 cor_mira_padrao = Color(0.6156863, 0.101960786, 0.3137255, 0.78431374)
 cor_trajetoria_chute = Color(0.6156863, 0.101960786, 0.3137255, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.094, 0.094)
 texture = ExtResource("3_birjp")

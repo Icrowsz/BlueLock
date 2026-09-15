@@ -29,7 +29,7 @@ class_name Teddy
 ##   de 8 turnos.
 
 @export_group("Rainbow Knight")
-@export var forca_rainbow_knight: float = 220.0
+@export var forca_rainbow_knight: float = 140.0
 @export var intensidade_curva_rainbow_knight: float = 55.0  ## "média" — entre o Gyro Shot do Yukimiya (30, fraca) e o Rabona Cross do Charles (70)
 @export var duracao_curva_rainbow_knight: float = 1.0
 @export var cooldown_rainbow_knight: int = 6

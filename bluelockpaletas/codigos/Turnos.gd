@@ -29,19 +29,20 @@ var controle_dos_times: Dictionary = {
 
 var time_da_vez: String = "A"
 var acoes_restantes: Dictionary = {}
-
+var partida_ativa: bool = true
 
 func _ready() -> void:
+	Eventos.partida_finalizada.connect(_on_partida_finalizada)
 	_iniciar_turno("A")
-
 
 func eh_turno_do_time(time: String) -> bool:
 	return time == time_da_vez
 
 
 func tem_acao_disponivel(tipo: String) -> bool:
+	if not partida_ativa:
+		return false
 	return acoes_restantes.get(tipo, 0) > 0
-
 
 func usar_acao(tipo: String) -> bool:
 	# tenta gastar uma ação do tipo informado. Retorna false sem fazer
@@ -66,19 +67,16 @@ func adicionar_acoes(tipo: String, quantidade: int) -> void:
 	acoes_restantes[tipo] = acoes_restantes.get(tipo, 0) + quantidade
 	acoes_atualizadas.emit(acoes_restantes)
 
-
 func passar_turno_manual() -> void:
-	# use isso num botão de "Passar Turno" na UI, caso o jogador não
-	# queira gastar todas as ações disponíveis
+	if not partida_ativa:
+		return
 	_passar_turno()
-
 
 func _sem_acoes_restantes() -> bool:
 	for tipo in acoes_restantes:
 		if acoes_restantes[tipo] > 0:
 			return false
 	return true
-
 
 func _passar_turno() -> void:
 	turno_finalizado.emit(time_da_vez)
@@ -93,8 +91,13 @@ func _iniciar_turno(time: String) -> void:
 	acoes_atualizadas.emit(acoes_restantes)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not partida_ativa:
+		return
 	if event.is_action_pressed("passar_turno"):
 		passar_turno_manual()
-		
+
 func eh_controlado_por_ia(time: String) -> bool:
 	return controle_dos_times.get(time, "jogador") == "ia"
+	
+func _on_partida_finalizada(_vencedor: String) -> void:
+	partida_ativa = false

@@ -16,7 +16,6 @@ extends CanvasLayer
 
 var botao_selecionado: Botao = null  # último personagem clicado
 
-
 func _ready() -> void:
 	if not container:
 		push_error("UIHabilidade: não encontrei 'ContainerHabilidades'. Confira se existe e está marcado como Nome Único (%).")
@@ -37,7 +36,6 @@ func _on_turno_iniciado(_time: String) -> void:
 	# a UI só recalcula DEPOIS que todos já atualizaram nesse frame
 	_reconstruir_botoes.call_deferred()
 
-
 func _reconstruir_botoes() -> void:
 	for filho in container.get_children():
 		filho.queue_free()
@@ -46,12 +44,12 @@ func _reconstruir_botoes() -> void:
 		return
 
 	for nome in botao_selecionado.lista_habilidades():
-		var botao_ui := Button.new()
+		var botao_ui := BotaoHabilidadeUI.new() 
 		botao_ui.custom_minimum_size = Vector2(150, 44)
+		botao_ui.tooltip_text = botao_selecionado.descricao_habilidade(nome)
 		_atualizar_texto_botao(botao_ui, nome)
 		botao_ui.pressed.connect(_on_habilidade_pressionada.bind(nome))
 		container.add_child(botao_ui)
-
 
 func _atualizar_texto_botao(botao_ui: Button, nome: String) -> void:
 	if botao_selecionado.esta_em_cooldown(nome):

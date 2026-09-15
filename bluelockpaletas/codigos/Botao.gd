@@ -28,37 +28,15 @@ var rotacao_inicial: float
 
 var bola_no_alcance: RigidBody2D = null
 
-## Cooldowns de habilidade: chave = nome da habilidade, valor = turnos restantes.
-## Um dicionário (não uma variável fixa) porque cada habilidade pode ter
-## seu próprio tempo de recarga, e personagens futuros terão nomes
-## diferentes — isso funciona sem precisar de nenhum caso especial.
 var cooldowns: Dictionary = {}
 
-## Habilidades TEMPORÁRIAS concedidas por OUTRO personagem (ex: o One
-## Two do Kurona empresta a habilidade pro alvo). Cada item é um
-## Dictionary: {"nome", "executar" (Callable), "custa_acao" (bool),
-## "disponivel" (bool)}. "disponivel" começa false e vira true na
-## próxima troca de turno — é isso que garante que a habilidade
-## concedida só pode ser usada "no próximo turno", nunca no mesmo turno
-## em que foi concedida. Exceção: conceder_habilidade() aceita
-## "disponivel_imediatamente" pra pular essa espera quando a concessão
-## faz parte de uma jogada em cadeia que precisa continuar NO MESMO
-## turno (ex: Knie Dich Hin do Kaiser).
 var habilidades_concedidas: Array = []
 
-## Ações de movimento BÔNUS, pessoais deste botão específico — diferente
-## da ação de movimento compartilhada do Turnos (que qualquer botão do
-## time pode usar), essa aqui só pode ser gasta por ESTE botão. Usado
-## por efeitos como o bônus do One Two do Kurona ("impulsionado duas
-## vezes" — só ele, não qualquer um do time).
 var acoes_movimento_bonus: int = 0
 
-## Mesma ideia, mas pra ação de HABILIDADE — irmã do bônus de movimento
-## acima. Usado por efeitos como o Monster Trance do Bachira, que
-## concede uma segunda ação de habilidade só PRA ELE, sem dar de graça
-## pro time inteiro (diferente de Turnos.adicionar_acoes(), que é
-## compartilhado).
 var acoes_habilidade_bonus: int = 0
+
+@onready var sprite_visual: Node2D = _achar_sprite_visual()
 
 func conceder_acao_habilidade_extra(quantidade: int = 1) -> void:
 	acoes_habilidade_bonus += quantidade
@@ -497,12 +475,7 @@ func _soltar_e_chutar(pos_solta_global: Vector2) -> void:
 
 
 func _executar_deslocamento(vetor_arrasto: Vector2) -> void:
-	# comportamento PADRÃO: aplica um impulso físico na direção do
-	# arrasto, como qualquer botão sem habilidade especial de movimento.
-	# Personagens como o Rin (Opposite Direction) sobrescrevem ISSO pra
-	# substituir o deslocamento físico por outra coisa (ex: teleporte em
-	# direção cardinal), mantendo toda a contabilidade de ação/cooldown
-	# aqui em _soltar_e_chutar() intacta.
+	_squash_and_stretch()
 	var forca := (vetor_arrasto * multiplicador_forca * multiplicador_forca_chute_total()).limit_length(forca_maxima * multiplicador_forca_chute_total())
 	apply_central_impulse(forca)
 
@@ -667,6 +640,11 @@ func motivo_bloqueio_habilidade(nome: String) -> String:
 
 	return ""
 
+func descricao_habilidade(nome: String) -> String:
+	var c := _achar_concedida(nome)
+	if not c.is_empty():
+		return c.get("descricao", "Habilidade concedida temporariamente por um aliado.")
+	return _descricao_propria(nome)
 
 func usar_habilidade(nome: String) -> void:
 	var c := _achar_concedida(nome)
@@ -684,22 +662,6 @@ func usar_habilidade(nome: String) -> void:
 
 
 func conceder_habilidade(nome: String, executar: Callable, custa_acao: bool = false, turnos_para_expirar: int = -1, disponivel_imediatamente: bool = false) -> void:
-	# empresta uma habilidade TEMPORÁRIA (uso único) a este botão, vinda
-	# de outro personagem. Por padrão, só fica disponível a partir da
-	# PRÓXIMA troca de turno (nunca no mesmo turno em que foi concedida)
-	# — isso evita combos "instantâneos" indesejados na maioria dos casos.
-	#
-	# "disponivel_imediatamente": true pula essa espera e libera a
-	# habilidade JÁ NESTE turno. Use só quando a concessão é parte de
-	# uma jogada em cadeia que PRECISA continuar no mesmo turno pra
-	# fazer sentido (ex: Knie Dich Hin do Kaiser — o aliado ganha a ação
-	# bônus e a habilidade juntos, e a ideia é usar os dois na hora).
-	#
-	# Só pode existir UMA concessão pendente do mesmo nome por vez neste
-	# botão — se já tiver uma, a nova é ignorada (não acumula).
-	#
-	# "turnos_para_expirar": se > 0, a concessão desaparece sozinha após
-	# esse tanto de turnos SEM ser usada (-1 = nunca expira).
 	for c in habilidades_concedidas:
 		if c["nome"] == nome:
 			return
@@ -756,6 +718,8 @@ func turnos_restantes_cooldown(habilidade: String) -> int:
 func iniciar_cooldown(habilidade: String, turnos: int) -> void:
 	cooldowns[habilidade] = turnos
 
+func _descricao_propria(_nome: String) -> String:
+	return "Sem descrição disponível."
 
 func _on_turno_mudou(time_iniciado: String) -> void:
 	for chave in cooldowns.keys():
@@ -816,3 +780,23 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.linear_velocity = Vector2.ZERO
 		state.angular_velocity = 0.0
 		pedido_reset = false
+
+func _achar_sprite_visual() -> Node2D:
+	if has_node("Sprite2D"):
+		return $Retrato
+	if has_node("AnimatedSprite2D"):
+		return $AnimatedSprite2D
+	return null
+
+func _squash_and_stretch(intensidade: float = 0.3) -> void:
+	if not sprite_visual:
+		return
+	sprite_visual.scale = Vector2.ONE  # zera se um tween anterior foi interrompido no meio
+
+	var tween := create_tween()
+	tween.tween_property(sprite_visual, "scale", Vector2(1.0 + intensidade, 1.0 - intensidade), 0.06) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(sprite_visual, "scale", Vector2(1.0 - intensidade * 0.4, 1.0 + intensidade * 0.4), 0.10) \
+		.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(sprite_visual, "scale", Vector2.ONE, 0.18) \
+		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)

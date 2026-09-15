@@ -35,6 +35,7 @@ const FORMACOES_5V5: Dictionary = {
 	"2-1-2": ["Atacante Direito", "Atacante Esquerdo", "Meio", "Zagueiro Direito", "Zagueiro Esquerdo"],
 	"2-2-1": ["Atacante", "Ala Direito", "Ala Esquerdo", "Zagueiro Direito", "Zagueiro Esquerdo"],
 	"3-1-1": ["Atacante", "Meio", "Lateral Direito", "Lateral Esquerdo", "Zagueiro"],
+	"1-1-3": ["Atacante", "Lateral Direito", "Lateral Esquerdo", "Meio", "Zagueiro"],
 }
 
 var modo: String = "3v3"

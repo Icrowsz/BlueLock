@@ -25,3 +25,4 @@ signal habilidade_executada(botao: Botao, nome: String)
 ## gatilho pendente terminou de se completar (ex: a Bee Shot chegou perto
 ## do Isagi).
 signal bola_entrou_alcance(botao: Botao)
+signal partida_finalizada(vencedor: String)  # "esquerda" ou "direita"

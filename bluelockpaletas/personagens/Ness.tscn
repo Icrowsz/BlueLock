@@ -20,6 +20,6 @@ cooldown_expelliarmus = 6
 cor_mira_padrao = Color(0.5529412, 0.13333334, 0.4, 0.78431374)
 cor_trajetoria_chute = Color(0.5529412, 0.13333334, 0.4, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("3_cx6wa")
