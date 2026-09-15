@@ -1,4 +1,5 @@
-res://personagens/Aiku.tscn
-res://personagens/Bachira.tscn
-res://personagens/Aryu.tscn
-res://personagens/Barou.tscn
+res://cenas/Campo.tscn
+res://codigos/ConfiguracaoPartida.gd
+res://codigos/MontagemDeTime.gd
+res://codigos/Escalacao.gd
+res://cenas/Escalacao.tscn

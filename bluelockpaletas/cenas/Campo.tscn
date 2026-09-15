@@ -66,41 +66,223 @@ offset_bottom = 928.0
 scale = Vector2(0.18, 1)
 color = Color(0, 0, 0, 1)
 
-[node name="PosicoesTimeA" type="Node2D" parent="." unique_id=10764558]
+[node name="Formacoes" type="Node2D" parent="." unique_id=981632505]
 
-[node name="1121" type="Node2D" parent="PosicoesTimeA" unique_id=698229957]
+[node name="1-1-1" type="Node2D" parent="Formacoes" unique_id=540863295]
 
-[node name="Atacante" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=428671303]
-position = Vector2(840, 405)
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/1-1-1" unique_id=1879625078]
 
-[node name="Meio" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=383581781]
-position = Vector2(552, 408)
+[node name="Atacante" type="Marker2D" parent="Formacoes/1-1-1/PosicoesTimeA" unique_id=151083919]
+position = Vector2(768, 408)
 
-[node name="Ponta Esquerda" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=1355958008]
-position = Vector2(704, 120)
+[node name="Meio" type="Marker2D" parent="Formacoes/1-1-1/PosicoesTimeA" unique_id=970642659]
+position = Vector2(560, 408)
 
-[node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=458822360]
-position = Vector2(704, 696)
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/1-1-1/PosicoesTimeA" unique_id=1655218413]
+position = Vector2(280, 408)
 
-[node name="Zagueiro" type="Marker2D" parent="PosicoesTimeA/1121" unique_id=1615570421]
-position = Vector2(256, 408)
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/1-1-1" unique_id=136931470]
 
-[node name="PosicoesTimeB" type="Node2D" parent="." unique_id=1430346641]
+[node name="Atacante" type="Marker2D" parent="Formacoes/1-1-1/PosicoesTimeB" unique_id=1040624439]
+position = Vector2(1152, 408)
 
-[node name="Atacante" type="Marker2D" parent="PosicoesTimeB" unique_id=1644227166]
-position = Vector2(1152, 552)
+[node name="Meio" type="Marker2D" parent="Formacoes/1-1-1/PosicoesTimeB" unique_id=1152055727]
+position = Vector2(1360, 408)
 
-[node name="Meio" type="Marker2D" parent="PosicoesTimeB" unique_id=489442631]
-position = Vector2(1152, 264)
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/1-1-1/PosicoesTimeB" unique_id=1860464751]
+position = Vector2(1640, 408)
 
-[node name="Zagueiro" type="Marker2D" parent="PosicoesTimeB" unique_id=1726039855]
-position = Vector2(1616, 408)
+[node name="1-2" type="Node2D" parent="Formacoes" unique_id=1682418672]
 
-[node name="Ponta Esquerda" type="Marker2D" parent="PosicoesTimeB" unique_id=1003871537]
-position = Vector2(1416, 120)
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/1-2" unique_id=1285555866]
 
-[node name="Ponta Direita" type="Marker2D" parent="PosicoesTimeB" unique_id=1103953457]
-position = Vector2(1416, 696)
+[node name="Atacante Direito" type="Marker2D" parent="Formacoes/1-2/PosicoesTimeA" unique_id=1300279644]
+position = Vector2(768, 568)
+
+[node name="Atacante Esquerdo" type="Marker2D" parent="Formacoes/1-2/PosicoesTimeA" unique_id=1895655330]
+position = Vector2(768, 240)
+
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/1-2/PosicoesTimeA" unique_id=2077950335]
+position = Vector2(384, 408)
+
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/1-2" unique_id=310934325]
+
+[node name="Atacante Direito" type="Marker2D" parent="Formacoes/1-2/PosicoesTimeB" unique_id=2021690701]
+position = Vector2(1152, 240)
+
+[node name="Atacante Esquerdo" type="Marker2D" parent="Formacoes/1-2/PosicoesTimeB" unique_id=1170430761]
+position = Vector2(1152, 568)
+
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/1-2/PosicoesTimeB" unique_id=222061608]
+position = Vector2(1536, 408)
+
+[node name="2-1" type="Node2D" parent="Formacoes" unique_id=1309866497]
+
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/2-1" unique_id=964207109]
+
+[node name="Atacante" type="Marker2D" parent="Formacoes/2-1/PosicoesTimeA" unique_id=1847266836]
+position = Vector2(768, 408)
+
+[node name="Zagueiro Direito" type="Marker2D" parent="Formacoes/2-1/PosicoesTimeA" unique_id=785189399]
+position = Vector2(384, 608)
+
+[node name="Zagueiro Esquerdo" type="Marker2D" parent="Formacoes/2-1/PosicoesTimeA" unique_id=571741011]
+position = Vector2(384, 216)
+
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/2-1" unique_id=1229571454]
+
+[node name="Atacante" type="Marker2D" parent="Formacoes/2-1/PosicoesTimeB" unique_id=656604293]
+position = Vector2(1152, 408)
+
+[node name="Zagueiro Direito" type="Marker2D" parent="Formacoes/2-1/PosicoesTimeB" unique_id=1276646351]
+position = Vector2(1536, 216)
+
+[node name="Zagueiro Esquerdo" type="Marker2D" parent="Formacoes/2-1/PosicoesTimeB" unique_id=1178162012]
+position = Vector2(1536, 608)
+
+[node name="1-2-2" type="Node2D" parent="Formacoes" unique_id=94299656]
+
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/1-2-2" unique_id=1133549378]
+
+[node name="Atacante Direito" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeA" unique_id=1736717699]
+position = Vector2(768, 568)
+
+[node name="Atacante Esquerdo" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeA" unique_id=2058965233]
+position = Vector2(768, 240)
+
+[node name="Ala Direito" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeA" unique_id=687194120]
+position = Vector2(576, 608)
+
+[node name="Ala Esquerdo" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeA" unique_id=190524922]
+position = Vector2(576, 216)
+
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeA" unique_id=2034082950]
+position = Vector2(384, 408)
+
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/1-2-2" unique_id=33922524]
+
+[node name="Atacante Direito" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeB" unique_id=966587128]
+position = Vector2(1152, 240)
+
+[node name="Atacante Esquerdo" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeB" unique_id=1652169304]
+position = Vector2(1152, 568)
+
+[node name="Ala Direito" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeB" unique_id=798096062]
+position = Vector2(1344, 216)
+
+[node name="Ala Esquerdo" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeB" unique_id=2097773474]
+position = Vector2(1344, 608)
+
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/1-2-2/PosicoesTimeB" unique_id=562215198]
+position = Vector2(1536, 408)
+
+[node name="2-1-2" type="Node2D" parent="Formacoes" unique_id=698229957]
+
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/2-1-2" unique_id=10764558]
+
+[node name="Atacante Direito" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeA" unique_id=428671303]
+position = Vector2(768, 568)
+
+[node name="Atacante Esquerdo" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeA" unique_id=1355958008]
+position = Vector2(768, 240)
+
+[node name="Meio" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeA" unique_id=383581781]
+position = Vector2(576, 408)
+
+[node name="Zagueiro Direito" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeA" unique_id=458822360]
+position = Vector2(384, 640)
+
+[node name="Zagueiro Esquerdo" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeA" unique_id=1615570421]
+position = Vector2(384, 184)
+
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/2-1-2" unique_id=1430346641]
+
+[node name="Atacante Direito" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeB" unique_id=1644227166]
+position = Vector2(1152, 240)
+
+[node name="Atacante Esquerdo" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeB" unique_id=1726039855]
+position = Vector2(1152, 568)
+
+[node name="Meio" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeB" unique_id=489442631]
+position = Vector2(1344, 408)
+
+[node name="Zagueiro Direito" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeB" unique_id=1003871537]
+position = Vector2(1536, 640)
+
+[node name="Zagueiro Esquerdo" type="Marker2D" parent="Formacoes/2-1-2/PosicoesTimeB" unique_id=1103953457]
+position = Vector2(1536, 184)
+
+[node name="2-2-1" type="Node2D" parent="Formacoes" unique_id=13366793]
+
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/2-2-1" unique_id=265193319]
+
+[node name="Atacante" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeA" unique_id=1777369375]
+position = Vector2(768, 408)
+
+[node name="Ala Direito" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeA" unique_id=687902461]
+position = Vector2(576, 608)
+
+[node name="Ala Esquerdo" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeA" unique_id=214950193]
+position = Vector2(576, 216)
+
+[node name="Zagueiro Direito" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeA" unique_id=1552583516]
+position = Vector2(384, 240)
+
+[node name="Zagueiro Esquerdo" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeA" unique_id=1939783986]
+position = Vector2(384, 584)
+
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/2-2-1" unique_id=2071922163]
+
+[node name="Atacante" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeB" unique_id=6323310]
+position = Vector2(1152, 408)
+
+[node name="Ala Direito" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeB" unique_id=1527716029]
+position = Vector2(1344, 216)
+
+[node name="Ala Esquerdo" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeB" unique_id=1038232530]
+position = Vector2(1344, 608)
+
+[node name="Zagueiro Direito" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeB" unique_id=626585955]
+position = Vector2(1536, 240)
+
+[node name="Zagueiro Esquerdo" type="Marker2D" parent="Formacoes/2-2-1/PosicoesTimeB" unique_id=130928298]
+position = Vector2(1536, 584)
+
+[node name="3-1-1" type="Node2D" parent="Formacoes" unique_id=313326258]
+
+[node name="PosicoesTimeA" type="Node2D" parent="Formacoes/3-1-1" unique_id=1963558786]
+
+[node name="Atacante" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeA" unique_id=690137671]
+position = Vector2(768, 408)
+
+[node name="Meio" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeA" unique_id=1195122518]
+position = Vector2(576, 408)
+
+[node name="Lateral Direito" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeA" unique_id=993115432]
+position = Vector2(384, 640)
+
+[node name="Lateral Esquerdo" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeA" unique_id=1214660494]
+position = Vector2(384, 184)
+
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeA" unique_id=2141320948]
+position = Vector2(280, 408)
+
+[node name="PosicoesTimeB" type="Node2D" parent="Formacoes/3-1-1" unique_id=1804941337]
+
+[node name="Atacante" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeB" unique_id=2080947534]
+position = Vector2(1152, 408)
+
+[node name="Meio" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeB" unique_id=733655453]
+position = Vector2(1344, 408)
+
+[node name="Lateral Direito" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeB" unique_id=672423773]
+position = Vector2(1536, 184)
+
+[node name="Lateral Esquerdo" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeB" unique_id=1180627439]
+position = Vector2(1536, 640)
+
+[node name="Zagueiro" type="Marker2D" parent="Formacoes/3-1-1/PosicoesTimeB" unique_id=1869489602]
+position = Vector2(1640, 408)
 
 [node name="Campio" type="Sprite2D" parent="." unique_id=746530438]
 position = Vector2(960, 404)

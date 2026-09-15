@@ -1,4 +1,6 @@
 Node2D
+Marker2D
+HBoxContainer
 Sprite2D
 CanvasLayer
 TextureRect
@@ -10,4 +12,3 @@ VBoxContainer
 MarginContainer
 PopupPanel
 ColorRect
-Line2D
