@@ -120,16 +120,9 @@ var posicao_reset_pendente: Vector2 = Vector2.ZERO
 
 
 func resetar(posicao_inicial: Vector2) -> void:
-	# NÃO mudamos a posição aqui diretamente. Só marcamos o pedido.
-	# A mudança de verdade acontece em _integrate_forces(), que é o
-	# único lugar onde a física garante que a mudança "gruda" sem ser
-	# sobrescrita por contatos/colisões residuais do frame anterior
-	# (causa real do bug "pisca e volta pro lugar errado").
+	sleeping = false
 	posicao_reset_pendente = posicao_inicial
 	pedido_reset = true
-
-	# sem isso, o reset desenharia uma linha reta gigante conectando a
-	# posição antiga (antes do gol) até o centro do campo
 	_limpar_trail()
 	definir_cor_trail(cor_trail_padrao)
 

@@ -1,5 +1,5 @@
-res://cenas/Campo.tscn
-res://codigos/ConfiguracaoPartida.gd
-res://codigos/MontagemDeTime.gd
-res://codigos/Escalacao.gd
 res://cenas/Escalacao.tscn
+res://codigos/Botao.gd
+res://codigos/Bola.gd
+res://codigos/Placar.gd
+res://cenas/Campo.tscn

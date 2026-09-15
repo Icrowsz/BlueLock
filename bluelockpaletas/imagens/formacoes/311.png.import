@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6no0axvku4bh"
-path="res://.godot/imported/geniusmiracle.png-cad48a3c60c55c399ad15de872db9ce1.ctex"
+uid="uid://b8n7wffsl0qjq"
+path="res://.godot/imported/311.png-58fc2895f656995c63aae291b2402fc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imagens/chemicals/geniusmiracle.png"
-dest_files=["res://.godot/imported/geniusmiracle.png-cad48a3c60c55c399ad15de872db9ce1.ctex"]
+source_file="res://imagens/formacoes/311.png"
+dest_files=["res://.godot/imported/311.png-58fc2895f656995c63aae291b2402fc7.ctex"]
 
 [params]
 

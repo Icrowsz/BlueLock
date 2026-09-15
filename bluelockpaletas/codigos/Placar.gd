@@ -37,6 +37,7 @@ func _ready() -> void:
 	if label_gol:
 		label_gol.visible = false
 		label_gol.modulate.a = 0.0
+		set_process_unhandled_input(true)
 
 
 func _on_gol_marcado(lado: String) -> void:
@@ -88,3 +89,19 @@ func _resetar_jogo() -> void:
 func _atualizar_labels() -> void:
 	label_esquerda.text = str(placar_esquerda)
 	label_direita.text = str(placar_direita)
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		_reiniciar_manualmente()
+
+
+func _reiniciar_manualmente() -> void:
+	if processando_gol:
+		return  # já tem um reset de gol rolando — não interfere
+
+	# se o "GOL!" ainda estiver na tela por algum motivo, tira ele do caminho
+	if label_gol:
+		label_gol.visible = false
+		label_gol.modulate.a = 0.0
+
+	_resetar_jogo()

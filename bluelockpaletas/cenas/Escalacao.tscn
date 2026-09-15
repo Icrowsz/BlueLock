@@ -1,11 +1,17 @@
 [gd_scene format=3 uid="uid://i3bhdkx6rh8"]
 
 [ext_resource type="Script" uid="uid://bwpt6ibwge6ah" path="res://codigos/Escalacao.gd" id="1_ok3pp"]
-[ext_resource type="Texture2D" uid="uid://df2lqet7tad87" path="res://imagens/Escalacai.png" id="2_57l4s"]
 [ext_resource type="Script" uid="uid://bv2wm2x1wbk5e" path="res://codigos/FormacaoVisual.gd" id="2_e5dkl"]
-[ext_resource type="Theme" uid="uid://br34r4l2obcxa" path="res://Panel.tres" id="3_ghwlv"]
 [ext_resource type="Texture2D" uid="uid://drfqj1aqmthmn" path="res://imagens/formacoes/111.png" id="3_ioaus"]
+[ext_resource type="Texture2D" uid="uid://wa01rakgarge" path="res://imagens/formacoes/12.png" id="4_h5abj"]
 [ext_resource type="PackedScene" uid="uid://dq2ahgw8inesp" path="res://cenas/SeletorDePersonagem.tscn" id="4_najsq"]
+[ext_resource type="Texture2D" uid="uid://ddq45d13e4hrn" path="res://imagens/formacoes/21.png" id="5_ilyei"]
+[ext_resource type="Texture2D" uid="uid://xrxyudopru4t" path="res://imagens/formacoes/122.png" id="6_23kqu"]
+[ext_resource type="Texture2D" uid="uid://cdhmiog8xntb7" path="res://imagens/formacoes/212.png" id="7_jbvqi"]
+[ext_resource type="Texture2D" uid="uid://djymp6wxjjise" path="res://imagens/formacoes/221.png" id="8_7oxmb"]
+[ext_resource type="Texture2D" uid="uid://b8n7wffsl0qjq" path="res://imagens/formacoes/311.png" id="9_xedwo"]
+[ext_resource type="Texture2D" uid="uid://c01lnd34r7e1r" path="res://imagens/rebossado.png" id="10_23kqu"]
+[ext_resource type="FontFile" uid="uid://d3ccb6f1n0mn7" path="res://imagens/Daydream DEMO.otf" id="11_jbvqi"]
 
 [sub_resource type="Resource" id="Resource_najsq"]
 script = ExtResource("2_e5dkl")
@@ -15,26 +21,48 @@ imagem = ExtResource("3_ioaus")
 [sub_resource type="Resource" id="Resource_ioaus"]
 script = ExtResource("2_e5dkl")
 nome = "1-2"
+imagem = ExtResource("4_h5abj")
 
 [sub_resource type="Resource" id="Resource_lntrm"]
 script = ExtResource("2_e5dkl")
 nome = "2-1"
+imagem = ExtResource("5_ilyei")
 
 [sub_resource type="Resource" id="Resource_h5abj"]
 script = ExtResource("2_e5dkl")
 nome = "1-2-2"
+imagem = ExtResource("6_23kqu")
 
 [sub_resource type="Resource" id="Resource_xyn58"]
 script = ExtResource("2_e5dkl")
 nome = "2-1-2"
+imagem = ExtResource("7_jbvqi")
 
 [sub_resource type="Resource" id="Resource_e5dkl"]
 script = ExtResource("2_e5dkl")
 nome = "2-2-1"
+imagem = ExtResource("8_7oxmb")
 
 [sub_resource type="Resource" id="Resource_ilyei"]
 script = ExtResource("2_e5dkl")
 nome = "3-1-1"
+imagem = ExtResource("9_xedwo")
+
+[sub_resource type="Theme" id="Theme_7oxmb"]
+default_font = ExtResource("11_jbvqi")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_jbvqi"]
+default_font = ExtResource("11_jbvqi")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_xedwo"]
+default_font = ExtResource("11_jbvqi")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_23kqu"]
+default_font = ExtResource("11_jbvqi")
+default_font_size = 16
 
 [node name="Escalacao" type="Control" unique_id=188143248]
 layout_mode = 3
@@ -45,57 +73,61 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ok3pp")
 formacoes_visuais = Array[ExtResource("2_e5dkl")]([SubResource("Resource_najsq"), SubResource("Resource_ioaus"), SubResource("Resource_lntrm"), SubResource("Resource_h5abj"), SubResource("Resource_xyn58"), SubResource("Resource_e5dkl"), SubResource("Resource_ilyei")])
+tamanho_imagem_formacao = Vector2(120, 120)
+cor_formacao_selecionada = Color(0.34563243, 0.48723423, 0.9999923, 1)
 
 [node name="Escalacai" type="Sprite2D" parent="." unique_id=1462508288]
 position = Vector2(960, 405)
 scale = Vector2(1, 0.9999999)
-texture = ExtResource("2_57l4s")
+texture = ExtResource("10_23kqu")
 
 [node name="ContainerFormacoesTimeA" type="HBoxContainer" parent="." unique_id=1813291426]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 424.0
-offset_top = 72.0
-offset_right = 464.0
-offset_bottom = 112.0
-theme = ExtResource("3_ghwlv")
+offset_left = 64.0
+offset_top = 192.0
+offset_right = 608.0
+offset_bottom = 376.0
+theme = SubResource("Theme_7oxmb")
+alignment = 1
 
 [node name="ContainerFormacoesTimeB" type="HBoxContainer" parent="." unique_id=1644464348]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 1200.0
-offset_top = 72.0
-offset_right = 1240.0
-offset_bottom = 112.0
-theme = ExtResource("3_ghwlv")
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 600.0
+offset_bottom = 704.0
+theme = SubResource("Theme_jbvqi")
+alignment = 1
 
 [node name="ContainerTimeA" type="VBoxContainer" parent="." unique_id=1187377495]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 424.0
-offset_top = 168.0
-offset_right = 760.0
-offset_bottom = 640.0
-theme = ExtResource("3_ghwlv")
+offset_left = 816.0
+offset_top = 128.0
+offset_right = 1472.0
+offset_bottom = 424.0
+theme = SubResource("Theme_xedwo")
 alignment = 1
 
 [node name="ContainerTimeB" type="VBoxContainer" parent="." unique_id=555936228]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 1200.0
-offset_top = 168.0
-offset_right = 1536.0
-offset_bottom = 640.0
-theme = ExtResource("3_ghwlv")
+offset_left = 816.0
+offset_top = 488.0
+offset_right = 1464.0
+offset_bottom = 768.0
+theme = SubResource("Theme_23kqu")
 alignment = 1
 
 [node name="BotaoConfirmar" type="Button" parent="." unique_id=729832173]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1576.0
-offset_top = 672.0
-offset_right = 1888.0
-offset_bottom = 784.0
+offset_top = 408.0
+offset_right = 1824.0
+offset_bottom = 488.0
 flat = true
 
 [node name="Barra" type="ColorRect" parent="." unique_id=208270568]

@@ -806,9 +806,7 @@ var pedido_reset: bool = false
 
 
 func resetar() -> void:
-	# NÃO mudamos a posição aqui diretamente — só marcamos o pedido.
-	# Ver explicação completa em Bola.gd sobre por que isso precisa
-	# acontecer dentro de _integrate_forces().
+	sleeping = false
 	pedido_reset = true
 
 
