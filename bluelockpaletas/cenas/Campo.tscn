@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://b3dhnhqui1wpv" path="res://codigos/UIMensagem.gd" id="8_5pgv7"]
 [ext_resource type="Script" uid="uid://dntj5x3p225d8" path="res://codigos/UITurno.gd" id="8_57jda"]
 [ext_resource type="Theme" uid="uid://br34r4l2obcxa" path="res://Panel.tres" id="9_v0bld"]
-[ext_resource type="PackedScene" uid="uid://c6diob41p1sf" path="res://personagens/Isagi.tscn" id="13_v0bld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_237nx"]
 size = Vector2(1920, 72)
@@ -331,7 +330,7 @@ offset_right = 1792.0
 offset_bottom = 808.0
 
 [node name="Bola" parent="." unique_id=134841203 instance=ExtResource("2_6v1fn")]
-position = Vector2(1416, 400)
+position = Vector2(960, 408)
 
 [node name="Limite" type="StaticBody2D" parent="." unique_id=1356180793]
 
@@ -551,6 +550,3 @@ offset_bottom = 152.0
 theme_override_fonts/font = ExtResource("6_cvsoc")
 theme_override_font_sizes/font_size = 12
 vertical_alignment = 1
-
-[node name="Isagi" parent="." unique_id=755908930 instance=ExtResource("13_v0bld")]
-position = Vector2(1352.0001, 391.99997)
