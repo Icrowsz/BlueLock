@@ -6,7 +6,7 @@
 
 [node name="Charles" unique_id=755908930 instance=ExtResource("1_ovqh8")]
 script = ExtResource("2_0fqjx")
-linear_damp_charles = 1.2
+linear_damp_charles = 1.3
 forca_rabona_cross = 170.0
 cooldown_rabona_cross = 7
 intensidade_curva_rabona = 100.0
@@ -15,6 +15,6 @@ cooldown_devil_contract = 8
 cor_mira_padrao = Color(0.5019608, 0.39215687, 0.078431375, 0.78431374)
 cor_trajetoria_chute = Color(0.5019608, 0.39215687, 0.078431375, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.089, 0.089)
 texture = ExtResource("2_6yl2x")

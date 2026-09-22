@@ -13,11 +13,11 @@ cooldown_accelerate = 9
 forca_base_panther_shot = 210.0
 bonus_forca_por_turno_accelerate = 30.0
 cooldown_panther_shot = 6
-forca_maxima = 600.0
-distancia_maxima_arrasto = 250.0
+forca_maxima = 2000.0
+distancia_maxima_arrasto = 175.0
 cor_mira_padrao = Color(1, 0.003921569, 0.48235294, 0.78431374)
 cor_trajetoria_chute = Color(1, 0.003921569, 0.48235294, 0.78431374)
 
-[node name="Sprite2D" parent="." index="0" unique_id=2039803516]
+[node name="Retrato" parent="." index="2" unique_id=2039803516]
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_aj5e7")
